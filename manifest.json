@@ -1,0 +1,14 @@
+{
+  "name": "Sweden Trip 2026",
+  "short_name": "Sweden",
+  "description": "Yin's Sweden Trip — offline-capable itinerary",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05060e",
+  "theme_color": "#e8a930",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

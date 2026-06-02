@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#05060e">
+<title>Sweden Trip 2026</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="install-banner" id="installBanner">
+  📲 加入主畫面即可離線使用
+  <button class="install-btn" id="installBtn">安裝</button>
+</div>
+
+<nav>
+  <div class="nav-brand">🇸🇪 Sweden</div>
+  <button class="nav-tab on" onclick="go('home',this)">首頁</button>
+  <button class="nav-tab" onclick="go('prep',this)">準備</button>
+  <button class="nav-tab" onclick="go('d1',this)">Day 1</button>
+  <button class="nav-tab" onclick="go('d2',this)">Day 2</button>
+  <button class="nav-tab" onclick="go('d3',this)">Day 3</button>
+  <button class="nav-tab" onclick="go('d4',this)">Day 4+</button>
+  <button class="nav-tab" onclick="go('pack',this)">Checklist</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="page on" id="home">
+  <div class="pg-title">Sweden Trip <span>2026</span></div>
+  <div class="pg-sub">Yin + Roy · 離線可用 PWA</div>
+
+  <div class="callout">
+    <b>離線使用：</b>Safari → 分享 → 加入主畫面。之後飛航模式都睇到晒。
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px">
+    <div class="session" style="cursor:pointer" onclick="go('prep',document.querySelectorAll('.nav-tab')[1])">
+      <div class="session-time">出發前</div>
+      <div class="session-title">📋 準備 + Checklist</div>
+    </div>
+    <div class="session" style="cursor:pointer" onclick="go('d1',document.querySelectorAll('.nav-tab')[2])">
+      <div class="session-time">Day 1</div>
+      <div class="session-title">✈️ Stockholm 抵達</div>
+    </div>
+    <div class="session" style="cursor:pointer" onclick="go('d2',document.querySelectorAll('.nav-tab')[3])">
+      <div class="session-time">Day 2</div>
+      <div class="session-title">🏔 Abisko Hiking</div>
+    </div>
+    <div class="session" style="cursor:pointer" onclick="go('d3',document.querySelectorAll('.nav-tab')[4])">
+      <div class="session-time">Day 3</div>
+      <div class="session-title">🧊 Kiruna Ice Hotel</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;font-size:12px;color:var(--muted);text-align:center">
+    由 Claude Code 建立 · PWA · GitHub Pages
+  </div>
+</div>
+
+<!-- PREP -->
+<div class="page" id="prep">
+  <div class="pg-title">出發前 <span>準備</span></div>
+  <div class="pg-sub">文件 · 裝備 · SIM Card</div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">-2W</span>
+      <span class="acc-title">📋 必備文件</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <ul class="checklist" id="cl-doc">
+        <li onclick="ck(this)"><span class="cb"></span>護照（有效期 6 個月以上）</li>
+        <li onclick="ck(this)"><span class="cb"></span>機票確認 email</li>
+        <li onclick="ck(this)"><span class="cb"></span>住宿確認</li>
+        <li onclick="ck(this)"><span class="cb"></span>旅遊保險</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">-1W</span>
+      <span class="acc-title">🎒 Pack List</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <ul class="checklist">
+        <li onclick="ck(this)"><span class="cb"></span>行山靴</li>
+        <li onclick="ck(this)"><span class="cb"></span>保暖層（瑞典夜晚涼）</li>
+        <li onclick="ck(this)"><span class="cb"></span>Sony A7S III + 鏡頭 + 備用電池</li>
+        <li onclick="ck(this)"><span class="cb"></span>無人機（確認當地法規）</li>
+        <li onclick="ck(this)"><span class="cb"></span>Portable SSD（備份）</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">SIM</span>
+      <span class="acc-title">📶 瑞典網絡</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-desc">Tele2 / Telia 覆蓋最廣，Arlanda 機場即買。或提前喺香港買 eSIM（Airalo 有瑞典方案）。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 1 -->
+<div class="page" id="d1">
+  <div class="pg-title">Day 1 <span>Stockholm</span></div>
+  <div class="pg-sub">抵達 · 舊城區 · 晚餐</div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">09:00</span>
+      <span class="acc-title">🏨 Check-in</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-title">住宿</div>
+        <div class="session-desc">待填：酒店名 · 地址 · Check-in 要求</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">13:00</span>
+      <span class="acc-title">🏰 Gamla Stan</span>
+      <div class="day-tags"><span class="tag tv">文化</span></div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-desc">Stockholm 最古老街區。皇宮、大教堂、Nobel 博物館附近。</div>
+        <ul class="checklist">
+          <li onclick="ck(this)"><span class="cb"></span>Royal Palace 外觀拍照</li>
+          <li onclick="ck(this)"><span class="cb"></span>Stortorget 廣場</li>
+          <li onclick="ck(this)"><span class="cb"></span>Photographiska 攝影博物館 ⭐</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">19:00</span>
+      <span class="acc-title">🍽 晚餐</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-title">Meatballs for the People</div>
+        <div class="session-desc">瑞典傳統肉丸，必試。Östermalm 區有多個好選擇。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="page" id="d2">
+  <div class="pg-title">Day 2 <span>Abisko</span></div>
+  <div class="pg-sub">Kungsleden · 北極光 · 攝影</div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">全日</span>
+      <span class="acc-title">🏔 Kungsleden 皇家小徑</span>
+      <div class="day-tags"><span class="tag tc">Hiking</span></div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-desc">瑞典最著名行山路線，Abisko 起點段最易行。距 Kiruna 約 1.5 小時。</div>
+        <ul class="checklist">
+          <li onclick="ck(this)"><span class="cb"></span>難度：中等，需行山靴</li>
+          <li onclick="ck(this)"><span class="cb"></span>Abisko Turiststation 起點 + 住宿</li>
+          <li onclick="ck(this)"><span class="cb"></span>Aurora Sky Station — 北極光最佳地</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">📸</span>
+      <span class="acc-title">Shoot List</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <ul class="checklist">
+          <li onclick="ck(this)"><span class="cb"></span>Drone aerials（確認唔係禁飛區）</li>
+          <li onclick="ck(this)"><span class="cb"></span>Morning mist on the lake</li>
+          <li onclick="ck(this)"><span class="cb"></span>Reindeer（路上常見）</li>
+          <li onclick="ck(this)"><span class="cb"></span>Midnight sun / Northern lights</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="page" id="d3">
+  <div class="pg-title">Day 3 <span>Kiruna</span></div>
+  <div class="pg-sub">Ice Hotel · Aurora · 活動</div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">住宿</span>
+      <span class="acc-title">🧊 ICEHOTEL, Jukkasjärvi</span>
+      <div class="day-tags"><span class="tag tg">體驗</span></div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <div class="session-desc">全球最著名冰旅館，每年重建。需提早訂。Art suite 由藝術家設計。</div>
+        <ul class="checklist">
+          <li onclick="ck(this)"><span class="cb"></span>Ice bar 體驗（即使唔住都可以）</li>
+          <li onclick="ck(this)"><span class="cb"></span>帶 extra battery — 低溫消耗快</li>
+          <li onclick="ck(this)"><span class="cb"></span>温暖房間 + 冰房間都有</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="tog(this)">
+      <span class="acc-day">下午</span>
+      <span class="acc-title">🚁 活動選項</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="session" style="margin-top:8px">
+        <ul class="checklist">
+          <li onclick="ck(this)"><span class="cb"></span>狗拉雪橇（冬季）</li>
+          <li onclick="ck(this)"><span class="cb"></span>Aurora hunting tour</li>
+          <li onclick="ck(this)"><span class="cb"></span>Snowmobile safari</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 4+ -->
+<div class="page" id="d4">
+  <div class="pg-title">Day 4+ <span>待填入</span></div>
+  <div class="pg-sub">叫 Claude Code 幫你填入行程</div>
+  <div class="callout gold" style="margin-top:12px">
+    <b>填入指令：</b>喺 Claude Code 打「根據 sweden-research.md，幫我填入 Day 4 到 Day 7 嘅所有 sessions，保持同樣格式，更新 days/day4.html 到 day7.html」
+  </div>
+  <div class="session" style="margin-top:14px">
+    <div class="session-title">Day 4 — 待填</div>
+    <div class="session-desc" style="color:var(--muted)">[ 填入行程 ]</div>
+  </div>
+  <div class="session" style="margin-top:8px">
+    <div class="session-title">Day 5 — 待填</div>
+    <div class="session-desc" style="color:var(--muted)">[ 填入行程 ]</div>
+  </div>
+</div>
+
+<!-- PACK CHECKLIST -->
+<div class="page" id="pack">
+  <div class="pg-title">Master <span>Checklist</span></div>
+  <div class="pg-sub">出發前逐項 tick — 自動儲存</div>
+
+  <div style="font-size:11px;color:var(--muted);margin-bottom:14px">進度：<span id="packPct">0%</span></div>
+
+  <div class="session">
+    <div class="session-title">🛂 文件</div>
+    <ul class="checklist" id="master-cl">
+      <li onclick="mck(this)" data-k="p1"><span class="cb"></span>護照（有效期 6 個月以上）</li>
+      <li onclick="mck(this)" data-k="p2"><span class="cb"></span>機票確認</li>
+      <li onclick="mck(this)" data-k="p3"><span class="cb"></span>住宿確認</li>
+      <li onclick="mck(this)" data-k="p4"><span class="cb"></span>旅遊保險</li>
+      <li onclick="mck(this)" data-k="p5"><span class="cb"></span>回鄉證（如需）</li>
+    </ul>
+  </div>
+  <div class="session" style="margin-top:10px">
+    <div class="session-title">📷 攝影裝備</div>
+    <ul class="checklist">
+      <li onclick="mck(this)" data-k="c1"><span class="cb"></span>Sony A7S III body</li>
+      <li onclick="mck(this)" data-k="c2"><span class="cb"></span>鏡頭（廣角 + 標準）</li>
+      <li onclick="mck(this)" data-k="c3"><span class="cb"></span>備用電池 ×4+</li>
+      <li onclick="mck(this)" data-k="c4"><span class="cb"></span>充電器 + 旅行插頭</li>
+      <li onclick="mck(this)" data-k="c5"><span class="cb"></span>Portable SSD</li>
+      <li onclick="mck(this)" data-k="c6"><span class="cb"></span>無人機 + 備用槳</li>
+      <li onclick="mck(this)" data-k="c7"><span class="cb"></span>三腳架 / 輕便腳架</li>
+    </ul>
+  </div>
+  <div class="session" style="margin-top:10px">
+    <div class="session-title">👕 行李</div>
+    <ul class="checklist">
+      <li onclick="mck(this)" data-k="b1"><span class="cb"></span>行山靴</li>
+      <li onclick="mck(this)" data-k="b2"><span class="cb"></span>保暖底層 × 3</li>
+      <li onclick="mck(this)" data-k="b3"><span class="cb"></span>防水外套</li>
+      <li onclick="mck(this)" data-k="b4"><span class="cb"></span>手套 + 帽</li>
+      <li onclick="mck(this)" data-k="b5"><span class="cb"></span>瑞典 SIM / eSIM（Airalo）</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<script>
+// register sw
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('installBanner').classList.add('show');
+});
+document.getElementById('installBtn').addEventListener('click', () => {
+  if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
+  document.getElementById('installBanner').classList.remove('show');
+});
+window.addEventListener('appinstalled', () => document.getElementById('installBanner').classList.remove('show'));
+
+// nav
+function go(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if (el) el.classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// accordion
+function tog(head) { head.parentElement.classList.toggle('open'); }
+
+// checklist (in-page, no persist)
+function ck(li) {
+  li.classList.toggle('done');
+  li.querySelector('.cb').textContent = li.classList.contains('done') ? '✓' : '';
+}
+
+// master checklist (localStorage)
+const saved = JSON.parse(localStorage.getItem('sweden-pack') || '{}');
+document.querySelectorAll('[data-k]').forEach(li => {
+  if (saved[li.dataset.k]) { li.classList.add('done'); li.querySelector('.cb').textContent = '✓'; }
+});
+updatePack();
+function mck(li) {
+  li.classList.toggle('done');
+  const cb = li.querySelector('.cb');
+  cb.textContent = li.classList.contains('done') ? '✓' : '';
+  if (li.classList.contains('done')) saved[li.dataset.k] = 1;
+  else delete saved[li.dataset.k];
+  localStorage.setItem('sweden-pack', JSON.stringify(saved));
+  updatePack();
+}
+function updatePack() {
+  const all = document.querySelectorAll('[data-k]').length;
+  const done = Object.keys(saved).length;
+  document.getElementById('packPct').textContent = Math.round(done/all*100) + '% (' + done + '/' + all + ')';
+}
+</script>
+</body>
+</html>
