@@ -1,10 +1,12 @@
 /* Sweden 2026 PWA — offline app shell（地圖底圖要訊號;行程/清單/緊急離線） */
-const CACHE = 'sweden-v3';
+const CACHE = 'sweden-v4';
+const IMGS = ['lapporten','kungsleden','kebnekaise','midnightsun','volvo','saab','ikea','vasa','gamlastan','fjaderholmarna','fotografiska','avicii','skansen','stockholm','haga','trollhattan'].map(n=>'./img/'+n+'.jpg');
 const ASSETS = [
   './', './index.html', './data.js', './app.js', './css/style.css', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png',
   'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js',
-  'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css'
+  'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css',
+  ...IMGS
 ];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(ASSETS.map(a => c.add(a)))));

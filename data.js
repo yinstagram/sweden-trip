@@ -304,4 +304,43 @@ const CHECKLIST = [
     'Mox 卡(俾錢/按金前申請好) + 後備卡','所有 booking code 離線存(Apple Note)','緊急號碼存手機'] },
 ];
 
-window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST };
+/* 每日 hero 相（真實 Wikimedia Commons CC 授權，已 download 落 img/） */
+const HERO = {
+  d0627:'stockholm', d0628:'lapporten', d0629:'midnightsun', d0630:'kungsleden',
+  d0701:'kungsleden', d0702:'kebnekaise', d0703:'kungsleden', d0704:'kebnekaise',
+  d0705:'kungsleden', d0706:'midnightsun', d0707:'midnightsun', d0708:'haga',
+  d0709:'volvo', d0710:'saab', d0711:'haga', d0712:'ikea', d0713:'ikea',
+  d0714:'vasa', d0715:'fjaderholmarna', d0716:'avicii', d0717:'gamlastan', d0718:'stockholm',
+};
+const HERO_CAP = { d0706:'（圖：Lapland 午夜太陽·非 Arctic Bath 實景）', d0707:'（圖：Lapland 午夜太陽·非 Arctic Bath 實景）' };
+
+/* 黃金時刻 / 午夜太陽（按 leg；天文概況，臨行可用 app 查實） */
+const SUN = {
+  north:{badge:'☀️ 午夜太陽', txt:'Abisko/Kiruna 6 月底–7 月中 太陽不落 → 24 小時都有光,「半夜」天空金紅最 magic。隨時影,唔使追日落。'},
+  gbg:{badge:'🌅 黃金時刻', txt:'Göteborg 7 月:日出 ~04:20 · 日落 ~22:00。晨攝 ~04:30–06:00,黃昏金光 ~20:30–22:00,藍調到午夜。'},
+  alm:{badge:'🌅 黃金時刻', txt:'Älmhult 7 月:日落 ~22:00。'},
+  sto:{badge:'🌅 黃金時刻', txt:'Stockholm 7 月:日出 ~03:40 · 日落 ~22:00。Gamla Stan 晨攝 ~04:00 人最少;Mosebacke/Monteliusvägen 黃昏 ~20:30–22:00 金光;藍調到深夜。'},
+};
+
+/* 圖片 attribution（CC 授權,footer 標） */
+const IMG_CREDITS = [
+  ['lapporten','Lapporten — MPotter-Adams · CC BY-SA 4.0'],['kungsleden','Kungsleden — Alexandre Buisse · CC BY-SA 4.0'],
+  ['kebnekaise','Kebnekaise — Carl Månsson · CC BY 2.0'],['midnightsun','午夜太陽 — Jojoo64 · CC BY-SA 4.0'],
+  ['volvo','World of Volvo — AleWi · CC BY-SA 4.0'],['saab','Saab Museum — Mangan02 · CC BY-SA 4.0'],
+  ['ikea','IKEA Museum — Kigsz · CC BY-SA 4.0'],['vasa','Vasa — Jules Verne Times Two · CC BY-SA 4.0'],
+  ['gamlastan','Gamla Stan — Julian Herzog · CC BY 4.0'],['fjaderholmarna','Fjäderholmarna — Olaf Meister · CC BY-SA 4.0'],
+  ['fotografiska','Fotografiska — Giuseppe Milo · CC BY 2.0'],['avicii','Avicii Arena — kallerna · CC BY-SA 3.0'],
+  ['skansen','Skansen — Øyvind Holmstad · CC BY-SA 4.0'],['stockholm','Stockholm — Anders Pettersson · CC BY 2.0'],
+  ['haga','Haga — Gumisza · CC BY-SA 3.0'],['trollhattan','Trollhättan — Øyvind Holmstad · CC BY-SA 3.0'],
+];
+
+/* 小抄（實用 Kit） */
+const CHEAT = [
+  {h:'💳 俾錢', items:['瑞典近乎全面 cashless,拍卡/Apple Pay 通行;好多店唔收現金。','北段偏遠山屋帶少少 SEK emergency buffer(card reader 可能失靈)。']},
+  {h:'🎫 車票', items:['Stockholm = SL 7-day(470/試290平票≤20歲);Göteborg = Västtrafik zon A——兩個唔通用!','Arlanda Express(youth 160)≠ Flygbussarna ≠ SL,分開買。']},
+  {h:'🧾 退稅', items:['非歐盟旅客單店滿額退稅(Global Blue);收據留好,退稅貨隨身唔好 check-in。','機場出發層 Global Blue 櫃位辦,預 buffer 排隊。']},
+  {h:'🍮 文化', items:['免小費(價已含服務,湊整數即可)。','Fika = 停低慢活咖啡+肉桂卷,瑞典精神。','樽罐有 Pant 押金,超市回收機退券。','Systembolaget = 國營酒舖(>3.5% 酒),週日休、要 passport。']},
+  {h:'🗣 瑞典語', items:['Hej(嗨)/Tack(唔該/多謝)/Hejdå(拜拜)','Fika(咖啡時光)/Lagom(剛剛好)/En kaffe tack(一杯咖啡唔該)']},
+];
+
+window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, IMG_CREDITS, CHEAT };
