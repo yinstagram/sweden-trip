@@ -192,18 +192,16 @@ function renderStatus(){
   const cnt=s=>bk.filter(b=>b.s===s).length, tot=bk.length, paid=cnt('paid'), pct=Math.round(paid/tot*100);
   const segs=[['paid',cnt('paid')],['pend',cnt('pend')],['todo',cnt('todo')],['hold',cnt('hold')]];
   const segbar=`<div class="segbar">${segs.map(([s,n])=>n?`<i style="width:${(n/tot*100).toFixed(1)}%;background:${S.BK[s].c}"></i>`:'').join('')}</div><div class="seglegend">${segs.map(([s,n])=>`<span><b style="background:${S.BK[s].c}"></b>${S.BK[s].t} ${n}</span>`).join('')}</div>`;
-  const KEY=[
-    {t:'⛔ Sixt 車 confirm（南段命脈）',s:'hold',note:'查 email / Plan B 見下'},
-    {t:'💳 Mox 信用卡（隱形 SPOF）',s:'todo',note:'⚠️Sixt 取車要實體卡按金·開卡寄卡 1-2 週·即刻申請!'},
-    {t:'🎵 Robyn @ Avicii Arena 飛',s:'todo',a:'https://robyn.com/tour',al:'買飛',note:'越早越好·7/16 或 7/17'},
-    {t:'✈️ SK2051 LLA→GOT',s:'todo',a:'https://www.flysas.com',al:'flysas',note:'⚠️查實時間(多數下午班)·等 Sixt 先買'},
-    {t:'🧖 Arctic Bath',s:'todo',a:'https://arcticbath.se',al:'訂',note:'等 Sixt confirm'},
-    {t:'🏠 WOW Apartments',s:'pend',a:'https://www.wowapartments.se',al:'訂',note:'check 7/8-12 availability'},
-    {t:'🎟 World of Volvo 時段',s:'todo',a:'https://www.worldofvolvo.com/en/visit/',al:'訂',note:'網購慳10%'},
-    {t:'🏛 Stadshuset Tower',s:'todo',a:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',al:'訂',note:'飛 T-7 日放'},
-    {t:'🛡️ 旅遊保險',s:'todo',note:'cover 行山'},
-  ];
-  const keyHtml=KEY.map(k=>`<div class="strow"><span class="st ${k.s}" style="margin:0">${S.BK[k.s].ico}</span><div class="sm"><b>${esc(k.t)}</b>${k.note?`<small>${esc(k.note)}</small>`:''}</div>${k.a?`<a class="act" href="${k.a}" target="_blank">${esc(k.al)} ›</a>`:''}</div>`).join('');
+  const bookHtml=(S.BOOK||[]).map(b=>`<div class="bookcard ${b.s}">
+    <div class="bc-top"><b class="bc-ttl">${esc(b.t)}</b><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico} ${S.BK[b.s].t}</span></div>
+    <div class="bc-grid">
+      <div><span class="bc-k">📅 訂邊日</span><span class="bc-v">${esc(b.d)}</span></div>
+      <div><span class="bc-k">👥 幾多人</span><span class="bc-v">${esc(b.pax)}</span></div>
+      <div class="bc-wide"><span class="bc-k">💰 幾多錢</span><span class="bc-v">${esc(b.price)}</span></div>
+    </div>
+    <div class="bc-dl">⏰ ${telLink(esc(b.dl))}</div>
+    <a class="bc-go" href="${b.where}" target="_blank">🔗 去 ${esc(b.wl)} 訂 ›</a>
+  </div>`).join('');
   const groups=order.map(s=>{const items=bk.filter(b=>b.s===s);if(!items.length)return'';
     return `<div class="sec-h">${lbl[s]} <span class="muted">(${items.length})</span></div><div class="card">${items.map(b=>`<div class="strow"><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${b.date}</small></div></div>`).join('')}</div>`;}).join('');
   const pb=S.PLANB;
@@ -211,7 +209,9 @@ function renderStatus(){
   V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅——一眼睇晒 booking · 行動 · 依賴</div>
    <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>${segbar}</div>
    <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
-   <div class="sec-h">🔑 行前最緊要（撳右邊直接去訂）</div><div class="card">${keyHtml}</div>
+   <div class="sec-h">🎯 你要訂嘅嘢 · 訂邊日 · 邊度 · 幾多人 · 幾多錢 · 幾時截</div>
+   <div class="pg-sub" style="margin:-2px 2px 6px">由最緊要排落去 · 撳藍掣直接去嗰個官方訂位／報價</div>
+   ${bookHtml}
    ${groups}
    <div class="sec-h">🔐 機密 code</div>
    <div class="card"><div class="muted" style="font-size:12.5px;margin-bottom:8px">機票 PNR / confirmation / QR 唔放公開站(安全) → 喺你 iPhone 私人 Apple Note。</div>${notesHtml}</div>`;
