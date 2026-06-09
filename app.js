@@ -176,6 +176,7 @@ async function drawDay(){
   const shown=stops.filter(s=>!s.opt||showSaved);const pts=[];
   shown.forEach(s=>{const ll=[s.ll[1],s.ll[0]];pts.push(ll);
     mkr(ll,s.color,s.opt,isPhoto(s),`<b>${esc(s.n)}</b><br>${esc(s.cat)}<br><span style="opacity:.85">${esc(s.note||'')}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});
+  if(showSaved&&!photoLayer){const rT={in:'✅ 排咗',opt:'🤔 可選',skip:'💭 我建議 skip'};S.SAVED.forEach(s=>{mkr([s.ll[1],s.ll[0]],s.rec==='skip'?'#c8a59a':'#d8c08a',true,false,`<b>${esc(s.n)}</b><br>${rT[s.rec]||''}<br><span style="opacity:.85">${esc(s.why)}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});}
   if(curDay&&!photoLayer){const d=dayById(curDay);const main=(d.stops||[]).filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>[s.ll[1],s.ll[0]]);
     if(main.length>1){let full=[];for(let i=0;i<main.length-1;i++){const seg=await osrm(main[i],main[i+1]);full=full.concat(i?seg.slice(1):seg);}
       if(map.getSource('route')){if(map.getLayer('route'))map.removeLayer('route');map.removeSource('route');}
@@ -193,6 +194,7 @@ function renderStatus(){
   const segbar=`<div class="segbar">${segs.map(([s,n])=>n?`<i style="width:${(n/tot*100).toFixed(1)}%;background:${S.BK[s].c}"></i>`:'').join('')}</div><div class="seglegend">${segs.map(([s,n])=>`<span><b style="background:${S.BK[s].c}"></b>${S.BK[s].t} ${n}</span>`).join('')}</div>`;
   const KEY=[
     {t:'⛔ Sixt 車 confirm（南段命脈）',s:'hold',note:'查 email / Plan B 見下'},
+    {t:'💳 Mox 信用卡（隱形 SPOF）',s:'todo',note:'⚠️Sixt 取車要實體卡按金·開卡寄卡 1-2 週·即刻申請!'},
     {t:'🎵 Robyn @ Avicii Arena 飛',s:'todo',a:'https://robyn.com/tour',al:'買飛',note:'越早越好·7/16 或 7/17'},
     {t:'✈️ SK2051 LLA→GOT',s:'todo',a:'https://www.flysas.com',al:'flysas',note:'⚠️查實時間(多數下午班)·等 Sixt 先買'},
     {t:'🧖 Arctic Bath',s:'todo',a:'https://arcticbath.se',al:'訂',note:'等 Sixt confirm'},

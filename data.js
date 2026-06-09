@@ -208,8 +208,9 @@ const DAYS = [
   accom:{name:'Stockholm · Älvsjö Airbnb', status:'pend'},
   meals:{b:'出發前', l:'Strandvägen 區輕食', d:'🍽 Fotografiska 餐廳（黃昏景觀·訂位）'},
   stops:[
-    {n:'RIB Stockholm 碼頭',ll:[59.3318,18.0842],cat:'RIB 快艇',note:'Strandvägen Kajplats 19 · 1490/人 · 2h · 42節 · 提供保暖連身衣 · 12 歲+',o:1},
-    {n:'Drop Coffee',ll:[59.3169,18.0627],cat:'☕ 咖啡器材(你 saved)',note:'Wollmar Yxkullsgatan 10 · 賣豆+器材',o:2},
+    {n:'Fjäderholmarna 群島',ll:[59.3284,18.1751],cat:'群島(你 wish)',note:'Strömma 渡輪 Strandvägen 30 分船到 · craft village + 海鮮午餐 + 游水石灘 · ⚠️查實尾班船',o:1},
+    {n:'RIB Stockholm 碼頭',ll:[59.3318,18.0842],cat:'RIB 快艇',note:'Strandvägen Kajplats 19 · 1490/人 · 2h · 42節 · 提供保暖連身衣 · 12 歲+',o:2},
+    {n:'Drop Coffee',ll:[59.3169,18.0627],cat:'☕ 咖啡器材(你 saved)',note:'Wollmar Yxkullsgatan 10 · 賣豆+器材',o:3},
     {n:'Johan & Nyström',ll:[59.3164,18.0639],cat:'☕ 器材最齊',note:'Swedenborgsgatan 7 概念店',o:3},
     {n:'Fotografiska',ll:[59.3180,18.0847],cat:'攝影博物館(你 saved)',note:'週三18:00後買一送一! · 開到23:00 · ~195-230 SEK(官網 confirm)',o:4}],
   notes:['🚤 下午 RIB 2h(Dock 19) · 船家提供救生衣+保暖連身衣,著平日衫入面 · ⚠️高速濺水 A7S III 要防水罩唔好換鏡。','黃昏返 SoFo 行咖啡器材(Drop + Johan & Nyström,GF priority)。','📷 Fotografiska 週三 18:00 後買一送一(慳一半!)開到 23:00,夜晚啱影相 + 景觀餐廳。','⚠️ 天氣敏感:RIB+Fjäderholmarna 要好天,落雨同 16/17 對調。查實渡輪尾班船。'],
@@ -224,7 +225,7 @@ const DAYS = [
     {n:'Svensk Hemslöjd',ll:[59.3353,18.0712],cat:'🧶 官方手工藝(你 saved)',note:'Norrlandsgatan 20 · 行 5 分鐘 · 瑞典羊毛',o:2},
     {n:'Litet Nystan',ll:[59.3152,18.0823],cat:'🧶 毛線(你 saved)',note:'Folkungagatan 100 · Gotland 羊毛 · 趁一–五 18:00 前',o:3},
     {n:'Pet Sounds Records',ll:[59.3121,18.0780],cat:'二手黑膠',note:'Skånegatan 53',o:4,opt:true},
-    {n:'🎵 Robyn @ Avicii Arena',ll:[59.2936,18.0832],cat:'演唱會·電音國寶',note:'7/16 或 7/17 19:30 · jackpot · 早買飛 robyn.com/tour',o:9,opt:true}],
+    {n:'🎵 Robyn @ Avicii Arena',ll:[59.2936,18.0832],cat:'演唱會·電音國寶',note:'7/16 或 7/17 19:30 · jackpot · ⚠️臨買飛上 robyn.com/tour confirm 日期/場館(可能有變)',o:9,opt:true}],
   notes:['🕯️ Avicii 10:00 頭場(提早訂時段)→ 行 5 分鐘 Svensk Hemslöjd(🧶)。','⚠️ 暑假細店多 semesterstängt → Svensk Hemslöjd/Litet Nystan 趁一–五營業 + 18:00 前。','🎵 晚 jackpot:Robyn @ Avicii Arena 7/16 或 7/17 19:30(瑞典電音國寶 hometown,兩晚揀一)→ 要早買飛!'],
   bk:[{s:'todo',t:'🎟 Avicii Experience(提早訂時段)'},{s:'todo',t:'🎵 Robyn 演唱會飛(7/16或17·早買)'}] },
 
@@ -386,4 +387,26 @@ const PLANB = {title:'⛔ 萬一 Sixt 租唔到車 → Plan B（南段命脈）'
  '⏰ cut-off：行山出山 7/5 前 Sixt 仍未 confirm → 即切 B1。⚠️ Sixt confirm 前唔好買 SK2051(LLA 起飛改唔到)。',
 ]};
 
-window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, IMG_CREDITS, CHEAT, EX, PLANB };
+/* Yin Google Maps saved 但未排成行程點嘅地方 → 全部上地圖(淡色,撳「顯示 saved」)·標建議(唔再 silently drop) */
+const SAVED = [
+ {n:'Medborgarplatsen',ll:[59.3152,18.0732],rec:'opt',why:'Söder 中央廣場·7/16 順路'},
+ {n:'Kungsträdgården',ll:[59.3317,18.0713],rec:'opt',why:'中央公園·7/15 順路 fika'},
+ {n:'Vikingaliv 維京博物館',ll:[59.3266,18.0948],rec:'opt',why:'Djurgården·7/14 有力先加'},
+ {n:'Armémuseum 軍事館',ll:[59.3347,18.0802],rec:'opt',why:'Östermalm·免費·軍事 niche·落雨先'},
+ {n:'Bar Ottocento',ll:[59.3137,18.0745],rec:'opt',why:'Söder natural wine·7/16 晚餐 alt'},
+ {n:'Bibon',ll:[59.3341,18.0730],rec:'opt',why:'Bibliotekstan 新 bistro·難 book'},
+ {n:'Stora Bageriet',ll:[59.3414,18.0381],rec:'opt',why:'Vasastan 麵包店·偏西北'},
+ {n:'Max Burgers',ll:[59.3362,18.0704],rec:'skip',why:'連鎖快餐·HK 都食到(你 saved×2)'},
+ {n:'Lilla Ego',ll:[59.3436,18.0456],rec:'skip',why:'最難 book+貴·綁死一晚唔值'},
+ {n:'Restaurang Amalia',ll:[59.3373,18.0675],rec:'skip',why:'貴·evening drinking·唔夾 chill'},
+ {n:'Francesco',ll:[59.3144,18.0845],rec:'skip',why:'deli·同 quick-bite 重複'},
+ {n:'Balue',ll:[59.3109,18.0971],rec:'skip',why:'查唔到·疑結業'},
+ {n:'Gullegårdens GF Bageri',ll:[59.3455,18.0968],rec:'skip',why:'查唔到·無 gluten-free 需要免去'},
+ {n:'H&M Studios',ll:[59.3178,18.0716],rec:'skip',why:'對唔到實體·疑誤存'},
+ {n:'Stockholms Centralstation',ll:[59.3300,18.0586],rec:'skip',why:'車站·transit'},
+ {n:'Marina Viator(GBG)',ll:[57.7101,11.9621],rec:'skip',why:'其實係 Viator 網上租電動船 listing·7/10/群島已坐船重複'},
+ {n:'Backa Teater(GBG)',ll:[57.7059,11.9360],rec:'opt',why:'瑞典語劇場·niche·有 show 先去'},
+ {n:'Vrångö(GBG·換咗 Saab)',ll:[57.5756,11.7851],rec:'opt',why:'原 7/10 群島·你揀咗 Saab 換走·想返轉頭 call 我'},
+];
+
+window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, IMG_CREDITS, CHEAT, EX, PLANB, SAVED };
