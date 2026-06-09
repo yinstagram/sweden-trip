@@ -7,9 +7,11 @@ const esc = t=>(''+t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c
 const dayById = id=>S.DAYS.find(d=>d.id===id);
 const legOf = id=>(S.LEGS.find(l=>l.days.includes(id))||{}).key;
 const img = d=>'img/'+(S.HERO[d.id]||'stockholm')+'.jpg';
-const gmaps = (n,ll)=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(n)}%20${ll[0]},${ll[1]}`;
+// 純座標 → 保證跳到正確位置(唔會"no result");名做 label query 但用座標做中心
+const gmaps = (n,ll)=>`https://www.google.com/maps/search/?api=1&query=${ll[0]}%2C${ll[1]}`;
+// 路線:座標 origin/dest/waypoints,唔指定 travelmode → Google 自動揀,保證畫到路線
 const dirURL = stops=>{const p=stops.filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>s.ll[0]+','+s.ll[1]);
-  if(p.length<2)return null;return`https://www.google.com/maps/dir/?api=1&origin=${p[0]}&destination=${p[p.length-1]}`+(p.length>2?`&waypoints=${encodeURIComponent(p.slice(1,-1).join('|'))}`:'')+`&travelmode=transit`;};
+  if(p.length<2)return null;return`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p[0])}&destination=${encodeURIComponent(p[p.length-1])}`+(p.length>2?`&waypoints=${encodeURIComponent(p.slice(1,-1).join('|'))}`:'');};
 function chips(d){const set=new Set();(d.stops||[]).forEach(s=>{const t=(s.cat||'')+(s.note||'')+(s.n||'');
   if(/攝影|影相|晨攝|觀景|日落|午夜太陽|舊城|步道|群島|湖|公園/.test(t))set.add('📷 攝影');
   if(/咖啡|café|fika|Café/i.test(t))set.add('☕ 咖啡');
