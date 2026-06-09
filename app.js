@@ -12,6 +12,9 @@ const gmaps = (n,ll)=>`https://www.google.com/maps/search/?api=1&query=${ll[0]}%
 // 路線:座標 origin/dest/waypoints,唔指定 travelmode → Google 自動揀,保證畫到路線
 const dirURL = stops=>{const p=stops.filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>s.ll[0]+','+s.ll[1]);
   if(p.length<2)return null;return`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p[0])}&destination=${encodeURIComponent(p[p.length-1])}`+(p.length>2?`&waypoints=${encodeURIComponent(p.slice(1,-1).join('|'))}`:'');};
+// 電話自動 tel: link(esc 之後先 call,避免 over-escape);保守 regex(+46 / 0 開頭長號)
+const telLink=t=>(''+t).replace(/(\+46[\s\d-]{6,}\d|\b0\d{2,3}[\s-]?\d{2}[\s-]?\d{2}[\d\s-]*\d)/g,m=>`<a href="tel:${m.replace(/[^\d+]/g,'')}">${m.trim()}</a>`);
+const wxURL=ll=>`https://www.yr.no/en/forecast/daily-table/${ll[0]},${ll[1]}`;
 function chips(d){const set=new Set();(d.stops||[]).forEach(s=>{const t=(s.cat||'')+(s.note||'')+(s.n||'');
   if(/攝影|影相|晨攝|觀景|日落|午夜太陽|舊城|步道|群島|湖|公園/.test(t))set.add('📷 攝影');
   if(/咖啡|café|fika|Café/i.test(t))set.add('☕ 咖啡');
@@ -42,15 +45,21 @@ function renderNow(){
   const cd = dd>0?`距離出發 <b style="font-size:1.5em">${dd}</b> 日`:(dd>-22?`旅程 Day ${23+dd}`:'旅程已完');
   const D=S.DAYS, bk=D.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
   const paid=bk.filter(b=>b.s==='paid').length,pend=bk.filter(b=>b.s==='pend').length,todo=bk.filter(b=>b.s==='todo').length,hold=bk.filter(b=>b.s==='hold').length;
-  const heroD=dayById('d0629');
+  const dayIdx=Math.floor((now-start)/864e5);
+  const today=(dayIdx>=0&&dayIdx<D.length)?D[dayIdx]:null,nx=today?D[dayIdx+1]:null;
+  const heroD=today||dayById('d0629');
+  const dis=JSON.parse(localStorage.sw_dismiss||'{}');
+  const tEX=today?S.EX[today.id]:null;
+  const todayBlock=today?`<div class="card" style="border-color:color-mix(in srgb,${today.color} 55%,transparent)"><div style="font-weight:800;font-size:14px;color:${today.color};margin-bottom:7px">📍 今日 ${today.date}（${today.dow}）· ${esc(today.title)}</div>${tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:''}<button class="btn ghost" style="margin-top:9px" onclick="window.__dayDetail('${today.id}')">睇今日全部 ›</button>${nx?`<div class="muted" style="font-size:12px;margin-top:9px">明日 ${nx.date}：${esc(nx.title)}</div>`:''}</div>`:'';
   V.innerHTML=`
    <div class="nowhero" style="background-image:linear-gradient(180deg,rgba(5,6,14,.15),rgba(5,6,14,.92)),url('${img(heroD)}')">
      <div class="nh-top">🇸🇪 Sweden 2026</div>
      <div class="nh-big">${cd}</div>
      <div class="nh-sub">${esc(S.TRIP.sub)} · 22 日</div>
    </div>
-   <div class="jackpot">🎵 <b>JACKPOT：Robyn @ Avicii Arena</b> 7/16 或 7/17 19:30 · 瑞典電音國寶 hometown · <b>要早買飛</b> <a href="https://robyn.com/tour" target="_blank">robyn.com/tour</a></div>
-   <div class="alert">⛔ <b>南段命脈：Sixt 租車未 confirm</b> — Arctic Bath + 飛 GOT 全吊喺佢。<b>confirm 前唔好買 SK2051 機票。</b><button class="lnk" onclick="window.__go('status')">睇狀態 ›</button></div>
+   ${todayBlock}
+   ${dis.robyn?'':`<div class="jackpot">🎵 <b>JACKPOT：Robyn @ Avicii Arena</b> 7/16 或 7/17 19:30 · 瑞典電音國寶 hometown · <b>要早買飛</b> <a href="https://robyn.com/tour" target="_blank">robyn.com/tour</a> <button class="lnk" onclick="window.__dismiss('robyn')">✕ 買咗</button></div>`}
+   ${dis.sixt?'':`<div class="alert">⛔ <b>南段命脈：Sixt 租車未 confirm</b> — Arctic Bath + 飛 GOT 全吊喺佢。<b>confirm 前唔好買 SK2051 機票。</b><button class="lnk" onclick="window.__go('status')">睇狀態 ›</button> <button class="lnk" onclick="window.__dismiss('sixt')">✕ 搞掂</button></div>`}
    <div class="sec-h">📊 一眼睇晒 Booking</div>
    <div class="statgrid">
      <div onclick="window.__go('status')"><div class="n" style="color:var(--green)">${paid}</div><div class="l">✅ 已訂</div></div>
@@ -67,6 +76,8 @@ function renderNow(){
    <div class="muted" style="font-size:11.5px;margin-top:16px">⚠️ 所有 2026 年 7 月暑期 hours/班次/天氣 = 臨行前一星期 reconfirm。圖片 CC 授權(見實用 tab)。更新 ${esc(S.TRIP.updated)}。</div>`;
 }
 window.__go=go; window.__photomap=()=>{photoLayer=true;go('map');};
+window.__dayDetail=id=>{go('days');setTimeout(()=>renderDayDetail(id),20);};
+window.__dismiss=k=>{const d=JSON.parse(localStorage.sw_dismiss||'{}');d[k]=1;localStorage.sw_dismiss=JSON.stringify(d);renderNow();};
 
 /* ---------- 行程 DAYS ---------- */
 let dayLeg='all';
@@ -98,9 +109,10 @@ function renderDayDetail(id){
   const meals=`<div class="meal"><span>🌅 ${esc(d.meals.b)}</span><span>☀️ ${esc(d.meals.l)}</span><span>🌙 ${esc(d.meals.d)}</span></div>`;
   const stops=(d.stops||[]).sort((a,b)=>a.o-b.o).map(s=>`
     <div class="stop ${s.opt?'opt':''}"><div class="o">${s.opt?'＋':s.o}</div>
-      <div class="sb"><b>${esc(s.n)}</b> <span class="c">· ${esc(s.cat)}</span>${isPhoto(s)?' <span class="pc">📷</span>':''}<div class="nt">${esc(s.note||'')}</div></div>
+      <div class="sb"><b>${esc(s.n)}</b> <span class="c">· ${esc(s.cat)}</span>${isPhoto(s)?' <span class="pc">📷</span>':''}<div class="nt">${telLink(esc(s.note||''))}</div></div>
       <a class="gm" href="${gmaps(s.n,s.ll)}" target="_blank">📍Maps</a></div>`).join('');
-  const notes=(d.notes||[]).map(n=>`<div class="note-li">${esc(n)}</div>`).join('');
+  const notes=(d.notes||[]).map(n=>`<div class="note-li">${telLink(esc(n))}</div>`).join('');
+  const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
   const bks=(d.bk||[]).map(b=>`<span class="st ${b.s}">${S.BK[b.s].ico} ${esc(b.t)}</span>`).join('');
   const dir=dirURL(d.stops||[]);
   V.innerHTML=`
@@ -109,14 +121,14 @@ function renderDayDetail(id){
      <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>
    ${sun?`<div class="sunbar"><b>${sun.badge}</b> ${esc(sun.txt)}</div>`:''}
-   ${ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${esc(ex.carry)}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${esc(ex.tip)}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${esc(ex.pace)}</div></div></div>`:''}
+   ${ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:''}
    <div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>
    <div class="block"><div class="bh">🍽 早 / 午 / 晚</div>${meals}</div>
-   <div class="block"><div class="bh">📍 去邊 · 點行順 ${dir?`<a class="gm" style="margin-left:auto" href="${dir}" target="_blank">🧭 Google 路線</a>`:''}</div>
-     <div id="dmap" class="dmap"></div>${stops||'<div class="muted">—</div>'}</div>
+   <div class="block"><div class="bh">📍 去邊 · 點行順 ${d.stops&&d.stops[0]?`<a class="wxlink" href="${wxURL(d.stops[0].ll)}" target="_blank">🌤 查天氣</a>`:''}${dir?`<a class="gm" style="margin-left:8px" href="${dir}" target="_blank">🧭 路線</a>`:''}</div>
+     ${noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`:'<div id="dmap" class="dmap"></div>'}${stops||'<div class="muted">—</div>'}</div>
    <div class="block"><div class="bh">⚠️ 注意</div>${notes||'<div class="muted">—</div>'}</div>
    <div class="block"><div class="bh">🎟 買飛 / 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>`;
-  makeMini(d);
+  if(document.getElementById('dmap'))makeMini(d);
 }
 window.__back=()=>{killDmap();go('days');};
 function makeMini(d){
@@ -176,19 +188,31 @@ async function drawDay(){
 function renderStatus(){
   const bk=S.DAYS.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
   const order=['hold','todo','pend','paid'],lbl={hold:'⛔ On-hold（等依賴）',todo:'🕒 仲要訂',pend:'⏳ 等緊確認',paid:'✅ 已訂/已付'};
-  const paid=bk.filter(b=>b.s==='paid').length,tot=bk.length,pct=Math.round(paid/tot*100);
-  let groups=order.map(s=>{const items=bk.filter(b=>b.s===s);if(!items.length)return'';
+  const cnt=s=>bk.filter(b=>b.s===s).length, tot=bk.length, paid=cnt('paid'), pct=Math.round(paid/tot*100);
+  const segs=[['paid',cnt('paid')],['pend',cnt('pend')],['todo',cnt('todo')],['hold',cnt('hold')]];
+  const segbar=`<div class="segbar">${segs.map(([s,n])=>n?`<i style="width:${(n/tot*100).toFixed(1)}%;background:${S.BK[s].c}"></i>`:'').join('')}</div><div class="seglegend">${segs.map(([s,n])=>`<span><b style="background:${S.BK[s].c}"></b>${S.BK[s].t} ${n}</span>`).join('')}</div>`;
+  const KEY=[
+    {t:'⛔ Sixt 車 confirm（南段命脈）',s:'hold',note:'查 email / Plan B 見下'},
+    {t:'🎵 Robyn @ Avicii Arena 飛',s:'todo',a:'https://robyn.com/tour',al:'買飛',note:'越早越好·7/16 或 7/17'},
+    {t:'✈️ SK2051 LLA→GOT',s:'todo',a:'https://www.flysas.com',al:'flysas',note:'⚠️查實時間(多數下午班)·等 Sixt 先買'},
+    {t:'🧖 Arctic Bath',s:'todo',a:'https://arcticbath.se',al:'訂',note:'等 Sixt confirm'},
+    {t:'🏠 WOW Apartments',s:'pend',a:'https://www.wowapartments.se',al:'訂',note:'check 7/8-12 availability'},
+    {t:'🎟 World of Volvo 時段',s:'todo',a:'https://www.worldofvolvo.com/en/visit/',al:'訂',note:'網購慳10%'},
+    {t:'🏛 Stadshuset Tower',s:'todo',a:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',al:'訂',note:'飛 T-7 日放'},
+    {t:'🛡️ 旅遊保險',s:'todo',note:'cover 行山'},
+  ];
+  const keyHtml=KEY.map(k=>`<div class="strow"><span class="st ${k.s}" style="margin:0">${S.BK[k.s].ico}</span><div class="sm"><b>${esc(k.t)}</b>${k.note?`<small>${esc(k.note)}</small>`:''}</div>${k.a?`<a class="act" href="${k.a}" target="_blank">${esc(k.al)} ›</a>`:''}</div>`).join('');
+  const groups=order.map(s=>{const items=bk.filter(b=>b.s===s);if(!items.length)return'';
     return `<div class="sec-h">${lbl[s]} <span class="muted">(${items.length})</span></div><div class="card">${items.map(b=>`<div class="strow"><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${b.date}</small></div></div>`).join('')}</div>`;}).join('');
-  V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅嘢——一眼睇晒 booking 同 deadline</div>
-   <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>
-     <div class="prog"><div class="prog-b" style="width:${pct}%"></div></div></div>
-   <div class="alert">⛔ <b>Sixt = 南段單點故障</b>：Arctic Bath + 7/8 飛 GOT + 整段南段吊喺呢架車。Plan B = 火車去 Luleå。<b>Sixt confirm 前唔好買 SK2051。</b></div>
-   <div class="card" style="border-color:color-mix(in srgb,var(--gold) 50%,transparent)"><b style="color:var(--gold2)">🔑 行前最緊要訂：</b><div style="font-size:13px;line-height:2;margin-top:6px">
-     <span class="st hold">⛔ Sixt 車 confirm</span><span class="st todo">🎵 Robyn 飛(早買)</span><span class="st todo">✈️ SK2051(等Sixt)</span><span class="st todo">🧖 Arctic Bath</span><span class="st pend">🏠 WOW Apartments</span><span class="st todo">🎟 World of Volvo 時段</span><span class="st todo">🛡️ 保險</span></div></div>
+  const pb=S.PLANB;
+  const notesHtml=S.TRIP.notesUrl?`<a class="btn ghost" href="${S.TRIP.notesUrl}">🔐 開 Apple Note 睇 code ›</a>`:`<div style="font-size:13px">喺你 iPhone <b>備忘錄/Notes</b> 搜尋「<b>🇸🇪 Sweden 2026 · Booking Codes</b>」(只有你 iCloud 登入睇到)。</div><div class="muted" style="font-size:11px;margin-top:6px">想一撳直達?喺 Notes 整條 iCloud 分享 link 俾我,我嵌落呢度。</div>`;
+  V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅——一眼睇晒 booking · 行動 · 依賴</div>
+   <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>${segbar}</div>
+   <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
+   <div class="sec-h">🔑 行前最緊要（撳右邊直接去訂）</div><div class="card">${keyHtml}</div>
    ${groups}
    <div class="sec-h">🔐 機密 code</div>
-   <div class="card"><div class="muted" style="font-size:12.5px;margin-bottom:8px">機票 PNR / confirmation / QR 唔放公開站(安全) → 喺你 iPhone 私人 Apple Note。</div>
-     ${S.TRIP.notesUrl?`<a class="btn ghost" href="${S.TRIP.notesUrl}">🔐 開 Apple Note 睇 code ›</a>`:`<a class="btn ghost" href="mobilenotes://">🔐 開 Apple Notes ›</a><div class="muted" style="font-size:11px;margin-top:6px">（Yin 出 iCloud 私人分享 link 我就嵌做一撳直達）</div>`}</div>`;
+   <div class="card"><div class="muted" style="font-size:12.5px;margin-bottom:8px">機票 PNR / confirmation / QR 唔放公開站(安全) → 喺你 iPhone 私人 Apple Note。</div>${notesHtml}</div>`;
 }
 
 /* ---------- 實用 KIT ---------- */
