@@ -93,7 +93,7 @@ function renderDays(){
 }
 function renderDayDetail(id){
   killDmap();const d=dayById(id);window.scrollTo(0,0);
-  const sun=S.SUN[legOf(id)];
+  const sun=S.SUN[legOf(id)];const ex=S.EX[id];
   const cap=S.HERO_CAP[id]||'';
   const meals=`<div class="meal"><span>🌅 ${esc(d.meals.b)}</span><span>☀️ ${esc(d.meals.l)}</span><span>🌙 ${esc(d.meals.d)}</span></div>`;
   const stops=(d.stops||[]).sort((a,b)=>a.o-b.o).map(s=>`
@@ -109,6 +109,7 @@ function renderDayDetail(id){
      <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>
    ${sun?`<div class="sunbar"><b>${sun.badge}</b> ${esc(sun.txt)}</div>`:''}
+   ${ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${esc(ex.carry)}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${esc(ex.tip)}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${esc(ex.pace)}</div></div></div>`:''}
    <div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>
    <div class="block"><div class="bh">🍽 早 / 午 / 晚</div>${meals}</div>
    <div class="block"><div class="bh">📍 去邊 · 點行順 ${dir?`<a class="gm" style="margin-left:auto" href="${dir}" target="_blank">🧭 Google 路線</a>`:''}</div>

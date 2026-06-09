@@ -1,6 +1,6 @@
 /* Sweden 2026 PWA — offline app shell（地圖底圖要訊號;行程/清單/緊急離線） */
-const CACHE = 'sweden-v4';
-const IMGS = ['lapporten','kungsleden','kebnekaise','midnightsun','volvo','saab','ikea','vasa','gamlastan','fjaderholmarna','fotografiska','avicii','skansen','stockholm','haga','trollhattan'].map(n=>'./img/'+n+'.jpg');
+const CACHE = 'sweden-v5';
+const IMGS = ['lapporten','abiskocanyon','abiskojaure','alesjaure','salka','singi','kebnekaise','nikkaluokta','midnightsun','kungsleden','volvo','saab','konstmuseum','trollhattan','ikea','haga','vasa','nordiska','fjaderholmarna','fotografiska','avicii','skansen','gamlastan','monteliusvagen','stadshuset','nationalmuseum','stockholm'].map(n=>'./img/'+n+'.jpg');
 const ASSETS = [
   './', './index.html', './data.js', './app.js', './css/style.css', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png',

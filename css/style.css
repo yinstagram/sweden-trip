@@ -187,3 +187,8 @@ h1.pg{font-family:var(--D);font-weight:800;font-size:clamp(22px,5.5vw,32px);colo
 .subtab{flex:1;background:none;border:0;color:var(--muted);padding:8px;border-radius:9px;font-family:var(--M);font-size:13px;cursor:pointer}
 .subtab.on{background:var(--card);color:var(--gold);font-weight:700;box-shadow:var(--shadow)}
 ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:5px 0}
+.exbox{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:4px 14px;margin:10px 0}
+.exrow{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.55}
+.exrow:last-child{border:0}
+.exi{flex:none;font-size:16px;padding-top:1px}
+.exrow b{color:var(--gold2)}
