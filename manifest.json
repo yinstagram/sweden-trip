@@ -1,14 +1,15 @@
 {
   "name": "Sweden Trip 2026",
   "short_name": "Sweden",
-  "description": "Yin's Sweden Trip — offline-capable itinerary",
-  "start_url": "/",
+  "description": "Yin & Kam Ling 瑞典 2026 行程 — 離線可用",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#05060e",
-  "theme_color": "#e8a930",
+  "theme_color": "#05060e",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
