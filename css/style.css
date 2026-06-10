@@ -238,3 +238,13 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:5px 0}
 .bc-v{font-size:13px;color:var(--text);font-weight:600}
 .bc-dl{font-size:12px;line-height:1.65;color:var(--text);background:var(--bg3);border-radius:9px;padding:8px 11px;margin-bottom:11px;border-left:3px solid color-mix(in srgb,var(--amber) 60%,transparent)}
 .bc-go{display:inline-block;background:var(--gold);color:#1a1206;font-weight:800;font-family:var(--D);font-size:12.5px;padding:8px 15px;border-radius:9px}
+/* review audit items */
+.rv{background:var(--card);border:1px solid var(--border);border-left-width:4px;border-radius:11px;padding:10px 12px;margin:8px 0}
+.rv.high{border-left-color:var(--red)}
+.rv.med{border-left-color:var(--amber)}
+.rv.low{border-left-color:var(--green)}
+.rv-t{font-size:13.5px;font-weight:700;color:var(--white);line-height:1.5}
+.rv-st{font-size:9.5px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 5px;vertical-align:1px}
+.rv-fix{font-size:12.5px;color:var(--text);line-height:1.65;margin-top:5px}
+.rv-src{font-size:10.5px;color:var(--muted);margin-top:5px}
+.rvblock{border-color:color-mix(in srgb,var(--cyan) 30%,transparent)}

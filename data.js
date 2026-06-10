@@ -153,10 +153,10 @@ const DAYS = [
   accom:{name:'WOW Apartments', status:'pend'},
   meals:{b:'WOW', l:'Innovatum 一帶 café', d:'🍽 Göteborg 市區'},
   stops:[
-    {n:'Saab Car Museum',ll:[58.2722,12.2765],cat:'汽車博物館',note:'Innovatum, Trollhättan · 每日10–17 · 160 SEK · 夏天「The Box」特展 · ~2h',o:1},
+    {n:'Saab Car Museum「The Box」',ll:[58.2722,12.2765],cat:'汽車博物館',note:'⚠️ 2026 夏(6/6–9/30)因屋頂翻新搬咗去【Nova Arena】以「The Box」形式開放——唔好去 Innovatum 舊館!去前打 +46-520-289440 問清 Nova Arena 位置+當日時間',o:1},
     {n:'Innovatum Science Center',ll:[58.2720,12.2768],cat:'科學館',note:'Saab 隔離 2 分鐘 · 6/21–8/17 開 · 落雨都室內 OK',o:2},
     {n:'Slussområdet 運河船閘 + 峽谷',ll:[58.2837,12.2909],cat:'步行區(免費)',note:'1700s 古船閘 + 花崗岩峽谷,即使冇放水都上鏡',o:3}],
-  notes:['🚆 Göteborg C → Trollhättan ~34–38 分(Västtåg,~每30分一班),當場買。','⚠️ 瀑布放水 2026 夏天冇(Vattenfall 唔做日常放水,只 7/17–19 festival,你之前一星期)→ 改睇 Saab+Innovatum+古船閘峽谷。','Saab hours 官網(10–17)vs 第三方(11–16)有矛盾 → 打 +46-520-289440 confirm 7/10 開。'],
+  notes:['🚆 Göteborg C → Trollhättan ~34–38 分(Västtåg,~每30分一班),當場買。','🔴 已驗證(Codex·官方):Saab 博物館 2026 夏(6/6–9/30)搬咗去【Nova Arena「The Box」】(屋頂翻新),舊館 Innovatum 唔開!行程照去 Trollhättan,但目的地改 Nova Arena;打 +46-520-289440 confirm 7/10(週五)時間。','⚠️ 瀑布放水 2026 夏天冇(Vattenfall 只 7/17–19 festival,你之前一星期)→ 改睇 The Box+Innovatum 科學館+古船閘峽谷。'],
   bk:[{s:'todo',t:'🚆 Göteborg↔Trollhättan 火車(當場)'},{s:'todo',t:'🎟 Saab Car Museum 入場'}] },
 
 { id:'d0711', date:'7/11', dow:'六', leg:'gbg', color:'#6b8e4e',
@@ -200,7 +200,7 @@ const DAYS = [
     {n:'Nordiska museet',ll:[59.3291,18.0939],cat:'🧶 紡織/文化',note:'紡織收藏(crochet) · 170',o:2},
     {n:'Skansen',ll:[59.3266,18.1053],cat:'露天博物館',note:'歷史村 + 北歐動物;Solliden 台 = Allsång 場',o:3},
     {n:'ABBA The Museum',ll:[59.3249,18.0966],cat:'博物館(你 saved)',note:'同 Skansen 二揀一',o:4,opt:true}],
-  notes:['Vasa 08:30 一開就去(人最少最好影)。Skansen / ABBA 二揀一。','🎤 晚 Allsång på Skansen(週二場,Solliden 台,直播 20:00,綵排 17–18)。企位用 Skansen 飛即可;想坐 Ticketmaster 早買 ~495–595。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 大機會兩個都俾 470。'],
+  notes:['Vasa 08:30 一開就去(人最少最好影)。Skansen / ABBA 二揀一。','🎤 晚 Allsång på Skansen(傳統週二場,Solliden 台)——⚠️ 2026 場次表未驗證到(官方頁 404),6 月尾上 skansen.se/SVT 確認 7/14 真有場先好計入行程/買飛。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 大機會兩個都俾 470。'],
   bk:[{s:'pend',t:'🎫 SL 7-day 票(成人 470,到埗買)'},{s:'todo',t:'🎤 Allsång på Skansen(option·早買)'}] },
 
 { id:'d0715', date:'7/15', dow:'三', leg:'sto', color:'#2f6f8f',
@@ -238,7 +238,7 @@ const DAYS = [
     {n:'Gamla Stan Stortorget',ll:[59.3250,18.0708],cat:'舊城',note:'晨攝 + Nobel Prize Museum(Stortorget 2,你 saved)',o:2},
     {n:'Nationalmuseum',ll:[59.3285,18.0781],cat:'國家美術館(你 saved)',note:'免費常設 + 設計藏品 · 順路 Kungsträdgården',o:3},
     {n:'Acne Studios',ll:[59.3332,18.0738],cat:'時裝',note:'Norrmalmstorg 2 · 手信',o:4,opt:true}],
-  notes:['🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','Moderna Museet 常設展全年免費入場 + 逢週五 18-20 免費(特展先收費)。','🎬 Bio Rio indie(Reinsve 片)臨行 bio.se 查場次。'],
+  notes:['🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','🔴 更正(Codex 驗證·官方):Moderna Museet「週五 18-20 免費」只去到 6/12,7/17 已經完咗;正價 170 SEK(週五開 10-20)。想去就當付費館計,或者直接專心 Fotografiska。','🎬 Bio Rio 7 月場次已出:7/13 Tenet·7/14 Akira·7/16 Cowboy Bebop·7/18 Call Me by Your Name(冇 Sentimental Value→Apple TV SE 租 49 SEK)。'],
   bk:[{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7)'}] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#8a8580',
@@ -375,7 +375,7 @@ const EX = {
  d0714:{carry:'⚠️薄外套/冷衫(Vasa 館內 18-19°C,坐成日)·水樽+snack(島上貴)·A7S III 廣角(暗船高ISO)·防曬太陽眼鏡(Skansen 露天)·摺傘·舒服波鞋',tip:'💡Vasa 隔籬 Vikingaliv(你 saved)+Nordiska 同一條 Djurgårdsvägen 串連順路;Rosendals Trädgård 花園 fika;晚 Allsång på Skansen 就喺島上唔使轉場。',pace:'Vasa 08:30 早開~2h+Nordiska~2h(crochet 核心,可 3-4h)+Skansen 半日;⚠️ABBA/Viking 做機動,四館一日做唔晒→鎖 Vasa+Nordiska+Skansen。'},
  d0715:{carry:'🚤RIB 後備衫+唔怕濕鞋(高速濺水,入面衫濕咗冇得換)·A7S III 防水罩(海上唔換鏡)·防風褸(海上凍)·水樽snack(船上2h冇得買)',tip:'💡碼頭 Strandvägen 順路 Östermalms Saluhall 晚餐+Kungsträdgården fika;黃昏返 SoFo 掃咖啡器材(Drop+Johan&Nyström);Fotografiska 週三18:00後買一送一,開到23:00。',pace:'RIB 2h(提早幾日 book,揀黃昏場光靚)+Fjäderholmarna 半日(⚠️查實尾班船);睇天氣,落雨同16/17對調。'},
  d0716:{carry:'舒服行街鞋(行成日)·環保袋(買毛線+豆器材+黑膠)·薄外套(店冷氣+河邊風)·摺傘·A7S III',tip:'💡Avicii 10:00 頭場→行5分 Svensk Hemslöjd(🧶);午餐 Kajsas Fisk;SoFo 你 saved 嘅 Bar Ottocento/Meatballs 晚餐;Mosebacke/Monteliusvägen 日落(夏季 ~22:00)。',pace:'⚠️暑假細店多 sem→Svensk Hemslöjd+Litet Nystan 趁一-五+18:00前(週四=安全日);Avicii~1.5-2h 提早訂時段。'},
- d0717:{carry:'⚠️layer 外套(美術館坐成日凍+Stadshuset 塔頂106m風大)·A7S III+三腳架(晨攝/夜場 Fotografiska 到23:00)·舒服鞋(鵝卵石)·學生證·摺傘',tip:'💡Gamla Stan 晨攝必影 Mårten Trotzigs gränd 最窄巷+Stortorget 彩色屋;你 saved Nobel(Stortorget 2)順路;Nationalmuseum 隔籬 Kungsträdgården+Acne;晚 Aifur 維京餐(淨Fri/Sat,要 book)/Bio Rio indie。',pace:'⚠️一日塞太多→Nobel 同 National 揀一重點另一快閃;Fotografiska 7/15 BOGO 更抵,7/17 唔重複就鬆;Moderna 常設全年免費+週五18-20免費。'},
+ d0717:{carry:'⚠️layer 外套(美術館坐成日凍+Stadshuset 塔頂106m風大)·A7S III+三腳架(晨攝/夜場 Fotografiska 到23:00)·舒服鞋(鵝卵石)·學生證·摺傘',tip:'💡Gamla Stan 晨攝必影 Mårten Trotzigs gränd 最窄巷+Stortorget 彩色屋;你 saved Nobel(Stortorget 2)順路;Nationalmuseum 隔籬 Kungsträdgården+Acne;晚 Aifur 維京餐(淨Fri/Sat,要 book)/Bio Rio indie。',pace:'⚠️一日塞太多→Nobel 同 National 揀一重點另一快閃;Fotografiska 唔重複就鬆;🔴Moderna 週五免費場 6/12 已完,正價 170——可以 skip。'},
  d0718:{carry:'退稅貨+收據隨身唔好 check-in(要驗貨)·外套(機艙/Arlanda Express 凍)·護照+booking code 離線',tip:'💡最後 fika/Gamla Stan 漏網/Åhléns·NK 手信;退稅 Global Blue 喺出發層預 20-40 分排隊。',pace:'⚠️冇 buffer:最遲 20:10 到 ARN(起飛前2.5h)→~19:00 一定起行(Älvsjö pendeltåg 入 Central 轉 Arlanda Express 18分,youth 160);Arlanda Express≠Flygbussarna≠SL 另買。'},
 };
 
@@ -425,7 +425,7 @@ const BOOK = [
  {t:'🕯 Avicii Experience',s:'todo',d:'7/16 上午頭場',pax:'2 人',price:'~209–269 SEK/人',where:'https://aviciiexperience.com',wl:'aviciiexperience.com',dl:'提早幾日網上揀時段（旺季）'},
  {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 上午',pax:'2 人',price:'150 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放 / 當日 08:30 City Hall Shop（旺季預先）'},
  {t:'🚤 RIB Stockholm',s:'todo',d:'7/15 下午（黃昏光靚）',pax:'2 人',price:'1,490 SEK/人（2 人 2,980）',where:'https://www.ribstockholm.com/experiences/2-hour-tour/',wl:'ribstockholm.com',dl:'提早幾日揀日子·睇天氣前一兩日 lock'},
- {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.ticketmaster.se',wl:'Ticketmaster.se',dl:'option·想坐就早買'},
+ {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚（⚠️未驗證）',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.skansen.se',wl:'skansen.se',dl:'⚠️ 2026 場次表官方頁 404 未驗證——6 月尾上 skansen.se/SVT 確認 7/14 真有場先買;確認唔到就剔除'},
  {t:'🪂 滑翔傘（天氣 backup）',s:'todo',d:'7/11 12–15（drop-in）',pax:'2 人',price:'900 SEK/人（2 人 1,800·現金/Swish）',where:'tel:0706677210',wl:'打 070-66 77 210',dl:'當日 9am 後打確認天氣先去·唔收咭'},
  {t:'🛡️ 旅遊保險',s:'todo',d:'全程 6/27–7/18（22 日）',pax:'2 人',price:'~HK$300–600/人（2 人 ~HK$600–1,200）',where:'https://www.hsbc.com.hk',wl:'HSBC/Allianz/STARR/AXA',dl:'要 cover 行山(Kungsleden 1,150m 標準旅保已 cover,唔使極限運動 plan)+直升機 evac;非競賽業餘'},
 ];

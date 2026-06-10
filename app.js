@@ -127,6 +127,7 @@ function renderDayDetail(id){
    <div class="block"><div class="bh">📍 去邊 · 點行順 ${d.stops&&d.stops[0]?`<a class="wxlink" href="${wxURL(d.stops[0].ll)}" target="_blank">🌤 查天氣</a>`:''}${dir?`<a class="gm" style="margin-left:8px" href="${dir}" target="_blank">🧭 路線</a>`:''}</div>
      ${noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`:'<div id="dmap" class="dmap"></div>'}${stops||'<div class="muted">—</div>'}</div>
    <div class="block"><div class="bh">⚠️ 注意</div>${notes||'<div class="muted">—</div>'}</div>
+   ${rvDay(id)}
    <div class="block"><div class="bh">🎟 買飛 / 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>`;
   if(document.getElementById('dmap'))makeMini(d);
 }
@@ -185,6 +186,13 @@ async function drawDay(){
   if(pts.length){const b=pts.reduce((B,p)=>B.extend(p),new maplibregl.LngLatBounds(pts[0],pts[0]));map.fitBounds(b,{padding:50,maxZoom:curDay?13:5,duration:900});}
 }
 
+/* ---------- 審查 REVIEW（多 agent audit 結果）---------- */
+const RV = window.REVIEW||{days:{},global:[],wins:[]};
+const rvSev = {high:'🔴',med:'🟡',low:'🟢'};
+const rvItem = r=>`<div class="rv ${r.sev}"><div class="rv-t">${rvSev[r.sev]||''} ${esc(r.t)} <span class="rv-st">${esc(r.st||'')}</span></div><div class="rv-fix">→ ${telLink(esc(r.fix||''))}</div>${r.src?`<div class="rv-src">${esc(r.src)}${r.deadline?` · ⏰ ${esc(r.deadline)}`:''}</div>`:(r.deadline?`<div class="rv-src">⏰ ${esc(r.deadline)}</div>`:'')}</div>`;
+function rvDay(id){const items=(RV.days||{})[id];if(!items||!items.length)return'';
+  return `<div class="block rvblock"><div class="bh">🔍 審查（${items.length}）— 多 agent 挑骨頭,逐項 check</div>${items.map(rvItem).join('')}</div>`;}
+
 /* ---------- 狀態 STATUS ---------- */
 function renderStatus(){
   const bk=S.DAYS.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
@@ -209,6 +217,8 @@ function renderStatus(){
   V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅——一眼睇晒 booking · 行動 · 依賴</div>
    <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>${segbar}</div>
    <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
+   ${(RV.global&&RV.global.length)?`<div class="sec-h">🔍 終極審查 · 行前要郁（${RV.global.length}）</div>${RV.global.map(rvItem).join('')}`:''}
+   ${(RV.wins&&RV.wins.length)?`<div class="sec-h">✨ 審查好消息</div><div class="card">${RV.wins.map(w=>`<div class="note-li" style="border-left-color:color-mix(in srgb,var(--green) 50%,transparent)">${telLink(esc(w))}</div>`).join('')}</div>`:''}
    <div class="sec-h">🎯 你要訂嘅嘢 · 訂邊日 · 邊度 · 幾多人 · 幾多錢 · 幾時截</div>
    <div class="pg-sub" style="margin:-2px 2px 6px">由最緊要排落去 · 撳藍掣直接去嗰個官方訂位／報價</div>
    ${bookHtml}
