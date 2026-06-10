@@ -59,7 +59,7 @@ function renderNow(){
    </div>
    ${todayBlock}
    ${dis.robynfix?'':`<div class="alert">🎵 <b>更正：Robyn 唔係 7 月</b> — 場館官方(Stockholm Live)證實 Robyn Stockholm 場 = <b>10/17 @ 3Arena</b>(trip 之後),之前「7/16-17 Avicii Arena」係錯誤情報,已剔除。行程期間替代 live/電音查緊中。<button class="lnk" onclick="window.__dismiss('robynfix')">✕ 知道</button></div>`}
-   ${dis.sixt?'':`<div class="alert">⛔ <b>南段命脈：Sixt 租車未 confirm</b> — Arctic Bath + 飛 GOT 全吊喺佢。<b>confirm 前唔好買 SK2051 機票。</b><button class="lnk" onclick="window.__go('status')">睇狀態 ›</button> <button class="lnk" onclick="window.__dismiss('sixt')">✕ 搞掂</button></div>`}
+   ${dis.planv4?'':`<div class="alert">🔒 <b>南段交通 Plan v4 定案（6/10）</b>：7/6 火車 12:50 落 Luleå → 機場 SIXT 取車（來回·~18:00）→ Arctic Bath；7/8 直接揸返機場還車飛 GOT。下一步：<b>Comet book SIXT</b> → 機票/火車票 → 俾錢 Arctic Bath（hold 緊）。舊 Sixt 單程已 cancel。<button class="lnk" onclick="window.__go('status')">睇狀態 ›</button> <button class="lnk" onclick="window.__dismiss('planv4')">✕ 知道</button></div>`}
    <div class="sec-h">📊 一眼睇晒 Booking</div>
    <div class="statgrid">
      <div onclick="window.__go('status')"><div class="n" style="color:var(--green)">${paid}</div><div class="l">✅ 已訂</div></div>

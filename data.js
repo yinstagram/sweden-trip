@@ -108,13 +108,15 @@ const DAYS = [
   bk:[{s:'paid',t:'🚌 Nikkaluokta→Kiruna 巴士'},{s:'paid',t:'🛏 STF Kiruna'}] },
 
 { id:'d0706', date:'7/6', dow:'一', leg:'north', color:'#7a9cb0',
-  title:'Kiruna 取車 → Arctic Bath', theme:'⛔ 等 Sixt confirm',
+  title:'火車落 Luleå 取車 → Arctic Bath', theme:'Plan B 定案：LLA 來回租車',
   accom:{name:'Arctic Bath（2 晚 · Harads）', status:'hold'},
-  meals:{b:'Kiruna', l:'途中', d:'🍽 Arctic Bath 餐廳'},
+  meals:{b:'Kiruna（早餐食飽佢）', l:'火車上（Kiruna 買定）', d:'🍽 Arctic Bath（~20:00 輕食·已 email 問）'},
   stops:[
-    {n:'Arctic Bath',ll:[66.0887,20.9370],cat:'🧖 漂浮 spa 酒店',note:'Harads · 揸 ~3h 由 Kiruna · 浮喺 Lule 河上',o:1}],
-  notes:['🚗 Kiruna 10:00 取 Sixt EX30(電動)→ 揸 ~3h → Arctic Bath。取車帶國際駕照 + 實體信用卡按金。','⚠️⚠️ 整段南段吊喺 Sixt 一架車度(見「交通」tab 依賴鏈)。Sixt 未 confirm = Arctic Bath 都未落實。Plan B = 火車去 Luleå。','EX30 電動車 → 確認沿途充電到 Harads。'],
-  bk:[{s:'hold',t:'🚗 Sixt EX30(等 confirm·Hertz 拒單程→Sixt 唯一)'},{s:'hold',t:'🧖 Arctic Bath(等 Sixt)'}] },
+    {n:'Kiruna Station（12:50 火車 7153）',ll:[67.8557,20.2251],cat:'🚆 火車',note:'12:50 開 → Boden 16:31 → Luleå Central ~17:12(4h22)·上車前買定午餐',o:1},
+    {n:'Luleå Airport（取車）',ll:[65.5431,22.1219],cat:'🚗 取車',note:'Luleå C 轉巴士 104(~20分,33 SEK)去機場 → ~18:00 SIXT 取車(櫃位開到 21:00)·帶國際駕照+實體信用卡按金',o:2},
+    {n:'Arctic Bath',ll:[66.0887,20.9370],cat:'🧖 漂浮 spa 酒店',note:'機場揸 85km/~1h15 → ~19:30-20:00 到 · 浮喺 Lule 河上',o:3}],
+  notes:['🔒 Plan v4 定案：LLA 同站取還(7/6 18:00 取→7/8 08:00 還)→ 冇 one-way 問題、7/8 唔使 taxi。SIXT 官方:最低 19 歲+持牌≥1年 ✓。','🚗 取車帶齊:護照+香港駕照+國際駕照(IDP)+司機名下實體信用卡(按金)。司機得 Yin 一個。','如果係 EV → Arctic Bath 場內有充電(Vattenfall InCharge 站 RJ1048),過夜叉滿。'],
+  bk:[{s:'todo',t:'🚗 SIXT Luleå Airport 來回(Comet book 緊)'},{s:'hold',t:'🧖 Arctic Bath(hold 緊·車 confirm 即俾錢)'},{s:'todo',t:'🚆 SJ 7153 火車票(車 confirm 後買)'}] },
 
 { id:'d0707', date:'7/7', dow:'二', leg:'north', color:'#7a9cb0',
   title:'🎂 Yin 21 歲 · Arctic Bath spa', theme:'純享受日',
@@ -133,8 +135,8 @@ const DAYS = [
     {n:'Haga Nygata（Göteborg）',ll:[57.6987,11.9552],cat:'老區散步',note:'落機後 Flygbussarna ~35分入市 → check-in → Haga',o:2},
     {n:'Café Husaren',ll:[57.6984,11.9597],cat:'Café',note:'巨型肉桂卷 Hagabullen(vegan)',o:3},
     {n:'da Matteo',ll:[57.7032,11.9624],cat:'咖啡',note:'2025 北歐最佳烘焙 · Magasinsgatan 17A',o:4}],
-  notes:['✅ SK2051 已驗證(6/10 訂票引擎):7/8 真有直航 09:55→11:35(CityJet CRJ900),HKD ~823–1,949/人。早機!bag drop 09:10 截 → 08:30 前到 LLA → ~07:00 離開 Arctic Bath(冇晨早 spa,同酒店夾早餐/transfer 時間)。','11:35 落 GOT → Flygbussarna 入市 → check-in → 下午 Haga + Café Husaren 大肉桂卷 + da Matteo 照原計劃行!','還車前影低車況 + 電量(EV 場內叉滿先走);機票等 Sixt/transfer 鎖死即買,價會浮動。'],
-  bk:[{s:'todo',t:'✈️ SK2051 LLA→GOT(等 Sixt 先買)'},{s:'pend',t:'🏠 WOW Apartments(訂時 check)'}] },
+  notes:['✅ SK2051 已驗證(6/10 訂票引擎):7/8 真有直航 09:55→11:35(CityJet CRJ900),HKD ~823–1,949/人。早機!bag drop 09:10 截 → 08:30 前到 LLA → ~07:00 離開 Arctic Bath(冇晨早 spa,同酒店夾早餐/transfer 時間)。','11:35 落 GOT → Flygbussarna 入市 → check-in → 下午 Haga + Café Husaren 大肉桂卷 + da Matteo 照原計劃行!','還車前影低車況 + 電量(EV 場內叉滿先走);LLA 還車喺 P2(24h 還車)行 2 分鐘入 terminal;breakfast bag 已同酒店安排。'],
+  bk:[{s:'todo',t:'✈️ SK2051 LLA→GOT(車 confirm 即買)'},{s:'pend',t:'🏠 WOW Apartments(訂時 check)'}] },
 
 //──────────────────── Göteborg ────────────────────
 { id:'d0709', date:'7/9', dow:'四', leg:'gbg', color:'#9a5b34',
@@ -258,7 +260,7 @@ const TRANSPORT = [
   {seg:'ARN→Kiruna', mode:'✈️ Norwegian D8 4063', time:'6/28 11:35→13:10', tick:'YQCIPT(Apple Note)', s:'paid'},
   {seg:'Kiruna→Abisko(起步)', mode:'🚆/🚌', time:'6/29', tick:'當地買·班次臨行查', s:'todo'},
   {seg:'Nikkaluokta→Kiruna', mode:'🚌 巴士', time:'7/5 16:55→18:30', tick:'青年票·落 Norrmalm', s:'paid'},
-  {seg:'Kiruna→Luleå(Arctic Bath)', mode:'🚗 Sixt EX30', time:'7/6 取→7/8 還', tick:'#9943888260', s:'hold'},
+  {seg:'Kiruna→Luleå→Arctic Bath', mode:'🚆 7153 + 🚗 SIXT LLA 來回', time:'7/6 12:50 火車→18:00 取車', tick:'舊 Sixt 單程 #9943888260 已 cancel(6/10)', s:'todo'},
   {seg:'LLA→GOT', mode:'✈️ SK2051', time:'7/8 09:55→11:35 ✅已驗證', tick:'未買·HKD ~823–1,949/人·等交通鎖死即買', s:'todo'},
   {seg:'GOT 機場→市區', mode:'🚌 Flygbussarna', time:'7/8 ~35分', tick:'上車/app 買·≠Västtrafik', s:'todo'},
   {seg:'Göteborg↔Trollhättan', mode:'🚆 Västtåg', time:'7/10 ~38分', tick:'當場買', s:'todo'},
@@ -289,8 +291,8 @@ const EMERG_NOTE = '行前必做:112 + 兩個領事號 + 12308 存手機;保險 
 const CHECKLIST = [
   {grp:'🛫 行前必做（數碼準備·最易漏）', items:[
     '📍 預載離線地圖:Gaia GPS / Maps.me 下載 Kungsleden(Abisko→Nikkaluokta)+ Göteborg + Stockholm 區——⚠️山上 6 日(6/30–7/5)冇訊號,app 互動地圖載唔到底圖,靠呢個 + 紙本 Kungsleden 地圖導航',
-    '📸 截圖所有 booking code 離線:8 個 STF 山屋 code · 機票 PNR PDMQD0 · SJ W9NULT2R/WRAVLE37 · Sixt #9943888260 · Airbnb withdraw HM9SEMWY5E',
-    '✈️ SK2051 7/8 09:55→11:35 已驗證有班(6/10)→ Sixt/transfer 鎖死即刻買(HKD ~823–1,949/人,價會浮動)',
+    '📸 截圖所有 booking code 離線:8 個 STF 山屋 code · 機票 PNR PDMQD0 · SJ W9NULT2R/WRAVLE37 · SIXT LLA 租車 confirmation · Airbnb withdraw HM9SEMWY5E',
+    '✈️ SK2051 7/8 09:55→11:35 已驗證有班(6/10)→ SIXT 車 confirm 即刻買(HKD ~823–1,949/人,價會浮動)',
     '🛡️ 保險單 PDF 下載離線 + 記低 24h hotline + 保單號',
     '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290',
     '📱 eSIM/漫遊開通(瑞典覆蓋好,山區仍可能冇)·帶少量 SEK 現金(北段 card reader 可能失靈)',
@@ -364,7 +366,7 @@ const EX = {
  d0703:{carry:'Sälka 買定嘅一日糧(Singi 冇 shop)·相機留夠電',tip:'宏偉 U 形 Tjäktjavagge 冰蝕谷+馴鹿+吊橋,炸彈日後恢復日,慢慢等光等馴鹿、中途煮午餐沖咖啡、Kam Ling 鈎針。',pace:'12km·-100m·3-4h 最短最 chill,唔使早起;⚠️Singi 岔路口睇路標東行。'},
  d0704:{carry:'輕量換洗衫(今晚有淋浴+桑拿!)·相機電(瑞典最高峰現身)·錢/卡(餐廳 buffet)',tip:'經 Kaffedalen 咖啡谷,Kebnekaise 主峰現身;全程最舒適一晚,洗澡食 buffet 回氣;💡有訊號→訂定 7/5 16:55 巴士飛(山中冇訊號)。',pace:'14km·±150m·4-5h;唔好臨時加登頂(另一日 round-trip)。'},
  d0705:{carry:'防蚊頭網(Nikkaluokta 段蚊極多)·相機',tip:'回望 Kebnekaise 雪峰+Ladtjojaure 綠湖;下船碼頭 Sami 帳篷咖啡 Kaffekåta+馴鹿漢堡打卡;可搭湖船省 6km(臨行查船期)。',pace:'19km·5.5-6.5h→最遲 8:30am 出發趕 16:55 尾班巴士(網訂 15:55 截,喺 Kebnekaise 訂定);錯過=瞓 Nikkaluokta。'},
- d0706:{carry:'國際駕照+實體信用卡(Sixt 按金)·EX30 充電規劃到 Harads',tip:'⚠️整段南段吊喺 Sixt 一架車;10:00 取車揸~3h;Arctic Bath 提早講生日 surprise/訂枱。',pace:'⛔ Sixt 未 confirm = Arctic Bath 未落實;Plan B 火車去 Luleå。'},
+ d0706:{carry:'護照+HK牌+國際駕照+司機名下實體信用卡(按金)·火車午餐 Kiruna 買定·相機(車窗外極圈景)',tip:'💡12:50 上車前喺 Kiruna 食飽+買乾糧;Luleå C 落車跟住 104 巴士去機場;生日晚餐已 email book 咗 Arctic Culinary。',pace:'火車 4h22 → 巴士 20 分 → 取車 → 揸 1h15;~19:30-20:00 到酒店,夜晚浸吓熱池先瞓。'},
  d0707:{carry:'泳衣/拖鞋(spa)·相機(Commons 冇 Arctic Bath 相,自己影)',tip:'🎂 Yin 21 歲!純 relax 養返行山攰;漂浮 cabin+冷池+sauna。',pace:'純享受日,冇行程壓力。'},
  d0708:{carry:'前一晚執好行李·還車前影低車況+電量·機票 QR 離線截圖',tip:'11:35 落 GOT→Flygbussarna 入市→WOW check-in→下午 Haga/da Matteo 照行。',pace:'⏰ 早機 09:55!bag drop 09:10 截→08:30 到 LLA→~07:00 離開 Arctic Bath(車程 1h15+還車 buffer)。同酒店預早夾定早餐/transfer。'},
  d0709:{carry:'學生證(問博物館學生價,20歲要俾75)·薄外套(室內冷氣坐成日)·水樽+snack·相機多帶電+卡',tip:'💡你 saved 嘅 Victor Hasselblad Statue 今日順路影(攝影朝聖);食:Hasselblad 出門 Mr P/Familjen,或場內 Ceno;da Matteo 順手一杯。',pace:'World of Volvo ~2-3h(唔使搶 timed,網買慳10%全日有效)+Hasselblad ~1-1.5h;Konstmuseum 逢一閉今日四 OK;全室內落雨唔怕。'},
@@ -415,9 +417,9 @@ const SAVED = [
 /* 🎯 你要訂嘅嘢 — 每樣齊晒:訂邊日/幾多人/大約幾多錢/喺邊度(link)/幾時截。價標 FACT/估算·落單前 confirm */
 const BOOK = [
  {t:'💳 Mox 信用卡',s:'todo',d:'即刻（最緊）',pax:'本人',price:'免費',where:'https://mox.com',wl:'Mox',dl:'⚠️ Sixt 取車要實體卡按金·開卡+寄卡 1-2 週·得 18 日 → 唔搞好 = 7/6 取唔到車'},
- {t:'🚗 Sixt 租車 EX30',s:'hold',d:'7/6 10:00 Kiruna 取 → 7/8 Luleå 還',pax:'2 人(Ng Cho Yin 駕·帶國際駕照)',price:'~4,700 SEK + 實體卡按金',where:'https://www.sixt.se',wl:'Sixt(#9943888260)',dl:'⛔ 南段命脈·已 submit 等 confirm·7/5 出山前未覆 → 切 Plan B(火車去 Luleå)'},
- {t:'🧖 Arctic Bath（生日 spa）',s:'todo',d:'7/6–7/8（2 晚）',pax:'2 人 · Water Cabin（漂浮·情侶首選）',price:'~5,995–9,000 SEK/晚（含早餐+spa）· 2 晚 ~12,000–18,000',where:'https://book.arcticbath.se/en/accommodation',wl:'arcticbath.se',dl:'等 Sixt confirm 先訂·貴=生日 splurge·逐晚實價 booking engine 入 7/6 睇'},
- {t:'✈️ SK2051 LLA→GOT',s:'todo',d:'7/8 09:55→11:35（直航·已驗證）',pax:'2 人',price:'HKD ~823–1,949/人（6/10 所見·2 人 ~HKD 1,646–3,898·會浮動）',where:'https://www.flysas.com',wl:'flysas.com',dl:'✅ 6/10 已驗證 7/8 真有直航(CityJet)。早機:07:00 要離開 Arctic Bath(bag drop 09:10 截)。等 Sixt/transfer 鎖死【即刻】買——價會升'},
+ {t:'🚗 SIXT Luleå Airport 來回（Plan v4）',s:'todo',d:'7/6 18:00 取 → 7/8 08:00 還（同站）',pax:'司機只有 Ng Cho Yin（20 歲取車·SIXT 官方最低 19+持牌≥1年 ✓）',price:'sixt.se 入年齡 20 即見實價·自動波·按金=司機名下實體信用卡',where:'https://www.sixt.se',wl:'sixt.se',dl:'Comet book·付款頁停低 Yin 入卡。⚠️ 舊單程 request #9943888260 已 email cancel(6/10)'},
+ {t:'🧖 Arctic Bath（生日 spa）',s:'hold',d:'7/6–7/8（2 晚）· 酒店 HOLD 緊房',pax:'2 人 · Land Suite',price:'8,995 SEK/晚 ×2 = 17,990（含早餐+全 SPA·官方 offer 在手）',where:'mailto:booking@arcticbath.se',wl:'覆 email 付款',dl:'SIXT 車 confirm 即覆 email 俾錢（100% 不可退,所以排最後）。7/7 生日 Arctic Culinary 晚餐 + 7/8 breakfast bag 已 email 安排'},
+ {t:'✈️ SK2051 LLA→GOT',s:'todo',d:'7/8 09:55→11:35（直航·已驗證）',pax:'2 人',price:'HKD ~823–1,949/人（6/10 所見·2 人 ~HKD 1,646–3,898·會浮動）',where:'https://www.flysas.com',wl:'flysas.com',dl:'✅ 6/10 已驗證 7/8 真有直航(CityJet)。早機:07:00 要離開 Arctic Bath(bag drop 09:10 截)。SIXT 車 confirm【即刻】買——價會升。揀有寄艙行李 fare(兩個大喼)'},
  {t:'🏠 WOW Apartments（Göteborg）',s:'pend',d:'7/8–7/12（4 晚）',pax:'2 人 · Double Room',price:'~1,100–1,500 SEK/晚 · 4 晚 ~4,400–6,000',where:'mailto:info@wowapartments.se',wl:'email 報實價',dl:'email 指明 7/8-12·2人·Double·要唔要 kitchen → 攞實價;或 Booking.com 即見價'},
  {t:'🏠 Stockholm Airbnb（Älvsjö）',s:'pend',d:'7/13–7/18（5 晚）',pax:'2 人 · host Maria',price:'（你訂緊嗰間·價你知）',where:'https://www.airbnb.com',wl:'Airbnb(HM9SEMWY5E)',dl:'等 host confirm → 主動 message 講 7/13 ~21:30 遲到'},
  {t:'🎵 行程期間 live/電音（Robyn 已剔除）',s:'todo',d:'7/8–12 GBG · 7/13–18 STO',pax:'2 人',price:'視乎節目',where:'https://stockholmlive.com/en/events',wl:'查緊替代',dl:'⚠️ 更正：Robyn Stockholm = 10/17 @ 3Arena（trip 之後·場館官方證實）·舊「7/16-17 Avicii Arena」係錯。Gröna Lund/Liseberg 夏季演唱會 + 電音 club 審查中,搵到會更新呢度'},
