@@ -380,11 +380,14 @@ const EX = {
 };
 
 /* Sixt 單點故障 → 實際 Plan B mini-itinerary */
-const PLANB = {title:'⛔ 萬一 Sixt 租唔到車 → Plan B（南段命脈）', steps:[
- '🅱️1（首選）火車去 Luleå：Kiruna→Luleå SJ Norrlandståg ~3.5-4h（臨行 sj.se 查班次）→ 保住 7/8 飛 GOT；Arctic Bath 用 Luleå/Boden 接駁（email arcticbath.se 問 transfer service）。冇咗自駕自由,但生日 spa + 南段 timeline 保住。',
- '🅱️2 租 Kiruna 來回：Hertz 有 Volvo EX40(來回易租)→ 自駕 Arctic Bath 來回；但 7/8 改由 Kiruna(KRN)飛 GOT(轉機 ARN),SK2051(LLA)作廢要改飛。',
- '🅱️3（最痛）棄 Arctic Bath：7/6-8 留 Kiruna,早班飛 GOT,省返 7/7 生日 spa。最後手段。',
- '⏰ cut-off：行山出山 7/5 前 Sixt 仍未 confirm → 即切 B1。⚠️ Sixt confirm 前唔好買 SK2051(LLA 起飛改唔到)。',
+const PLANB = {title:'⛔ 租唔到車 → 無車 Plan B（6/10 已逐班車驗證·夏季時刻表）', steps:[
+ '🅱️1 首選·7/6 入：火車 7153 Kiruna 12:50→Boden 16:31 → 同站轉 Buss 44 16:55→Harads Gulf 17:40（行 ~1.2km 到 Arctic Bath / 叫酒店接）。想早到：Buss 10 Kiruna 07:20→Luleå 12:40 → Buss 44 13:50→15:23 到。⚠️ 夏季表冇「10:46 火車」呢回事,Kiruna 朝早冇直達火車。',
+ '🅱️1 首選·7/8 出（⛔ 公共交通最早 09:57 先到機場 = 趕唔切 09:55 機,實測）：Arctic Bath transfer 或 taxi ~07:00 走 → 08:15 到 LLA。Taxi 預 2,500–3,000 SEK/車（同村 Treehotel 官方接送 2,700 做基準）。Boden Taxi +46 921-177 00 要【7/7 18:00 前】book 死線;後備 Luleå Taxi 0920-10 000（24h）。',
+ '🅱️1b 慳錢 hybrid（進取先用）：Buss 44 07:10→Boden 07:55 + 預約 taxi 08:00 由 Boden→LLA ~08:40（taxi 只行 42km,~900–1,300 SEK,慳一半）。bag drop 09:10 前 30 分鐘 margin——巴士誤點就冇命,穩陣首選都係成程 transfer。',
+ '🅱️2 改下晝機（先查!）：訂票引擎 7/8 嗰個 HKD823 選項若果係 13:55→15:35 直航(SK2079)→ 改買佢:朝早唔使趕,09:15 Buss 44→Luleå 10:50→轉 104 11:08→LLA 11:28,歎埋 Arctic Bath 早餐先走。2 人慳 ~HKD4,000,代價 = 遲 4 鐘到 GOT(蝕半日)。⚠️ 823 若係朝早轉機班就唔抵,要先撳入去睇時間。',
+ '🅱️3 完全唔飛：7/8 全日 Arctic Bath → Buss 44 19:02→Boden 19:45 → SJ 夜火車 21:46→Stockholm 10:13(7/9) → X2000 11:08→GOT 15:55(7/9)。賺成日 spa+慳一晚住宿,蝕 7/9 大半日(GBG 行程順延)。sj.se 訂臥鋪。',
+ '🅱️4（最痛）棄 Arctic Bath：7/6-8 留 Kiruna 直接飛 GOT。最後手段,生日 spa 冇咗。',
+ '⏰ cut-off：7/5 出山前車仲未 confirm → 即切 B1（同時等緊 Arctic Bath transfer 報價·已 email）。⚠️ 交通鎖死先買機票、先俾錢訂 Arctic Bath（100% 不可退）。臨行 3-7 日 resrobot.se 覆核班次（夏季 banarbete 會改點）。',
 ]};
 
 /* Yin Google Maps saved 但未排成行程點嘅地方 → 全部上地圖(淡色,撳「顯示 saved」)·標建議(唔再 silently drop) */
