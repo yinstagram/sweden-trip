@@ -58,7 +58,7 @@ function renderNow(){
      <div class="nh-sub">${esc(S.TRIP.sub)} · 22 日</div>
    </div>
    ${todayBlock}
-   ${dis.robyn?'':`<div class="jackpot">🎵 <b>JACKPOT：Robyn @ Avicii Arena</b> 7/16 或 7/17 19:30 · 瑞典電音國寶 hometown · <b>要早買飛</b> <a href="https://robyn.com/tour" target="_blank">robyn.com/tour</a> <button class="lnk" onclick="window.__dismiss('robyn')">✕ 買咗</button></div>`}
+   ${dis.robynfix?'':`<div class="alert">🎵 <b>更正：Robyn 唔係 7 月</b> — 場館官方(Stockholm Live)證實 Robyn Stockholm 場 = <b>10/17 @ 3Arena</b>(trip 之後),之前「7/16-17 Avicii Arena」係錯誤情報,已剔除。行程期間替代 live/電音查緊中。<button class="lnk" onclick="window.__dismiss('robynfix')">✕ 知道</button></div>`}
    ${dis.sixt?'':`<div class="alert">⛔ <b>南段命脈：Sixt 租車未 confirm</b> — Arctic Bath + 飛 GOT 全吊喺佢。<b>confirm 前唔好買 SK2051 機票。</b><button class="lnk" onclick="window.__go('status')">睇狀態 ›</button> <button class="lnk" onclick="window.__dismiss('sixt')">✕ 搞掂</button></div>`}
    <div class="sec-h">📊 一眼睇晒 Booking</div>
    <div class="statgrid">

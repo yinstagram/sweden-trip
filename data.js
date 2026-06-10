@@ -217,7 +217,7 @@ const DAYS = [
   bk:[{s:'todo',t:'🎟 RIB Stockholm(fareharbor 訂時段)'}] },
 
 { id:'d0716', date:'7/16', dow:'四', leg:'sto', color:'#9a4f6e',
-  title:'Avicii + 毛線 + 古著黑膠', theme:'crochet 日 + Robyn jackpot 夜',
+  title:'Avicii + 毛線 + 古著黑膠', theme:'crochet 日 + SoFo 日落夜',
   accom:{name:'Stockholm · Älvsjö Airbnb', status:'pend'},
   meals:{b:'🍽 Vete-Katten（百年 konditori）', l:'🍽 Kajsas Fisk（Hötorget 魚湯)', d:'🍽 Pelikan / Meatballs for the People'},
   stops:[
@@ -225,9 +225,9 @@ const DAYS = [
     {n:'Svensk Hemslöjd',ll:[59.3353,18.0712],cat:'🧶 官方手工藝(你 saved)',note:'Norrlandsgatan 20 · 行 5 分鐘 · 瑞典羊毛',o:2},
     {n:'Litet Nystan',ll:[59.3152,18.0823],cat:'🧶 毛線(你 saved)',note:'Folkungagatan 100 · Gotland 羊毛 · 趁一–五 18:00 前',o:3},
     {n:'Pet Sounds Records',ll:[59.3121,18.0780],cat:'二手黑膠',note:'Skånegatan 53',o:4,opt:true},
-    {n:'🎵 Robyn @ Avicii Arena',ll:[59.2936,18.0832],cat:'演唱會·電音國寶',note:'7/16 或 7/17 19:30 · jackpot · ⚠️臨買飛上 robyn.com/tour confirm 日期/場館(可能有變)',o:9,opt:true}],
-  notes:['🕯️ Avicii 10:00 頭場(提早訂時段)→ 行 5 分鐘 Svensk Hemslöjd(🧶)。','⚠️ 暑假細店多 semesterstängt → Svensk Hemslöjd/Litet Nystan 趁一–五營業 + 18:00 前。','🎵 晚 jackpot:Robyn @ Avicii Arena 7/16 或 7/17 19:30(瑞典電音國寶 hometown,兩晚揀一)→ 要早買飛!'],
-  bk:[{s:'todo',t:'🎟 Avicii Experience(提早訂時段)'},{s:'todo',t:'🎵 Robyn 演唱會飛(7/16或17·早買)'}] },
+    {n:'Mosebacke/Monteliusvägen',ll:[59.3186,18.0703],cat:'日落觀景',note:'SoFo 晚餐後行過去睇日落(夏季 ~22:00 先落)',o:9,opt:true}],
+  notes:['🕯️ Avicii 10:00 頭場(提早訂時段)→ 行 5 分鐘 Svensk Hemslöjd(🧶)。','⚠️ 暑假細店多 semesterstängt → Svensk Hemslöjd/Litet Nystan 趁一–五營業 + 18:00 前。','🎵 更正:Robyn Stockholm 場係 10/17 @ 3Arena(trip 之後)——之前「7/16-17 Avicii Arena」係錯,已剔除;行程期間 live/電音替代查緊。'],
+  bk:[{s:'todo',t:'🎟 Avicii Experience(提早訂時段)'}] },
 
 { id:'d0717', date:'7/17', dow:'五', leg:'sto', color:'#4a5d8a',
   title:'市政廳 + Gamla Stan + 美術館', theme:'攝影/高處（鬆啲，揀一重點）',
@@ -238,7 +238,7 @@ const DAYS = [
     {n:'Gamla Stan Stortorget',ll:[59.3250,18.0708],cat:'舊城',note:'晨攝 + Nobel Prize Museum(Stortorget 2,你 saved)',o:2},
     {n:'Nationalmuseum',ll:[59.3285,18.0781],cat:'國家美術館(你 saved)',note:'免費常設 + 設計藏品 · 順路 Kungsträdgården',o:3},
     {n:'Acne Studios',ll:[59.3332,18.0738],cat:'時裝',note:'Norrmalmstorg 2 · 手信',o:4,opt:true}],
-  notes:['🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','Moderna Museet 常設展全年免費入場 + 逢週五 18-20 免費(特展先收費)。','🎵 Robyn 7/17 場(同 7/16 二揀一);Bio Rio indie(Reinsve 片)臨行 bio.se 查場次。'],
+  notes:['🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','Moderna Museet 常設展全年免費入場 + 逢週五 18-20 免費(特展先收費)。','🎬 Bio Rio indie(Reinsve 片)臨行 bio.se 查場次。'],
   bk:[{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7)'}] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#8a8580',
@@ -374,7 +374,7 @@ const EX = {
  d0713:{carry:'行李退房寄存·薄外套·SJ WRAVLE37 截圖·snack/晚餐(車上食)',tip:'💡IKEA Museum 限定手信(唔係普通 IKEA 貨)今日最後機會;⚠️一上火車就 message host Maria 講~21:30 遲到(唔好到咗先講)。',pace:'玩足上半日(~3-4h)+12:00 午餐,~15:30-16:00 攞行李去站;17:09→20:38 坐成晚。'},
  d0714:{carry:'⚠️薄外套/冷衫(Vasa 館內 18-19°C,坐成日)·水樽+snack(島上貴)·A7S III 廣角(暗船高ISO)·防曬太陽眼鏡(Skansen 露天)·摺傘·舒服波鞋',tip:'💡Vasa 隔籬 Vikingaliv(你 saved)+Nordiska 同一條 Djurgårdsvägen 串連順路;Rosendals Trädgård 花園 fika;晚 Allsång på Skansen 就喺島上唔使轉場。',pace:'Vasa 08:30 早開~2h+Nordiska~2h(crochet 核心,可 3-4h)+Skansen 半日;⚠️ABBA/Viking 做機動,四館一日做唔晒→鎖 Vasa+Nordiska+Skansen。'},
  d0715:{carry:'🚤RIB 後備衫+唔怕濕鞋(高速濺水,入面衫濕咗冇得換)·A7S III 防水罩(海上唔換鏡)·防風褸(海上凍)·水樽snack(船上2h冇得買)',tip:'💡碼頭 Strandvägen 順路 Östermalms Saluhall 晚餐+Kungsträdgården fika;黃昏返 SoFo 掃咖啡器材(Drop+Johan&Nyström);Fotografiska 週三18:00後買一送一,開到23:00。',pace:'RIB 2h(提早幾日 book,揀黃昏場光靚)+Fjäderholmarna 半日(⚠️查實尾班船);睇天氣,落雨同16/17對調。'},
- d0716:{carry:'舒服行街鞋(行成日)·環保袋(買毛線+豆器材+黑膠)·薄外套(店冷氣+河邊風)·摺傘·A7S III',tip:'💡Avicii 10:00 頭場→行5分 Svensk Hemslöjd(🧶);午餐 Kajsas Fisk;SoFo 你 saved 嘅 Bar Ottocento/Meatballs 晚餐;Mosebacke/Monteliusvägen 日落;晚 jackpot Robyn @ Avicii Arena(電音朝聖,7/16或17)。',pace:'⚠️暑假細店多 sem→Svensk Hemslöjd+Litet Nystan 趁一-五+18:00前(週四=安全日);Avicii~1.5-2h 提早訂時段。'},
+ d0716:{carry:'舒服行街鞋(行成日)·環保袋(買毛線+豆器材+黑膠)·薄外套(店冷氣+河邊風)·摺傘·A7S III',tip:'💡Avicii 10:00 頭場→行5分 Svensk Hemslöjd(🧶);午餐 Kajsas Fisk;SoFo 你 saved 嘅 Bar Ottocento/Meatballs 晚餐;Mosebacke/Monteliusvägen 日落(夏季 ~22:00)。',pace:'⚠️暑假細店多 sem→Svensk Hemslöjd+Litet Nystan 趁一-五+18:00前(週四=安全日);Avicii~1.5-2h 提早訂時段。'},
  d0717:{carry:'⚠️layer 外套(美術館坐成日凍+Stadshuset 塔頂106m風大)·A7S III+三腳架(晨攝/夜場 Fotografiska 到23:00)·舒服鞋(鵝卵石)·學生證·摺傘',tip:'💡Gamla Stan 晨攝必影 Mårten Trotzigs gränd 最窄巷+Stortorget 彩色屋;你 saved Nobel(Stortorget 2)順路;Nationalmuseum 隔籬 Kungsträdgården+Acne;晚 Aifur 維京餐(淨Fri/Sat,要 book)/Bio Rio indie。',pace:'⚠️一日塞太多→Nobel 同 National 揀一重點另一快閃;Fotografiska 7/15 BOGO 更抵,7/17 唔重複就鬆;Moderna 常設全年免費+週五18-20免費。'},
  d0718:{carry:'退稅貨+收據隨身唔好 check-in(要驗貨)·外套(機艙/Arlanda Express 凍)·護照+booking code 離線',tip:'💡最後 fika/Gamla Stan 漏網/Åhléns·NK 手信;退稅 Global Blue 喺出發層預 20-40 分排隊。',pace:'⚠️冇 buffer:最遲 20:10 到 ARN(起飛前2.5h)→~19:00 一定起行(Älvsjö pendeltåg 入 Central 轉 Arlanda Express 18分,youth 160);Arlanda Express≠Flygbussarna≠SL 另買。'},
 };
@@ -420,7 +420,7 @@ const BOOK = [
  {t:'✈️ SK2051 LLA→GOT',s:'todo',d:'7/8 09:55→11:35（直航·已驗證）',pax:'2 人',price:'HKD ~823–1,949/人（6/10 所見·2 人 ~HKD 1,646–3,898·會浮動）',where:'https://www.flysas.com',wl:'flysas.com',dl:'✅ 6/10 已驗證 7/8 真有直航(CityJet)。早機:07:00 要離開 Arctic Bath(bag drop 09:10 截)。等 Sixt/transfer 鎖死【即刻】買——價會升'},
  {t:'🏠 WOW Apartments（Göteborg）',s:'pend',d:'7/8–7/12（4 晚）',pax:'2 人 · Double Room',price:'~1,100–1,500 SEK/晚 · 4 晚 ~4,400–6,000',where:'mailto:info@wowapartments.se',wl:'email 報實價',dl:'email 指明 7/8-12·2人·Double·要唔要 kitchen → 攞實價;或 Booking.com 即見價'},
  {t:'🏠 Stockholm Airbnb（Älvsjö）',s:'pend',d:'7/13–7/18（5 晚）',pax:'2 人 · host Maria',price:'（你訂緊嗰間·價你知）',where:'https://www.airbnb.com',wl:'Airbnb(HM9SEMWY5E)',dl:'等 host confirm → 主動 message 講 7/13 ~21:30 遲到'},
- {t:'🎵 Robyn @ Avicii Arena',s:'todo',d:'7/16 或 7/17 19:30（揀一晚）',pax:'2 人',price:'~695–1,295 SEK/張（2 人 ~1,400–2,600·動態浮動）',where:'https://www.ticketmaster.se',wl:'Ticketmaster.se',dl:'✅場次冇 cancel·on sale 未爆·越早越好（唔好用 AXS US 跨區）'},
+ {t:'🎵 行程期間 live/電音（Robyn 已剔除）',s:'todo',d:'7/8–12 GBG · 7/13–18 STO',pax:'2 人',price:'視乎節目',where:'https://stockholmlive.com/en/events',wl:'查緊替代',dl:'⚠️ 更正：Robyn Stockholm = 10/17 @ 3Arena（trip 之後·場館官方證實）·舊「7/16-17 Avicii Arena」係錯。Gröna Lund/Liseberg 夏季演唱會 + 電音 club 審查中,搵到會更新呢度'},
  {t:'🎟 World of Volvo',s:'todo',d:'7/9',pax:'2 人',price:'成人 220–250 SEK（學生≤25 帶證 165–190）',where:'https://www.worldofvolvo.com/en/visit/',wl:'worldofvolvo.com',dl:'網購慳 10%·全日有效唔使搶時段'},
  {t:'🕯 Avicii Experience',s:'todo',d:'7/16 上午頭場',pax:'2 人',price:'~209–269 SEK/人',where:'https://aviciiexperience.com',wl:'aviciiexperience.com',dl:'提早幾日網上揀時段（旺季）'},
  {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 上午',pax:'2 人',price:'150 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放 / 當日 08:30 City Hall Shop（旺季預先）'},
