@@ -83,7 +83,7 @@ window.__dismiss=k=>{const d=JSON.parse(localStorage.sw_dismiss||'{}');d[k]=1;lo
 let dayLeg='all';
 function renderDays(){
   let legbtns=`<button class="legchip ${dayLeg==='all'?'on':''}" data-l="all">全部</button>`+
-    S.LEGS.map(l=>`<button class="legchip ${dayLeg===l.key?'on':''}" data-l="${l.key}">${esc(l.name.replace(/ ·.*/,''))}</button>`).join('');
+    S.LEGS.map(l=>`<button class="legchip ${dayLeg===l.key?'on':''}" data-l="${l.key}" style="${dayLeg===l.key?`background:${l.accent};border-color:${l.accent};color:#10141f`:`border-color:color-mix(in srgb,${l.accent} 55%,transparent);color:${l.accent}`}">${esc(l.name)}</button>`).join('');
   let cards='';
   S.DAYS.filter(d=>dayLeg==='all'||legOf(d.id)===dayLeg).forEach(d=>{
     const cs=chips(d).map(c=>`<span class="chip">${c}</span>`).join('');
