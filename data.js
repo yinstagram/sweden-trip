@@ -249,7 +249,7 @@ const DAYS = [
   bk:[{s:'pend',t:'🎫 SL 7-day 票(成人 470,到埗買)'},{s:'pend',t:'🎤 Allsång på Skansen 7/14 20:00–21:00（已公布）'}] },
 
 { id:'d0715', date:'7/15', dow:'三', leg:'sto', color:'#a78bda',
-  title:'RIB 出海 + 咖啡器材 + Fotografiska', theme:'水上日（週三 BOGO 夜）',
+  title:'市政廳 + Gamla Stan + 美術館', theme:'舊城/高處 + Fotografiska 週三 BOGO 夜',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
   meals:{b:'出發前', l:'Strandvägen 區輕食', d:'🍽 Fotografiska 餐廳（黃昏景觀·訂位）'},
   stops:[
@@ -258,7 +258,7 @@ const DAYS = [
     {n:'Johan & Nyström',ll:[59.3164,18.0639],cat:'☕ 器材最齊',note:'Swedenborgsgatan 7 概念店',o:3},
     {n:'Fotografiska',ll:[59.3180,18.0847],cat:'攝影博物館(你 saved)',note:'7/15 係週三 → 18:00 後買一送一! · 開到23:00 · ~195-230 SEK(官網 confirm)',o:4}],
   notes:['🚤 RIB 改咗 7/17（你已 book·10:30）——唔再喺今日。今日係彈性日:Fjäderholmarna 群島 / SoFo 咖啡器材 / Fotografiska 跟心情。','☕ SoFo 咖啡器材 Drop + Johan & Nyström(GF priority)。','📷 Fotografiska 7/15 週三 18:00 後買一送一(慳一半)開到 23:00,夜晚啱行 + 景觀餐廳。','⚠️ Fjäderholmarna 要好天;查實渡輪尾班船。','📝 7/15↔7/17 完整對調我喺 timeline 重砌嗰陣執(市政廳會排返靚位),會同你 confirm。'],
-  bk:[{s:'pend',t:'🎟 Fotografiska(週三 BOGO·現場)'}] },
+  bk:[{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7=7/8 放)'},{s:'pend',t:'🎟 Fotografiska(週三 BOGO·現場)'}] },
 
 { id:'d0716', date:'7/16', dow:'四', leg:'sto', color:'#a78bda',
   title:'Avicii + 毛線 + 古著黑膠', theme:'crochet 日 + SoFo 日落夜',
@@ -274,7 +274,7 @@ const DAYS = [
   bk:[{s:'paid',t:'🎟 Avicii Experience(已買·YZCB51)'}] },
 
 { id:'d0717', date:'7/17', dow:'五', leg:'sto', color:'#a78bda',
-  title:'市政廳 + Gamla Stan + 美術館', theme:'舊城/高處（鬆啲，揀一重點）',
+  title:'RIB 出海 + 群島 + 咖啡器材', theme:'水上日（你 book 咗 RIB 10:30）',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
   meals:{b:'Gamla Stan café', l:'🍽 Chokladkoppen（Stortorget）', d:'🍽 Aifur 維京餐（Nationalmuseum 餐廳只午餐/fika·週五 kitchen 15:00 關）'},
   stops:[
@@ -284,7 +284,7 @@ const DAYS = [
     {n:'Nationalmuseum',ll:[59.3285,18.0781],cat:'國家美術館(你 saved)',note:'成人 160 SEK(週四17–20免費·7/17 五唔免·under-20 free 你哋唔合) + 設計藏品 · 順路 Kungsträdgården',o:3},
     {n:'Acne Studios',ll:[59.3332,18.0738],cat:'時裝',note:'Norrmalmstorg 2 · 手信',o:4,opt:true}],
   notes:['🎲 彈性日:得 Stadshuset Tower(09:00 頭場·7/10 先有飛賣)係想搶嘅。Nobel/Nationalmuseum/Fotografiska/Aifur 全部未定——嗰朝起身先決定。','🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','Moderna Museet 週五開 10-20·正價 170 SEK(冇免費場)→ 想去當付費館,或專心 Fotografiska。','🎬 Bio Rio 7 月場次已出:7/13 Tenet·7/14 Akira·7/16 Cowboy Bebop·7/18 Call Me by Your Name(冇 Sentimental Value→Apple TV SE 租 49 SEK)。'],
-  bk:[{s:'paid',t:'🚤 RIB Stockholm（你 book 咗 7/17 ~10:30）'},{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7)'}] },
+  bk:[{s:'paid',t:'🚤 RIB Stockholm（你 book 咗 7/17 ~10:30）'}] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#a78bda',
   title:'收尾 + 飛走', theme:'半日 → Arlanda → 22:40 飛 HK',
@@ -380,9 +380,9 @@ const HERO = {
   d0701:'alesjaure', d0702:'salka', d0703:'singi', d0704:'kebnekaise',
   d0705:'nikkaluokta', d0706:'harads', d0707:'harads', d0708:'haga',
   d0709:'volvo', d0710:'saab', d0711:'slottsskogen', d0712:'ikea', d0713:'ikea',
-  d0714:'vasa', d0715:'fjaderholmarna', d0716:'avicii', d0717:'gamlastan', d0718:'stockholm',
+  d0714:'vasa', d0715:'stadshuset', d0716:'avicii', d0717:'fjaderholmarna', d0718:'stockholm',
 };
-const HERO_CAP = { d0629:'（圖：Nuoljatoppen 午夜太陽·你 6/29 吊椅上嗰個頂）', d0717:'（圖：Mårten Trotzigs gränd·Gamla Stan 最窄巷）',
+const HERO_CAP = { d0629:'（圖：Nuoljatoppen 午夜太陽·你 6/29 吊椅上嗰個頂）', d0715:'（圖：Mårten Trotzigs gränd·Gamla Stan 最窄巷）', d0717:'（圖：Fjäderholmarna 群島·RIB 出海方向）',
   d0706:'（圖：Lule 河 @ Harads — Arctic Bath 就浮喺呢條河上;撳 📍Arctic Bath 睇酒店實景）', d0707:'（圖：Lule 河 @ Harads;撳 📍Arctic Bath 睇酒店實景）' };
 
 /* 黃金時刻 / 午夜太陽（按 leg；天文概況，臨行可用 app 查實） */
