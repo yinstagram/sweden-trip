@@ -202,9 +202,16 @@ async function drawDay(){
 const RV = window.REVIEW||{days:{},global:[],wins:[]};
 const rvSev = {high:'🔴',med:'🟡',low:'🟢'};
 const rvItem = r=>`<div class="rv ${r.sev}"><div class="rv-t">${rvSev[r.sev]||''} ${esc(r.t)}</div><div class="rv-fix">→ ${telLink(esc(r.fix||''))}</div>${r.deadline?`<div class="rv-src">⏰ ${esc(r.deadline)}</div>`:''}</div>`;
-function rvDay(id){let items=(RV.days||{})[id];if(!items)return'';
-  items=items.filter(x=>x.sev!=='low');if(!items.length)return'';
-  return `<div class="block rvblock"><div class="bh">⚠️ 呢日要留意</div>${items.map(rvItem).join('')}</div>`;}
+function rvDay(id){return'';} /* 每日 agent 審查層已撤——重點已整合入每日「⚠️ 注意」(notes) */
+/* 行前/行程中 仲要做 — 人話清單(唔再 show agent 審查) */
+const TODO_LIST=[
+  '💳 帶實體信用卡（7/6 取車按金；Mox 趕唔切就用你現有嗰張）',
+  '🎟 7/10 搶 Stadshuset Tower 飛（7/17 上塔，提前 7 日放）',
+  '🌤 RIB 快艇 7/15 — 出發後睇天氣，前 1–2 日先 book',
+  '🎤 Allsång på Skansen 7/14 — 6 月尾上 skansen.se 睇有冇場先計',
+  '📞 Saab 7/10 — 去之前打 +46-520-289440 confirm 開放',
+  '🛒 到埗即買：SL 7 日票 · 行山糧+氣罐(Kiruna ICA/Jaktia) · World of Volvo 飛(當日手機買慳10%)',
+];
 
 /* ---------- 狀態 STATUS ---------- */
 function renderStatus(){
@@ -230,8 +237,8 @@ function renderStatus(){
   V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅——一眼睇晒 booking · 行動 · 依賴</div>
    <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>${segbar}</div>
    <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
-   ${(RV.global&&RV.global.length)?`<div class="sec-h">🔍 終極審查 · 行前要郁（${RV.global.length}）</div>${RV.global.map(rvItem).join('')}`:''}
-   ${(RV.wins&&RV.wins.length)?`<div class="sec-h">✨ 審查好消息</div><div class="card">${RV.wins.map(w=>`<div class="note-li" style="border-left-color:color-mix(in srgb,var(--green) 50%,transparent)">${telLink(esc(w))}</div>`).join('')}</div>`:''}
+   <div class="sec-h">📌 仲要做</div>
+   <div class="card">${TODO_LIST.map(x=>`<div class="todo-li">${telLink(esc(x))}</div>`).join('')}</div>
    <div class="sec-h">🎯 你要訂嘅嘢 · 訂邊日 · 邊度 · 幾多人 · 幾多錢 · 幾時截</div>
    <div class="pg-sub" style="margin:-2px 2px 6px">由最緊要排落去 · 撳藍掣直接去嗰個官方訂位／報價</div>
    ${bookHtml}

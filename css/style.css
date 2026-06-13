@@ -294,3 +294,6 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .ns-row.next{background:color-mix(in srgb,var(--gold) 10%,transparent);margin:2px -9px;padding:10px 9px;border-radius:10px;border-bottom:0}
 .ns-row.next .ns-t{color:var(--gold)}
 .ns-row.next .ns-a{color:var(--white);font-weight:600}
+/* 仲要做 清單 */
+.todo-li{font-size:13.5px;padding:9px 0;border-bottom:1px solid var(--line);line-height:1.55;color:var(--text)}
+.todo-li:last-child{border:0}

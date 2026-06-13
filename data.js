@@ -281,7 +281,7 @@ const TRANSPORT = [
   {seg:'ARN→PVG→HKG', mode:'✈️ MU290+MU505', time:'7/18 22:40→7/19 19:05', tick:'PNR(Apple Note)', s:'paid'},
 ];
 
-/* 緊急 tab — 號碼 curl/多源驗證;標 UNKNOWN 嘅臨行 confirm */
+/* 緊急 tab — 號碼臨行前 reconfirm */
 const EMERGENCY = [
   {cat:'🚨 全國緊急(警/火/救護/山難)', num:'112', note:'瑞典通用;山難講 Fjällräddning'},
   {cat:'🏥 非緊急醫療諮詢', num:'1177', note:'瑞典國內撥 · 1177.se'},
@@ -301,7 +301,7 @@ const CHECKLIST = [
   {grp:'🛫 行前必做（數碼準備·最易漏）', items:[
     '📍 預載離線地圖:Gaia GPS / Maps.me 下載 Kungsleden(Abisko→Nikkaluokta)+ Göteborg + Stockholm 區——⚠️山上 6 日(6/30–7/5)冇訊號,app 互動地圖載唔到底圖,靠呢個 + 紙本 Kungsleden 地圖導航',
     '📸 截圖所有 booking 離線:8 個 STF 山屋 code · 兩段機票 confirmation · SJ 三程(app) · Trip.com 租車 voucher+取車文件 · Arctic Bath confirmation · 兩個 Airbnb · Zurich 保單 PDF(詳細喺你私人 Apple Note)',
-    '✈️ SK2051 7/8 09:55→11:35 已驗證有班(6/10)→ SIXT 車 confirm 即刻買(HKD ~823–1,949/人,價會浮動)',
+    '✈️ SK2051 機票已買(Agoda);7/8 09:55→11:35 直航,QR 離線截圖',
     '🛡️ 保險單 PDF 下載離線 + 記低 24h hotline + 保單號',
     '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290',
     '📱 eSIM/漫遊開通(瑞典覆蓋好,山區仍可能冇)·帶少量 SEK 現金(北段 card reader 可能失靈)',
@@ -365,7 +365,7 @@ const CHEAT = [
   {h:'🗣 瑞典語', items:['Hej(嗨)/Tack(唔該/多謝)/Hejdå(拜拜)','Fika(咖啡時光)/Lagom(剛剛好)/En kaffe tack(一杯咖啡唔該)']},
 ];
 
-/* 逐日代入式 enrichment（4-agent + Codex 逐日 hour-by-hour sim 整合）:🎒帶咩 / 💡小提示(順路+你 saved) / ⏱節奏 */
+/* 逐日 hour-by-hour:🎒帶咩 / 💡小提示(順路+你 saved) / ⏱節奏 */
 const EX = {
  d0627:{carry:'護照(回程後≥6月)·booking code 離線·尿袋/降噪耳機·輕外套(夜凍)',tip:'PVG 轉機只 2h25 = 唯一壓力位,落機即衝;Comfort Hotel 喺機場行得到,買定聽日早餐+水。',pace:'純 transit,瞓飽——上山前最後一張正常床(到 7/4 先有淋浴)。'},
  d0628:{carry:'購物袋×2·信用卡·少量現金·shell+中層保暖',tip:'落機放低嘢→Österleden 一條街掃晒:ICA Kvantum 買 6 日糧(只孭 2 日,沿途補)+ Jaktia/Intersport 買 2×230g 螺紋氣罐(⚠️唔上得飛機)。咖啡控買定靚掛耳上山。',pace:'⚠️週日戶外舖多數閉→氣罐當 6/29 Abisko 買(email abisko.butik@stfturist.se 預留);今晚試孭背囊重量。'},
@@ -429,14 +429,14 @@ const BOOK = [
  {t:'💳 取車按金實體卡（決定咗就剔）',s:'todo',d:'出發前袋好',pax:'司機 Ng Cho Yin 名下',price:'—',where:'https://mox.com',wl:'Mox 狀態',dl:'7/6 LLA 取車按金要「司機名下實體信用卡」。Mox 未寄出 = 唔等,直接帶你現有實體信用卡(confirm 額度夠按金)。二揀一,袋咗落銀包就完成'},
  {t:'🚗 租車 EX30 @ Luleå（已訂 ✅）',s:'paid',d:'7/6 18:00 取 → 7/8 07:30 還（LLA 同站）',pax:'司機只有 Ng Cho Yin（取車日 20 歲·已過供應商審批）',price:'Trip.com 訂單已確認（Volvo EX30 或同級）',where:'https://www.trip.com',wl:'Trip.com 訂單',dl:'⚠️ 出發前照 Trip.com 附件執齊「取車所需文件」：護照+HK牌+IDP+司機名下實體信用卡（按金）。舊 Sixt 單程已正式取消（書面確認 free of charge）'},
  {t:'🧖 Arctic Bath（已訂 ✅ 生日 spa）',s:'paid',d:'7/6–7/8（2 晚）',pax:'2 人 · Land Suite',price:'8,995 SEK/晚 ×2 = 17,990（含早餐+全 SPA）',where:'mailto:booking@arcticbath.se',wl:'email 酒店',dl:'已確認（BookVisit 6/11）。記住 confirm 埋：7/7 Arctic Culinary 生日晚餐 訂咗未 + 7/8 06:45 breakfast bag——酒店之前答應咗,出發前一週 email 覆核一次'},
- {t:'✈️ SK2051 LLA→GOT',s:'todo',d:'7/8 09:55→11:35（直航·已驗證）',pax:'2 人',price:'HKD ~823–1,949/人（6/10 所見·2 人 ~HKD 1,646–3,898·會浮動）',where:'https://www.flysas.com',wl:'flysas.com',dl:'✅ 6/10 已驗證 7/8 真有直航(CityJet)。早機:07:00 要離開 Arctic Bath(bag drop 09:10 截)。SIXT 車 confirm【即刻】買——價會升。揀有寄艙行李 fare(兩個大喼)'},
+ {t:'✈️ SK2051 LLA→GOT（已買 ✅）',s:'paid',d:'7/8 09:55→11:35 直航',pax:'2 人（行李 2×23kg 已買）',price:'已付（Agoda·CityJet 營運）',where:'https://www.flysas.com',wl:'flysas.com',dl:'早機:7/8 06:00 離開 Arctic Bath,bag drop 09:10 前到 LLA。QR 離線截圖'},
  {t:'🏠 GBG Airbnb Majorna（已訂 ✅）',s:'paid',d:'7/8–7/12（4 晚·日期已改正）',pax:'2 人 · host Marcus · 全新 listing',price:'已付（Airbnb 收據）',where:'https://www.airbnb.com',wl:'Airbnb app',dl:'⚠️ 零評價新盤:check-in 日影低單位狀況,有唔對辦 24 小時內 app 內 report。電車 3/9/11 出市區,去 Haga ~10 分鐘'},
  {t:'🏠 Stockholm Airbnb（Helenelund·已訂 ✅）',s:'paid',d:'7/13–7/18（5 晚）',pax:'2 人 · host Jerker · ★4.96 · 30m²',price:'已付（Airbnb 收據）',where:'https://www.airbnb.com',wl:'Airbnb app',dl:'host 知你 ~21:30 到;去 Vasa 等景點 = pendeltåg 入 City 轉,門到門 ~40-45 分鐘'},
  {t:'🎟 World of Volvo',s:'todo',d:'7/9',pax:'2 人',price:'成人 220–250 SEK（學生≤25 帶證 165–190）',where:'https://www.worldofvolvo.com/en/visit/',wl:'worldofvolvo.com',dl:'網購慳 10%·全日有效唔使搶時段'},
  {t:'🕯 Avicii Experience（已買 ✅）',s:'paid',d:'7/16 10:00 頭場',pax:'1 成人 + 1 學生（帶學生證）',price:'已付（YZCB51）',where:'https://aviciiexperience.com',wl:'YZCB51',dl:'✅ 飛已買。送 ABBA Museum 9 折 code「AVICII」(成人飛用)'},
- {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 · 09:00 頭場',pax:'2 人',price:'成人 100 SEK/人（Codex 官方更正·原寫 150 錯）',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放(即 7/10·reminder set) / 當日 08:30 City Hall Shop。7 月時段 09:00/09:50/10:40...'},
+ {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 · 09:00 頭場',pax:'2 人',price:'成人 100 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放(即 7/10·reminder set) / 當日 08:30 City Hall Shop。7 月時段 09:00/09:50/10:40...'},
  {t:'🚤 RIB Stockholm',s:'todo',d:'7/15 下午（黃昏光靚）',pax:'2 人',price:'1,490 SEK/人（2 人 2,980）',where:'https://www.ribstockholm.com/experiences/2-hour-tour/',wl:'ribstockholm.com',dl:'提早幾日揀日子·睇天氣前一兩日 lock'},
- {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚（⚠️未驗證）',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.skansen.se',wl:'skansen.se',dl:'⚠️ 2026 場次表官方頁 404 未驗證——6 月尾上 skansen.se/SVT 確認 7/14 真有場先買;確認唔到就剔除'},
+ {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚（待官方公佈場次）',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.skansen.se',wl:'skansen.se',dl:'2026 場次表 6 月尾先出 → 到時上 skansen.se 睇 7/14 有冇場先計入;企位用 Skansen 飛即可'},
  {t:'🪂 滑翔傘（天氣 backup）',s:'todo',d:'7/11 12–15（drop-in）',pax:'2 人',price:'900 SEK/人（2 人 1,800·現金/Swish）',where:'tel:0706677210',wl:'打 070-66 77 210',dl:'當日 9am 後打確認天氣先去·唔收咭'},
  {t:'🛡️ 旅遊保險（已買 ✅）',s:'paid',d:'生效 6/27 · Zurich 自在旅遊',pax:'持有人 Yin（⚠️ 覆核埋 Kam Ling 有冇 cover）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'開保單 PDF check 兩樣:①cover 唔 cover 第二人 ②條款有冇 hiking + emergency evacuation。保單 PDF 下載落手機離線'},
 ];
