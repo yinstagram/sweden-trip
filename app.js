@@ -59,7 +59,7 @@ function renderNow(){
   const nowMin=now.getHours()*60+now.getMinutes();
   const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;};
   let stepsHtml='';
-  const ssrc=today&&(today.tl||today.steps);
+  const ssrc=today&&((S.TL&&S.TL[today.id])||today.tl||today.steps);
   if(ssrc&&ssrc.length){
     const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(toMin(s.t)<=nowMin)cur=i;});
     const nextI=cur+1; const lbl=s=>s.title||s.a;
@@ -172,17 +172,21 @@ function renderDayDetail(id){
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>`;
   const exHtml=ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:'';
   const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
-  if(d.tl&&d.tl.length){
-    const tlHtml=`<div class="timeline">${d.tl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
+  const dtl=(S.TL&&S.TL[id])||d.tl;
+  if(dtl&&dtl.length){
+    const tlHtml=`<div class="timeline">${dtl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
+    // 地圖由時間線啲有座標嘅 item 自動砌（同當日 timeline 一致）
+    const mapStops=dtl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}));
+    const dirTl=dirURL(mapStops);
     const mapBlock=noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`
-      :(d.stops&&d.stops.length?`<div class="block"><div class="bh">🗺 今日地圖 ${dir?`<a class="gm" style="margin-left:auto" href="${dir}" target="_blank">🧭 Google 路線</a>`:''}</div><div id="dmap" class="dmap"></div></div>`:'');
+      :(mapStops.length?`<div class="block"><div class="bh">🗺 今日地圖 ${dirTl?`<a class="gm" style="margin-left:auto" href="${dirTl}" target="_blank">🧭 Google 路線</a>`:''}</div><div id="dmap" class="dmap"></div></div>`:'');
     V.innerHTML=`<button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
       ${heroHtml}${wxBar(legOf(id))}
       <div class="tl-h">⏱ 今日時間線<span class="muted"> · 撳一格展開詳情 / 要買咩 / 注意</span></div>
       ${tlHtml}${accomHtml}${exHtml}${mapBlock}
       <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
       ${navHtml}`;
-    bindTl(V);if(document.getElementById('dmap'))makeMini(d);return;
+    bindTl(V);if(document.getElementById('dmap'))makeMini(mapStops,d.color);return;
   }
   /* —— fallback：未轉 timeline 嘅日子 —— */
   const meals=`<div class="meal"><span>🌅 ${esc(d.meals.b)}</span><span>☀️ ${esc(d.meals.l)}</span><span>🌙 ${esc(d.meals.d)}</span></div>`;
@@ -204,18 +208,20 @@ function renderDayDetail(id){
    ${rvDay(id)}
    <div class="block"><div class="bh">🎟 買飛 / 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
    ${navHtml}`;
-  if(document.getElementById('dmap'))makeMini(d);
+  if(document.getElementById('dmap'))makeMini(d.stops,d.color);
 }
 window.__day=id=>{killDmap();renderDayDetail(id);};
 window.__back=()=>{killDmap();go('days');};
-function makeMini(d){
-  const pts=(d.stops||[]).map(s=>[s.ll[1],s.ll[0]]);if(!pts.length)return;
+function makeMini(stops,color){
+  stops=(stops||[]).filter(s=>s.ll&&s.ll.length===2);
+  const pts=stops.map(s=>[s.ll[1],s.ll[0]]);if(!pts.length)return;
+  color=color||'#8a93b5';
   try{dmap=new maplibregl.Map({container:'dmap',style:MAP_STYLE,interactive:true,attributionControl:false});
     dmap.on('load',()=>{
-      const main=(d.stops||[]).filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>[s.ll[1],s.ll[0]]);
+      const main=stops.filter(s=>!s.opt).sort((a,b)=>(a.o||0)-(b.o||0)).map(s=>[s.ll[1],s.ll[0]]);
       if(main.length>1){dmap.addSource('r',{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:main}}});
-        dmap.addLayer({id:'r',type:'line',source:'r',paint:{'line-color':d.color,'line-width':3.5,'line-opacity':.85}});}
-      (d.stops||[]).forEach(s=>{const el=document.createElement('div');el.style.cssText=`width:${s.opt?11:15}px;height:${s.opt?11:15}px;border-radius:50%;background:${s.opt?'#bdb6a6':d.color};border:2px solid #fff`;
+        dmap.addLayer({id:'r',type:'line',source:'r',paint:{'line-color':color,'line-width':3.5,'line-opacity':.85}});}
+      stops.forEach(s=>{const el=document.createElement('div');el.style.cssText=`width:${s.opt?11:15}px;height:${s.opt?11:15}px;border-radius:50%;background:${s.opt?'#bdb6a6':color};border:2px solid #fff`;
         new maplibregl.Marker({element:el}).setLngLat([s.ll[1],s.ll[0]]).setPopup(new maplibregl.Popup({offset:12,closeButton:false}).setHTML(`<b>${esc(s.n)}</b><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Maps ›</a>`)).addTo(dmap);});
       const b=pts.reduce((B,p)=>B.extend(p),new maplibregl.LngLatBounds(pts[0],pts[0]));dmap.fitBounds(b,{padding:34,maxZoom:13,duration:0});
     });
