@@ -1,8 +1,8 @@
 /* Sweden 2026 PWA — offline app shell（地圖底圖要訊號;行程/清單/緊急離線） */
-const CACHE = 'sweden-v27';
+const CACHE = 'sweden-v28';
 const IMGS = ['lapporten','abiskocanyon','abiskojaure','alesjaure','salka','singi','kebnekaise','nikkaluokta','midnightsun','kungsleden','volvo','saab','konstmuseum','trollhattan','ikea','haga','vasa','nordiska','fjaderholmarna','fotografiska','avicii','skansen','gamlastan','monteliusvagen','stadshuset','nationalmuseum','stockholm'].map(n=>'./img/'+n+'.jpg');
 const ASSETS = [
-  './', './index.html', './data.js?v=27', './review.js?v=27', './app.js?v=27', './css/style.css?v=27', './manifest.json',
+  './', './index.html', './data.js?v=28', './review.js?v=28', './app.js?v=28', './css/style.css?v=28', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png',
   'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js',
   'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css',
@@ -20,7 +20,19 @@ self.addEventListener('fetch', e => {
   const u = new URL(e.request.url);
   // map tiles / routing = network only (唔 cache,要訊號)
   if (/openfreemap|tiles|osrm|basemaps|cartocdn/.test(u.host + u.pathname)) return;
-  // app shell = cache-first, fallback network, 再 fallback index（offline SPA）
+  // 同源 app shell（HTML/JS/CSS/導航）= network-first：有訊號永遠攞最新,冇訊號 fallback cache
+  const isShell = u.origin === location.origin &&
+    (e.request.mode === 'navigate' || /\.(?:js|css|html)$/.test(u.pathname) || u.pathname === '/' || u.pathname.endsWith('/'));
+  if (isShell) {
+    e.respondWith(
+      fetch(e.request).then(r => {
+        if (r && r.ok) { const cp = r.clone(); caches.open(CACHE).then(c => c.put(e.request, cp)); }
+        return r;
+      }).catch(() => caches.match(e.request).then(c => c || caches.match('./index.html')))
+    );
+    return;
+  }
+  // 圖片 / 字體 / libs = cache-first（慳數據·離線用）
   e.respondWith(
     caches.match(e.request).then(c => c || fetch(e.request).then(r => {
       if (e.request.method === 'GET' && r.ok && u.origin === location.origin) {
