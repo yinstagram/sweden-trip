@@ -8,7 +8,7 @@ const TRIP = {
   title: 'Sweden 2026',
   sub: 'Ng Cho Yin & Cheng Kam Ling · 6/27 – 7/18',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-09',
+  updated: '2026-06-13',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
@@ -40,18 +40,19 @@ const DAYS = [
   title:'飛 Kiruna · 買糧+氣罐', theme:'極圈補給日',
   accom:{name:'STF Kiruna', status:'paid'},
   meals:{b:'酒店', l:'機上 / Kiruna', d:'Kiruna'},
-  steps:[{t:'08:30',a:'退房 → 去 ARN 國內 gate(Norwegian)'},{t:'11:35',a:'D8 4063 起飛去 Kiruna'},{t:'13:10',a:'到 Kiruna → 叫的士去 STF(400 SEK/車·+46 980-120 20)'},{t:'14:30',a:'ICA Kvantum 買 7 日乾糧 + Jaktia 買氣罐(唔上得飛機要當地買)'},{t:'18:00',a:'執行山裝備、城市行李寄存 STF reception、早瞓'}],
+  steps:[{t:'08:30',a:'退房 → 去 ARN 國內 gate(Norwegian)'},{t:'11:35',a:'D8 4063 起飛去 Kiruna'},{t:'13:10',a:'到 Kiruna → 叫的士去 STF(400 SEK/車·+46 980-120 20)'},{t:'14:30',a:'ICA Kvantum 買 6 日主糧+2 日 buffer ｜ ⚠️週日 Jaktia 多數閉:氣罐先試 Intersport/超市,搞唔掂就 6/29 Abisko Fjällboden 買(已 email 預留)'},{t:'18:00',a:'執行山裝備、城市行李寄存 STF reception、早瞓'}],
   stops:[
     {n:'Kiruna（極圈城）',ll:[67.8496,20.3063],cat:'城/補給',note:'ARN→Kiruna 11:35–13:10(Norwegian D8 4063)',o:1},
     {n:'ICA Kvantum Kiruna',ll:[67.8485,20.2538],cat:'超市·買糧',note:'Österleden 2 · 每日 07–22 · 行山乾糧/凍乾餐一站買齊 · 黃昏買最順',o:2},
     {n:'Jaktia Kiruna（氣罐）',ll:[67.8444,20.2537],cat:'戶外舖·氣罐',note:'Österleden 12 · 一–五10–18/六10–15 · 買 2×230g 螺紋 gasol · ⚠️氣罐唔上得飛機!',o:3}],
-  notes:['🚖 落機去 STF（兩大喼）:的士固定 400 SEK/車(1-4人)·電話 +46 980-120 20(STF reception 推薦);平版 = 機場巴士 110/人 落「Ok/Parken」站行 10 分鐘。','🔥 落 Kiruna 即買 7 日糧(ICA Kvantum)+ 氣罐(Jaktia/Intersport,螺紋EN417)。','⚠️ 氣罐飛機唔可帶 → 一定當地買;趕唔切市區 → 6/29 Abisko Fjällboden 買(會 sell out,email abisko.butik@stfturist.se 預留)。','沿途山屋有得補:Abiskojaure/Alesjaure/Sälka 都有 shop 賣 gasol → 唔使孭7日量,孭2日 buffer。'],
+  notes:['🚖 落機去 STF（兩大喼）:的士固定 400 SEK/車(1-4人)·電話 +46 980-120 20(STF reception 推薦);平版 = 機場巴士 110/人 落「Ok/Parken」站行 10 分鐘。','🔥 落 Kiruna 即買 6 日主糧 + 2 日 buffer(ICA Kvantum)+ 氣罐(螺紋 EN417)。','⚠️ 6/28 係週日:Jaktia(一–五10–18/六10–15)多數閉 → 氣罐先試 Intersport/超市附近,搞唔掂 6/29 Abisko Fjällboden 買(會 sell out,已 email abisko.butik@stfturist.se 預留)。氣罐飛機唔可帶,一定當地買。','沿途山屋有得補:Abiskojaure/Alesjaure/Sälka 都有 shop 賣 gasol → 唔使孭足 6 日,孭 2 日 buffer 沿途補。'],
   bk:[{s:'paid',t:'✈️ Norwegian ARN→Kiruna'},{s:'paid',t:'🛏 STF Kiruna'},{s:'todo',t:'🛒 行山糧+氣罐(當地買)'}] },
 
 { id:'d0629', date:'6/29', dow:'一', leg:'hike', color:'#6b8a9e',
   title:'Abisko 安頓 + 午夜太陽', theme:'輕鬆熱身日(唔行正路)',
   accom:{name:'STF Abisko Turiststation（有餐廳/shop Fjällboden）', status:'paid'},
   meals:{b:'山屋', l:'山屋 Restaurang Kungsleden', d:'山屋'},
+  steps:[{t:'08:30',a:'STF Kiruna 食早餐 → 去 Kiruna C 火車站(行/的士)'},{t:'09:37',a:'SJ 火車 Kiruna C → Abisko Turiststation(直達·~1h20·SJ app/站買·平·一日約 3 班)'},{t:'11:00',a:'到 Abisko Turiststation check-in → Fjällboden shop 買氣罐(若 6/28 未買到) + 安排大行李寄運去 Nikkaluokta'},{t:'13:00',a:'輕鬆熱身散步(唔行正路) + 試孭背囊'},{t:'20:00',a:'上 Aurora Sky Station 吊椅(午夜太陽班 ~20:00–01:30·現場買)→ Nuolja 頂影 midnight sun + Lapporten'}],
   stops:[
     {n:'STF Abisko Turiststation',ll:[68.3574,18.7825],cat:'山屋·起點',note:'Fjällboden shop 有 gas/凍乾餐;可寄行李去 Nikkaluokta',o:1},
     {n:'Aurora Sky Station（吊椅）',ll:[68.3530,18.7300],cat:'吊椅·觀景',note:'午夜太陽班 6/14–7/19 20:00–01:30 → 6/29 行得 · 頂俯瞰 Torneträsk + Lapporten',o:2}],
@@ -118,7 +119,7 @@ const DAYS = [
   steps:[{t:'11:00',a:'Kiruna 食飽 + 買車上乾糧;叫 STF reception book 的士 12:10 去火車站'},{t:'12:50',a:'SJ 7153 火車 Kiruna → Luleå(WHRPPGC9·SJ app)'},{t:'17:12',a:'到 Luleå C → 巴士 104 去機場'},{t:'18:00',a:'LLA 取租車(帶護照+HK牌+IDP+實體信用卡)'},{t:'18:30',a:'揸 85km/~1h15 去 Arctic Bath'},{t:'20:00',a:'到 Arctic Bath check-in,夜晚浸冷池'}],
   stops:[
     {n:'Kiruna Station（12:50 火車 7153）',ll:[67.8557,20.2251],cat:'🚆 火車',note:'12:50 開 → Boden 16:31 → Luleå Central ~17:12(4h22)·上車前買定午餐',o:1},
-    {n:'Luleå Airport（取車）',ll:[65.5431,22.1219],cat:'🚗 取車',note:'Luleå C 轉巴士 104(~20分,33 SEK)去機場 → ~18:00 SIXT 取車(櫃位開到 21:00)·帶國際駕照+實體信用卡按金',o:2},
+    {n:'Luleå Airport（取車）',ll:[65.5431,22.1219],cat:'🚗 取車',note:'Luleå C 轉巴士 104(~20分,33 SEK)去機場 → ~18:00 取車(Trip.com voucher 上供應商·櫃位開到夜)·帶國際駕照+司機名下實體信用卡按金',o:2},
     {n:'Arctic Bath',ll:[66.0887,20.9370],cat:'🧖 漂浮 spa 酒店',note:'機場揸 85km/~1h15 → ~19:30-20:00 到 · 浮喺 Lule 河上',o:3}],
   notes:['🚗 LLA 取車帶齊:護照+香港駕照+國際駕照(IDP)+司機名下實體信用卡(按金)+Trip.com「取車所需文件」照單執齊。司機得 Yin 一個。','EV 嘅話 Arctic Bath 場內有充電(Vattenfall InCharge 站 RJ1048),過夜叉滿。'],
   bk:[{s:'paid',t:'🚗 租車 EX30(Trip.com 已確認·7/8 07:30 還)'},{s:'paid',t:'🧖 Arctic Bath(已訂!)'},{s:'paid',t:'🚆 SJ 7153 火車票(SJ app)'}] },
@@ -129,7 +130,7 @@ const DAYS = [
   meals:{b:'Arctic Bath', l:'Arctic Bath', d:'🎂 Arctic Culinary 生日晚餐（已 email 安排·行前覆核）'},
   stops:[{n:'Arctic Bath',ll:[66.0887,20.9370],cat:'🧖 spa',note:'冷池 + sauna + 浮 cabin · 全日 relax',o:1}],
   notes:['🎂 Yin 21 歲生日!提早同 Arctic Bath 講有冇生日 surprise / 訂枱。','純 relax,養返行山攰。'],
-  bk:[{s:'hold',t:'🧖 Arctic Bath spa'}] },
+  bk:[{s:'paid',t:'🧖 Arctic Bath spa（已含·全 SPA）'},{s:'pend',t:'🎂 Arctic Culinary 生日晚餐（已 email 安排·行前覆核）'}] },
 
 { id:'d0708', date:'7/8', dow:'三', leg:'gbg', color:'#e8956a',
   title:'還車 → 飛 GOT → Göteborg 到埗', theme:'⚠️ 超趕 + 轉戰南方',
@@ -154,7 +155,7 @@ const DAYS = [
     {n:'Hasselblad Center',ll:[57.6966,11.9807],cat:'攝影館',note:'@Konstmuseum Götaplatsen 6(離 Volvo ~3km,搭 tram) · 75 SEK · <20 免 · 逢一閉',o:2},
     {n:'Mr P',ll:[57.6975,11.9790],cat:'餐廳(食)',note:'Götaplatsen · 分享菜+cocktail · Hasselblad 出門口左手',o:3,opt:true}],
   notes:['World of Volvo 同 Hasselblad 係兩個唔同地方相隔 ~3km,中間搭 tram。','Volvo 訂時段慳10%(Comet 訂,俾錢前停)。Konstmuseum 逢一閉(今日四 OK);20 歲要俾 75,帶學生證問免費。','食:場內 Ceno(唔使走) 或 Götaplatsen 嗰邊 Mr P/Familjen(夾 Hasselblad)。'],
-  bk:[{s:'todo',t:'🎟 World of Volvo 時段(Comet 訂)'}] },
+  bk:[{s:'todo',t:'🎟 World of Volvo 全日票（網購慳10%·唔使搶時段）'}] },
 
 { id:'d0710', date:'7/10', dow:'五', leg:'gbg', color:'#e8956a',
   title:'Saab Car Museum @ Trollhättan', theme:'火車 day-trip（換走 Vrångö）',
@@ -172,7 +173,7 @@ const DAYS = [
   accom:{name:'Airbnb Majorna（Cozy apartment）', status:'paid'},
   meals:{b:'Majorna 自煮', l:'市區', d:'市區'},
   stops:[
-    {n:'Äventyrscenter 滑翔傘',ll:[57.9062,11.9319],cat:'活動(Kareby)',note:'Murhammarv.15 · 週末drop-in 12–15 · 900 SEK · 北27km taxi ~25min/400–550 SEK',o:1},
+    {n:'Äventyrscenter 滑翔傘',ll:[57.9062,11.9319],cat:'活動(Kareby)',note:'Murhammarv.15 · 週末drop-in 12–15 · 900 SEK/人(2 人 1,800·現金/Swish·唔收咭) · 北27km taxi ~25min/400–550 SEK',o:1},
     {n:'Slottsskogen',ll:[57.6870,11.9419],cat:'公園(免費)',note:'15:00 返到夾得到 · 黃昏行公園+動物(海豹/企鵝)',o:2},
     {n:'Radiomuseet',ll:[57.7087,11.9453],cat:'電台博物館(你 saved)',note:'二–日12–15 · 古董電台 niche · optional',o:8,opt:true}],
   notes:['⚠️ 09:00 後打 070-66 77 210 confirm 天氣(風/雨即 cancel)+ 約 taxi。drop-in 限週末,7/11 六啱。','😤 老實講:滑翔傘係「半日吊住」——唔係飛得耐(空中 5–8 分),係等風+排隊唔可控,隨時拖到 15:00。所以同日唔好再排 must-do,Slottsskogen 黃昏散步當 bonus。','天氣差全日 backup:Universeum 科學館/水族館(室內) + Feskekörka 魚市場 + Haga café。'],
@@ -196,7 +197,7 @@ const DAYS = [
   meals:{b:'IKEA Hotell', l:'🍽 IKEA Museum café', d:'火車上 / Helenelund 簡單煮'},
   steps:[{t:'10:00',a:'IKEA 補完 / Älmhult 散步'},{t:'17:09',a:'SJ X2000 → Stockholm(WRAVLE37)'},{t:'20:38',a:'到中央站 → 落 City 站轉 pendeltåg 41 北行'},{t:'21:15',a:'到 Helenelund → 行去 Airbnb(host Jerker 知你遲到)'}],
   stops:[
-    {n:'IKEA Museum',ll:[56.5523,14.1344],cat:'博物館',note:'IKEAgatan 5 · 原祖 IKEA(1943)展覽 + Småland 積木 · 99–149 SEK · ⚠️7月hours confirm',o:1}],
+    {n:'IKEA Museum',ll:[56.5523,14.1344],cat:'博物館',note:'IKEAgatan 5 · 原祖 IKEA(1943)展覽 + Småland 積木 · 票價+7月 hours 官網臨行確認',o:1}],
   notes:['IKEA Museum 全日玩(展覽 + Småland 積木體驗 + café)。','🚆 17:09 火車 → Stockholm 20:38 → 行落 City 站轉 pendeltåg 41 北行(~15分一班) → ~16 分鐘到 Helenelund → 行去屋企,預 ~21:15-21:30 到。','📩 host Jerker 已知你哋遲到;有咩變化 Airbnb message 佢。'],
   bk:[{s:'paid',t:'🚆 SJ Älmhult→Stockholm'},{s:'paid',t:'🏠 Stockholm Airbnb(Helenelund·已訂)'}] },
 
@@ -210,8 +211,8 @@ const DAYS = [
     {n:'Nordiska museet',ll:[59.3291,18.0939],cat:'🧶 紡織/文化',note:'紡織收藏(crochet) · 170',o:2},
     {n:'Skansen',ll:[59.3266,18.1053],cat:'露天博物館',note:'歷史村 + 北歐動物;Solliden 台 = Allsång 場',o:3},
     {n:'ABBA The Museum',ll:[59.3249,18.0966],cat:'博物館(你 saved)',note:'同 Skansen 二揀一',o:4,opt:true}],
-  notes:['🎲 彈性日:定咗 = Vasa 08:30(早去先有位企)。Nordiska/Skansen/ABBA/Viking 全部跟心情——ABBA 用 code「AVICII」9 折。Allsång 6 月尾 confirm 先算。','Vasa 08:30 一開就去(人最少最好影)。Skansen / ABBA 二揀一。','🎤 晚 Allsång på Skansen(傳統週二場,Solliden 台)——⚠️ 2026 場次表未驗證到(官方頁 404),6 月尾上 skansen.se/SVT 確認 7/14 真有場先好計入行程/買飛。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 大機會兩個都俾 470。'],
-  bk:[{s:'pend',t:'🎫 SL 7-day 票(成人 470,到埗買)'},{s:'todo',t:'🎤 Allsång på Skansen(option·早買)'}] },
+  notes:['🎲 彈性日:定咗 = Vasa 08:30(早去先有位企)。Nordiska/Skansen/ABBA/Viking 全部跟心情——ABBA 用 code「AVICII」9 折。','Vasa 08:30 一開就去(人最少最好影)。Skansen / ABBA 二揀一。','🎤 晚 Allsång på Skansen(傳統週二場,Solliden 台)——2026 季 6/23 開鑼(已公布),7/14 係週二大機會有場;入場用 Skansen 飛即可(企位)。臨行上 skansen.se / SVT 睇實 7/14 單日有冇場、要唔要另票。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 兩個都俾 470。'],
+  bk:[{s:'pend',t:'🎫 SL 7-day 票(成人 470,到埗買)'},{s:'pend',t:'🎤 Allsång på Skansen(7/14 週二·臨行確認單日場)'}] },
 
 { id:'d0715', date:'7/15', dow:'三', leg:'sto', color:'#a78bda',
   title:'RIB 出海 + 咖啡器材 + Fotografiska', theme:'水上日（週三 BOGO 夜）',
@@ -255,10 +256,10 @@ const DAYS = [
   title:'收尾 + 飛走', theme:'半日 → Arlanda → 22:40 飛 HK',
   accom:{name:'（22:40 飛走）', status:'paid'},
   meals:{b:'慢早餐(Helenelund)·想跑步就附近輕鬆 jog', l:'🍽 NK/Åhléns food court', d:'機上'},
-  steps:[{t:'09:00',a:'慢早餐 / 想跑就附近 jog'},{t:'12:00',a:'最後 Gamla Stan 手信 + 退稅準備(收據+貨品隨身)'},{t:'19:00',a:'起行去機場(SL app 睇 pendeltåg 直去 Arlanda C 定入 City 轉 Arlanda Express)'},{t:'20:10',a:'到 ARN T5 → 退稅 + check-in + 安檢'},{t:'22:40',a:'MU290 起飛返香港'}],
+  steps:[{t:'09:00',a:'慢早餐 / 想跑就附近 jog'},{t:'12:00',a:'最後 Gamla Stan 手信 + 退稅準備(收據+貨品隨身)'},{t:'19:00',a:'起行去機場(SL app 睇 pendeltåg 直去 Arlanda C 定入 City 轉 Arlanda Express)·要退稅就 18:30 走'},{t:'19:45',a:'到 ARN T5（最遲 20:10）→ 退稅 + check-in + 安檢'},{t:'22:40',a:'MU290 起飛返香港'}],
   stops:[
     {n:'Årstaviken（如最後想跑·搬咗屋唔順路,改市內行）',ll:[59.3078,18.0348],cat:'晨跑步道',note:'原 Älvsjö 晨跑線;住 Helenelund 唔順路——想跑改 7/14-17 朝早 Djurgården(10-11km 經典)',o:1,opt:true},
-    {n:'Arlanda 機場',ll:[59.6468,17.9370],cat:'機場',note:'Arlanda Express 18分(另買·youth160) · ~18:00 到',o:2}],
+    {n:'Arlanda 機場',ll:[59.6468,17.9370],cat:'機場',note:'~19:00 離開市區 → ~19:30–20:00 到(最遲 20:10·起飛前 2.5h)·Arlanda Express 18分(另買·youth160)',o:2}],
   notes:['📦 執嘢日:唯一硬死線 = ~19:00 起行去機場。朝早全部自由。','🧾 退稅:咖啡器材/Acne 收據留好,退稅貨品隨身唔好 check-in,機場 Global Blue 排隊預 buffer。','⏰ ~16:00 攞返行李 → ~19:00 離開市區坐 Arlanda Express(Central→ARN 18分,每15分,youth 160 SEK)→ ~19:30 到 → 退稅+check-in+安檢 → 22:40 MU290 起飛。','住 Helenelund(北邊·Arlanda 同方向):開 SL app 睇有冇 pendeltåg 直去 Arlanda C(~25分,落車有過站費 ~130/人);冇就照入 City 轉 Arlanda Express(youth 160)。護照回程後 ≥6 個月有效。'],
   bk:[{s:'paid',t:'✈️ China Eastern 回程(PNR 喺 Apple Note)'},{s:'todo',t:'🚄 Arlanda Express(到埗買)'}] },
 ];
@@ -267,7 +268,7 @@ const DAYS = [
 const TRANSPORT = [
   {seg:'HKG→PVG→ARN', mode:'✈️ China Eastern MU724+MU289', time:'6/27 09:45→20:10', tick:'PNR 喺 Apple Note', s:'paid'},
   {seg:'ARN→Kiruna', mode:'✈️ Norwegian D8 4063', time:'6/28 11:35→13:10', tick:'YQCIPT(Apple Note)', s:'paid'},
-  {seg:'Kiruna→Abisko(起步)', mode:'🚆/🚌', time:'6/29', tick:'當地買·班次臨行查', s:'todo'},
+  {seg:'Kiruna→Abisko Turiststation(起步)', mode:'🚆 SJ 直達', time:'6/29 ~09:37→10:57(~1h20·一日約3班)', tick:'SJ app/站買·平(~$8)·臨行 app 查實 2026 班次', s:'pend'},
   {seg:'Nikkaluokta→Kiruna', mode:'🚌 巴士', time:'7/5 16:55→18:30', tick:'青年票·落 Norrmalm', s:'paid'},
   {seg:'Kiruna→Luleå→Arctic Bath', mode:'🚆 7153 + 🚗 EX30(Trip.com)', time:'7/6 12:50 火車→18:00 取車', tick:'✅ 火車+租車都訂咗(6/11)·7/8 07:30 還車', s:'paid'},
   {seg:'LLA→GOT', mode:'✈️ SK2051', time:'7/8 09:55→11:35', tick:'✅ 已買(Agoda·CityJet 營運)', s:'paid'},
@@ -288,7 +289,7 @@ const EMERGENCY = [
   {cat:'🇨🇳 中國駐瑞典大使館 領事保護(Stockholm 段)', num:'0046-763383654', note:'只接求助,按需回撥'},
   {cat:'🇨🇳 中國駐哥德堡總領館(7/8–12 用呢個)', num:'0046-709395290', note:'Göteborg 段領事保護'},
   {cat:'🇨🇳 外交部全球領保 12308', num:'+86-10-12308', note:'24h 中文求助'},
-  {cat:'🚗 Sixt 客服/roadside', num:'0771 89 00 00', note:'roadside 實際號睇取車租約合同'},
+  {cat:'🚗 租車 roadside（取車後抄低）', num:'(Trip.com voucher / 租約合同上供應商號)', note:'取車時抄低供應商 24h roadside 號·離線存'},
   {cat:'🚗 全國拖車路援(備用)', num:'+46 771-912 912', note:'Assistancekåren'},
   {cat:'🧖 Arctic Bath / 各酒店直線', num:'(訂房 confirm 後抄低)', note:'check-in 抄 reception 號'},
   {cat:'💳 信用卡 lost-card', num:'(Mox 卡背 + 後備卡)', note:'申請後抄低,離線存'},
@@ -296,32 +297,51 @@ const EMERGENCY = [
 ];
 const EMERG_NOTE = '行前必做:112 + 兩個領事號 + 12308 存手機;保險 hotline/保單號/Mox 卡號 買完即抄(離線);各住宿直線 check-in 抄低。⚠️ HK 護照非 EU,EHIC 唔 cover → 全靠私人旅保,行山段確認保到。';
 
-/* 清單 tab */
+/* 清單 tab — 兩人 22 日完整執喼清單（行山 6 日 + 4 城市 + 攝影）。逐格 tick */
 const CHECKLIST = [
   {grp:'🛫 行前必做（數碼準備·最易漏）', items:[
     '📍 預載離線地圖:Gaia GPS / Maps.me 下載 Kungsleden(Abisko→Nikkaluokta)+ Göteborg + Stockholm 區——⚠️山上 6 日(6/30–7/5)冇訊號,app 互動地圖載唔到底圖,靠呢個 + 紙本 Kungsleden 地圖導航',
-    '📸 截圖所有 booking 離線:8 個 STF 山屋 code · 兩段機票 confirmation · SJ 三程(app) · Trip.com 租車 voucher+取車文件 · Arctic Bath confirmation · 兩個 Airbnb · Zurich 保單 PDF(詳細喺你私人 Apple Note)',
-    '✈️ SK2051 機票已買(Agoda);7/8 09:55→11:35 直航,QR 離線截圖',
-    '🛡️ 保險單 PDF 下載離線 + 記低 24h hotline + 保單號',
-    '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290',
+    '📸 截圖所有 booking 離線:8 個 STF 山屋 code · 兩段機票 · SJ 三程(app) · Trip.com 租車 voucher+取車文件 · Arctic Bath · 兩個 Airbnb · Zurich 保單 PDF(詳細喺私人 Apple Note)',
+    '🛡️ 保險單 PDF 離線 + 記低 24h hotline + 保單號(Zurich 兩人都保·已確認)',
+    '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290 · 12308',
     '📱 eSIM/漫遊開通(瑞典覆蓋好,山區仍可能冇)·帶少量 SEK 現金(北段 card reader 可能失靈)',
+    '📲 裝定 app:SJ · Norwegian · SAS · SL · Västtrafik · Flygbussarna · Arlanda Express · Airbnb · Trip.com · STF',
   ]},
-  {grp:'🥾 行山段(6/29–7/5 · 最重要)', items:[
-    '登山鞋(已 broken-in,唔好新鞋上山) + 羊毛襪 ×4','防水 shell(jacket+pants,山地多雨風)',
-    '羊毛/merino 底層 ×2 + 中層 fleece/羽絨(早晚仍凍)','頭燈 + 後備電(午夜太陽全天光但山屋用)',
-    '濾水器/淨水片 + 1L 水樽 ×2','⚠️ 氣罐落 Kiruna 當地買(唔上得飛機) + 爐具',
-    '防蚊 DEET + 蚊帽 face net(Lapland 夏天蚊極多)','背囊 50–65L + 防水 cover + dry bag',
-    '7 日乾糧(Kiruna ICA Kvantum 補,孭 2 日 buffer 沿途補) + 行動電源','急救包 + 水泡膠布 + 個人藥 + 太陽眼鏡 + SPF',
-    'STF 會員卡 + 8 山屋 code(離線/紙本) + Kungsleden 紙本地圖'] },
-  {grp:'📷 城市段(攝影)', items:[
-    'Sony A7S III + 鏡 + 電池/SD + 清潔','三腳架(黃昏水濱/Gamla Stan 晨攝)',
-    '轉插:瑞典 Type C/F 230V(HK Type G 要轉插;叉電器多數 100–240V 通用)','城市雨具(折傘+輕防水)',
-    '學生證(Hasselblad/Konstmuseum 問免費) + 護照副本 + 保單 PDF(離線)'] },
-  {grp:'👩 女友 / 個人', items:[
-    'SPF(午夜太陽 UV 仍在)','衛生用品 HK 帶夠(行山段無得補)','個人護膚日用品自備'] },
-  {grp:'🧾 文件 / 錢', items:[
-    '護照(回程後 ≥6 個月有效)','國際駕照 + 實體信用卡(Sixt 取車按金必須)',
-    'Mox 卡(俾錢/按金前申請好) + 後備卡','所有 booking code 離線存(Apple Note)','緊急號碼存手機'] },
+  {grp:'🧾 證件 / 錢 / 卡（硬文件·手機+雲端+紙本三份）', items:[
+    '兩本護照(回程後 ≥6 個月有效) + 香港身份證','國際駕照 IDP + 香港正式駕照(司機 Yin)',
+    '司機 Ng Cho Yin 名下實體信用卡(租車按金,額度要夠) + 後備實體 Visa/Master(分開袋)','Apple Pay/Google Pay 加好卡,記得 PIN',
+    '少量 SEK 現金(山屋 card reader/滑翔傘/緊急 taxi)','護照+駕照+保單影印本,分開行李放'] },
+  {grp:'🥾 行山裝備（6/29–7/5 · 最重要·防水/防蚊/保暖/慳電）', items:[
+    '50–65L 背囊 ×2(已試重量) + 防水 rain cover + dry bag/ziplock','已 broken-in 防水行山鞋(唔好新鞋上山) + 山屋拖鞋/涼鞋',
+    '行山杖 ×2 對','防水 shell(jacket+rain pants)每人一套',
+    'Merino/快乾底層每人 ×2 + fleece/active 中層 ×1 + 輕羽絨/synthetic ×1','冷帽 + 薄手套 + buff + 羊毛行山襪每人 4–5 對',
+    '防蚊頭網每人 ×1 + DEET/picaridin(Lapland 夏天蚊極多)','太陽眼鏡 + SPF50 + 防曬唇膏(午夜太陽 UV 仍在)',
+    '濾水器 + 後備淨水片 + 1.5–2L 水樽/soft flask 每人','爐頭 + 火機/防水火柴 + 小鍋/杯/spork/摺刀 ｜⚠️氣罐落 Kiruna/Abisko 當地買(唔上得飛機)',
+    '6 日主糧 + 2 日 emergency buffer(Kiruna ICA Kvantum 補·沿途 Abiskojaure/Alesjaure/Sälka 補) + 能量 bar/電解質','頭燈 + 後備電(午夜太陽全天光但山屋內仍要)',
+    'Sleeping bag liner/travel sheet(STF 床位一般唔使厚睡袋·被/枕/床單規則臨行確認) + 快乾毛巾 + earplugs + eye mask','急救包 + 水泡膠布(Compeed)第一日就要易取 + tick remover + after-bite',
+    '垃圾袋 + 廁紙 + wet wipes + 酒精搓手液','Repair kit(duct tape/針線/索帶/後備鞋帶) + STF 會員資料 + 8 山屋 code + Kungsleden 紙本地圖+指南針'] },
+  {grp:'📷 攝影（Yin·山屋無電→多電+防水+備份）', items:[
+    'Sony A7S III 機身 + 主鏡/廣角/長焦(按需) + 前後蓋','三腳架 + 快拆板/L bracket + CPL/ND filter',
+    '相機電池 4–6 粒 + 雙充/USB-C 充電器','SD/CFexpress 卡多張(分散存) + SSD/card reader(城市段備份)',
+    '相機雨罩/防水袋(RIB+山區雨) + blower/lens cloth/清潔筆/sensor swab','相機 strap/Peak Design clip + 大尿袋 20000–27000mAh(手提上機) + 器材 serial 離線'] },
+  {grp:'👕 衣物（兩人·北極圈 0–15°C + 城市 15–25°C）', items:[
+    '行山快乾上衣每人 2–3 + 行山褲每人 1–2','城市 top 每人 5–7 + 長褲/裙/dress 每人 2–3 + 輕外套/overshirt',
+    '內衣褲 7–10 日量(途中洗) + 睡衣 + 晚餐稍整齊 outfit 一套','泳衣(Arctic Bath spa 必帶!) + 拖鞋/flip-flops + 城市舒服鞋',
+    '洗衣袋 + 旅行洗衣液 + 晾衫繩 + 壓縮袋/packing cubes'] },
+  {grp:'🔌 電子 / 充電（瑞典 EU Type C/F 230V）', items:[
+    'EU Type C/F 轉插 2–3 個(HK Type G 要轉) + 多口 USB-C PD charger','USB-C/Lightning/相機線 + 手機/耳機/手錶 charger',
+    '尿袋每人至少一個(大容量手提上機) + AirTag/行李 tracker','車用 USB-C 線/充電頭(租車段) ｜ 拖板要輕量+支援 230V'] },
+  {grp:'💊 藥物 / 個人護理（女友用品+處方藥香港帶足）', items:[
+    '處方藥原包裝 + 英文藥名 + 止痛/消炎藥 + 抗敏感藥','腸胃藥/止瀉藥/口服補液鹽 + 暈車暈船藥 + 感冒藥/喉糖',
+    '消毒棉/紗布/彈性繃帶','女性衛生用品足量(行山段無得補) + 避孕用品',
+    '眼鏡/隱形眼鏡 + con 水 + 指甲鉗/眉鉗','牙刷牙膏 + 洗頭沖涼旅行裝 + 保濕/潤唇 + 防曬'] },
+  {grp:'🛍 城市（購物·退稅·app·防偷）', items:[
+    '摺傘/輕雨衣 + 環保袋/tote(買毛線+咖啡器材+黑膠)','退稅文件夾:收據 + passport copy + 貨品清單(退稅貨隨身唔好 check-in)',
+    '小斜孭袋/防盜袋 + 水樽','學生證(Hasselblad/Vasa 等問學生價·能否用逐館問) + 餐廳/活動 booking 截圖',
+    '小鎖(Airbnb/行李寄存) + 行李秤(回程購物後有用)'] },
+  {grp:'⚠️ 最易漏（唔貴但漏咗影響行程）', items:[
+    '氣罐不可上機→瑞典買·回程唔好帶 ｜ 登山杖/摺刀放寄艙 ｜ 尿袋一定手提','山屋多數無電→手機相機飛行模式慳電 ｜ 山區無訊號→booking/map/保單全離線',
+    '防曬+太陽眼鏡(冷都會曬傷) ｜ 水泡膠布第一日就要易取 ｜ sleep mask(午夜太陽瞓覺) ｜ earplugs(山屋多人房)','相機雨罩(RIB/山雨) ｜ 退稅貨+收據隨身 ｜ 租車按金=司機名下實體卡 ｜ 7/8 breakfast bag 確認 06:00 或更早 ｜ Abisko→Nikkaluokta 行李寄運 deadline/收件點要確認'] },
 ];
 
 /* 每日 hero 相（真實 Wikimedia Commons CC 授權，已 download 落 img/） */
@@ -382,7 +402,7 @@ const EX = {
  d0709:{carry:'學生證(問博物館學生價,20歲要俾75)·薄外套(室內冷氣坐成日)·水樽+snack·相機多帶電+卡',tip:'💡你 saved 嘅 Victor Hasselblad Statue 今日順路影(攝影朝聖);食:Hasselblad 出門 Mr P/Familjen,或場內 Ceno;da Matteo 順手一杯。',pace:'World of Volvo ~2-3h(唔使搶 timed,網買慳10%全日有效)+Hasselblad ~1-1.5h;Konstmuseum 逢一閉今日四 OK;全室內落雨唔怕。'},
  d0710:{carry:'暖 layer(室內+火車冷氣)·Västtrafik app·水樽+snack(Trollhättan 嘢食少)·相機',tip:'💡Saab 隔籬 Innovatum 科學館行2分(combo 票)+運河船閘古工程峽谷(免費上鏡);⚠️瀑布放水 2026 夏天冇(只7/17-19);Radiomuseet/Backa Teater 喺市內唔順路留返。',pace:'火車~38分;Saab~2h+Innovatum~1.5h+船閘~1-1.5h;⚠️Saab hours 矛盾→打 +46-520-289440 confirm 週五開;學生證慳60/人。'},
  d0711:{carry:'⚠️現金 1800 SEK(滑翔傘唔收咭)·波鞋長褲風褸(高空凍)·相機綁帶/GoPro·水樽snack(等風)',tip:'9am 後打 070-66 77 210 confirm 天氣先叫 taxi 去 Kareby(~25分·400-550 SEK);飛唔到→Radiomuseet(週六12-15)/Haga/Feskekörka/Universeum;~15:00 返到 Slottsskogen 黃昏散步。',pace:'全程最靠天一日:飛到=賺,飛唔到=室外咖啡攝影日;滑翔傘半日吊住,唔好再排 must-do。'},
- d0712:{carry:'早餐/snack 上火車(4h20)·行李齊裝退房·薄外套·SJ W9NULT2R 截圖離線',tip:'💡IKEA Museum(每日10-18,成人60/18歲下免)館內有餐廳→14:15 到先食遲午餐(瑞典肉丸朝聖)再入館;Gothia Cup+Pippi pop-up 暑期氛圍。',pace:'⚠️趕 09:55 早火車(退房+行李+去 Göteborg C 預 buffer);坐4鐘→先 check-in 放行李食飽再行展(~2-3h 暖身)。'},
+ d0712:{carry:'早餐/snack 上火車(4h20)·行李齊裝退房·薄外套·SJ W9NULT2R 截圖離線',tip:'💡IKEA Museum(每日約10-18·票價+hours 官網臨行確認)館內有餐廳→14:15 到先食遲午餐(瑞典肉丸朝聖)再入館;Gothia Cup+Pippi pop-up 暑期氛圍。',pace:'⚠️趕 09:55 早火車(退房+行李+去 Göteborg C 預 buffer);坐4鐘→先 check-in 放行李食飽再行展(~2-3h 暖身)。'},
  d0713:{carry:'行李退房寄存·薄外套·SJ WRAVLE37 截圖·snack/晚餐(車上食)',tip:'💡IKEA Museum 限定手信(唔係普通 IKEA 貨)今日最後機會;⚠️host Jerker 已知 ~21:30 到;有變化先 message。',pace:'玩足上半日(~3-4h)+12:00 午餐,~15:30-16:00 攞行李去站;17:09→20:38 坐成晚。'},
  d0714:{carry:'⚠️薄外套/冷衫(Vasa 館內 18-19°C,坐成日)·水樽+snack(島上貴)·A7S III 廣角(暗船高ISO)·防曬太陽眼鏡(Skansen 露天)·摺傘·舒服波鞋',tip:'💡Vasa 隔籬 Vikingaliv(你 saved)+Nordiska 同一條 Djurgårdsvägen 串連順路;Rosendals Trädgård 花園 fika;晚 Allsång på Skansen 就喺島上唔使轉場。',pace:'Vasa 08:30 早開~2h+Nordiska~2h(crochet 核心,可 3-4h)+Skansen 半日;⚠️ABBA/Viking 做機動,四館一日做唔晒→鎖 Vasa+Nordiska+Skansen。'},
  d0715:{carry:'🚤RIB 後備衫+唔怕濕鞋(高速濺水,入面衫濕咗冇得換)·A7S III 防水罩(海上唔換鏡)·防風褸(海上凍)·水樽snack(船上2h冇得買)',tip:'💡碼頭 Strandvägen 順路 Östermalms Saluhall 晚餐+Kungsträdgården fika;黃昏返 SoFo 掃咖啡器材(Drop+Johan&Nyström);Fotografiska 週三18:00後買一送一,開到23:00。',pace:'RIB 2h(提早幾日 book,揀黃昏場光靚)+Fjäderholmarna 半日(⚠️查實尾班船);睇天氣,落雨同16/17對調。'},
@@ -391,7 +411,7 @@ const EX = {
  d0718:{carry:'退稅貨+收據隨身唔好 check-in(要驗貨)·外套(機艙/Arlanda Express 凍)·護照+booking code 離線',tip:'💡最後 fika/Gamla Stan 漏網/Åhléns·NK 手信;退稅 Global Blue 喺出發層預 20-40 分排隊。',pace:'⚠️冇 buffer:最遲 20:10 到 ARN(起飛前2.5h)→~19:00 一定起行;住 Helenelund 順方向——SL app 睇 pendeltåg 直去 Arlanda C(~25分+過站費130/人)定入 City 轉 Arlanda Express(youth 160)邊樣快。'},
 };
 
-/* Sixt 單點故障 → 實際 Plan B mini-itinerary */
+/* 租車單點故障 → 實際 Plan B mini-itinerary（車已訂·僅萬一取車出事用） */
 const PLANB = {title:'🧯 後備知識（車已訂——僅供萬一取車出事先用）', steps:[
  '🅱️1 首選·7/6 入：火車 7153 Kiruna 12:50→Boden 16:31 → 同站轉 Buss 44 16:55→Harads Gulf 17:40（行 ~1.2km 到 Arctic Bath / 叫酒店接）。想早到：Buss 10 Kiruna 07:20→Luleå 12:40 → Buss 44 13:50→15:23 到。⚠️ 夏季表冇「10:46 火車」呢回事,Kiruna 朝早冇直達火車。',
  '🅱️1 首選·7/8 出（⛔ 公共交通最早 09:57 先到機場 = 趕唔切 09:55 機,實測）：Arctic Bath transfer 或 taxi ~07:00 走 → 08:15 到 LLA。Taxi 預 2,500–3,000 SEK/車（同村 Treehotel 官方接送 2,700 做基準）。Boden Taxi +46 921-177 00 要【7/7 18:00 前】book 死線;後備 Luleå Taxi 0920-10 000（24h）。',
@@ -438,7 +458,7 @@ const BOOK = [
  {t:'🚤 RIB Stockholm',s:'todo',d:'7/15 下午（黃昏光靚）',pax:'2 人',price:'1,490 SEK/人（2 人 2,980）',where:'https://www.ribstockholm.com/experiences/2-hour-tour/',wl:'ribstockholm.com',dl:'提早幾日揀日子·睇天氣前一兩日 lock'},
  {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚（待官方公佈場次）',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.skansen.se',wl:'skansen.se',dl:'2026 場次表 6 月尾先出 → 到時上 skansen.se 睇 7/14 有冇場先計入;企位用 Skansen 飛即可'},
  {t:'🪂 滑翔傘（天氣 backup）',s:'todo',d:'7/11 12–15（drop-in）',pax:'2 人',price:'900 SEK/人（2 人 1,800·現金/Swish）',where:'tel:0706677210',wl:'打 070-66 77 210',dl:'當日 9am 後打確認天氣先去·唔收咭'},
- {t:'🛡️ 旅遊保險（已買 ✅）',s:'paid',d:'生效 6/27 · Zurich 自在旅遊',pax:'持有人 Yin（⚠️ 覆核埋 Kam Ling 有冇 cover）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'開保單 PDF check 兩樣:①cover 唔 cover 第二人 ②條款有冇 hiking + emergency evacuation。保單 PDF 下載落手機離線'},
+ {t:'🛡️ 旅遊保險（已買 ✅·兩人都保）',s:'paid',d:'生效 6/27–7/19 · Zurich 自在旅遊',pax:'Yin + Kam Ling 兩人都受保（已確認）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'✅ 已核實:兩人都保·行山有 cover(只 excl >5000m·Kungsleden 最高 1140m 安全)·含 emergency evacuation。24h hotline +852 2886 3977。保單 PDF 下載落手機離線'},
 ];
 
 window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, IMG_CREDITS, CHEAT, EX, PLANB, SAVED, BOOK };
