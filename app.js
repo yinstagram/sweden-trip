@@ -50,7 +50,21 @@ function renderNow(){
   const heroD=today||dayById('d0629');
   const dis=JSON.parse(localStorage.sw_dismiss||'{}');
   const tEX=today?S.EX[today.id]:null;
-  const todayBlock=today?`<div class="card" style="border-color:color-mix(in srgb,${today.color} 55%,transparent)"><div style="font-weight:800;font-size:14px;color:${today.color};margin-bottom:7px">📍 今日 ${today.date}（${today.dow}）· ${esc(today.title)}</div>${tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:''}<button class="btn ghost" style="margin-top:9px" onclick="window.__dayDetail('${today.id}')">睇今日全部 ›</button>${nx?`<div class="muted" style="font-size:12px;margin-top:9px">明日 ${nx.date}：${esc(nx.title)}</div>`:''}</div>`:'';
+  // 時間感「下一步」timeline(旅程進行中)
+  const nowMin=now.getHours()*60+now.getMinutes();
+  const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;};
+  let stepsHtml='';
+  if(today&&today.steps&&today.steps.length){
+    const ss=today.steps; let cur=-1; ss.forEach((s,i)=>{if(toMin(s.t)<=nowMin)cur=i;});
+    const nextI=cur+1;
+    stepsHtml=`<div class="ns">${ss.map((s,i)=>{
+      const cl=i<cur?'done':i===cur?'now':i===nextI?'next':'up';
+      const tag=i===nextI?'👉 ':i===cur?'▸ ':'';
+      return `<div class="ns-row ${cl}"><span class="ns-t">${s.t}</span><span class="ns-a">${tag}${telLink(esc(s.a))}</span></div>`;
+    }).join('')}${cur>=ss.length-1?`<div class="ns-row up"><span class="ns-t">✓</span><span class="ns-a">今日行程完${nx?`,準備聽日 ${esc(nx.title)}`:''}</span></div>`:''}</div>`;
+  }
+  const todayInner = stepsHtml || (tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:'');
+  const todayBlock=today?`<div class="card today" style="border-left:4px solid ${today.color}"><div class="today-h" style="color:${today.color}">📍 今日 ${today.date}（${today.dow}）· ${esc(today.title)}</div>${todayInner}<button class="btn ghost" style="margin-top:11px" onclick="window.__dayDetail('${today.id}')">睇今日全部 ›</button>${nx&&!stepsHtml?`<div class="muted" style="font-size:12px;margin-top:9px">明日 ${nx.date}：${esc(nx.title)}</div>`:''}</div>`:'';
   V.innerHTML=`
    <div class="nowhero" style="background-image:linear-gradient(180deg,rgba(5,6,14,.15),rgba(5,6,14,.92)),url('${img(heroD)}')">
      <div class="nh-top">🇸🇪 Sweden 2026</div>
@@ -58,8 +72,6 @@ function renderNow(){
      <div class="nh-sub">${esc(S.TRIP.sub)} · 22 日</div>
    </div>
    ${todayBlock}
-   ${dis.robynfix?'':`<div class="alert">🎵 <b>更正：Robyn 唔係 7 月</b> — 場館官方(Stockholm Live)證實 Robyn Stockholm 場 = <b>10/17 @ 3Arena</b>(trip 之後),之前「7/16-17 Avicii Arena」係錯誤情報,已剔除。行程期間替代 live/電音查緊中。<button class="lnk" onclick="window.__dismiss('robynfix')">✕ 知道</button></div>`}
-   ${dis.alllocked?'':`<div class="jackpot">🎉 <b>大局已定（6/13）</b>：22 晚住宿、4 程機、3 程火車、租車、保險——全部訂晒付晒。淨返小事：覆 Arctic Bath（敏感+蛋糕口味）、實體信用卡袋好、行程中小飛（Avicii/Stadshuset/RIB）。<button class="lnk" onclick="window.__go('status')">睇狀態 ›</button> <button class="lnk" onclick="window.__dismiss('alllocked')">✕ 知道</button></div>`}
    <div class="sec-h">📊 一眼睇晒 Booking</div>
    <div class="statgrid">
      <div onclick="window.__go('status')"><div class="n" style="color:var(--green)">${paid}</div><div class="l">✅ 已訂</div></div>
@@ -70,7 +82,7 @@ function renderNow(){
    <div class="quickrow">
      <button class="quick" onclick="window.__go('days')">📅<span>行程</span></button>
      <button class="quick" onclick="window.__go('map')">🗺️<span>地圖</span></button>
-     <button class="quick" onclick="window.__photomap()">📷<span>攝影點</span></button>
+     <button class="quick" onclick="window.__go('status')">📋<span>狀態</span></button>
      <button class="quick" onclick="window.__go('kit')">🆘<span>緊急/清單</span></button>
    </div>
    <div class="muted" style="font-size:11.5px;margin-top:16px">⚠️ 所有 2026 年 7 月暑期 hours/班次/天氣 = 臨行前一星期 reconfirm。圖片 CC 授權(見實用 tab)。更新 ${esc(S.TRIP.updated)}。</div>`;
@@ -189,9 +201,10 @@ async function drawDay(){
 /* ---------- 審查 REVIEW（多 agent audit 結果）---------- */
 const RV = window.REVIEW||{days:{},global:[],wins:[]};
 const rvSev = {high:'🔴',med:'🟡',low:'🟢'};
-const rvItem = r=>`<div class="rv ${r.sev}"><div class="rv-t">${rvSev[r.sev]||''} ${esc(r.t)} <span class="rv-st">${esc(r.st||'')}</span></div><div class="rv-fix">→ ${telLink(esc(r.fix||''))}</div>${r.src?`<div class="rv-src">${esc(r.src)}${r.deadline?` · ⏰ ${esc(r.deadline)}`:''}</div>`:(r.deadline?`<div class="rv-src">⏰ ${esc(r.deadline)}</div>`:'')}</div>`;
-function rvDay(id){const items=(RV.days||{})[id];if(!items||!items.length)return'';
-  return `<div class="block rvblock"><div class="bh">🔍 審查（${items.length}）— 多 agent 挑骨頭,逐項 check</div>${items.map(rvItem).join('')}</div>`;}
+const rvItem = r=>`<div class="rv ${r.sev}"><div class="rv-t">${rvSev[r.sev]||''} ${esc(r.t)}</div><div class="rv-fix">→ ${telLink(esc(r.fix||''))}</div>${r.deadline?`<div class="rv-src">⏰ ${esc(r.deadline)}</div>`:''}</div>`;
+function rvDay(id){let items=(RV.days||{})[id];if(!items)return'';
+  items=items.filter(x=>x.sev!=='low');if(!items.length)return'';
+  return `<div class="block rvblock"><div class="bh">⚠️ 呢日要留意</div>${items.map(rvItem).join('')}</div>`;}
 
 /* ---------- 狀態 STATUS ---------- */
 function renderStatus(){

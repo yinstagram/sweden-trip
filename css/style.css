@@ -279,3 +279,18 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .rv-fix{font-size:12.5px;color:var(--text);line-height:1.65;margin-top:6px}
 .rv-src{font-size:10.5px;color:var(--muted);margin-top:5px}
 .rvblock{border-color:color-mix(in srgb,var(--cyan) 28%,transparent)}
+/* ── 今日 + 時間感「下一步」timeline ── */
+.today{position:relative}
+.today-h{font-weight:700;font-size:14px;margin-bottom:11px;letter-spacing:-.01em}
+.ns{margin:2px 0}
+.ns-row{display:flex;gap:11px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.ns-row:last-child{border:0}
+.ns-t{font-family:var(--D);font-variant-numeric:tabular-nums;font-weight:600;color:var(--muted);min-width:44px;font-size:12.5px}
+.ns-a{flex:1;color:var(--text);line-height:1.5}
+.ns-row.done{opacity:.4}
+.ns-row.done .ns-a{text-decoration:line-through}
+.ns-row.now .ns-t{color:var(--gold2)}
+.ns-row.now .ns-a{color:var(--white);font-weight:500}
+.ns-row.next{background:color-mix(in srgb,var(--gold) 10%,transparent);margin:2px -9px;padding:10px 9px;border-radius:10px;border-bottom:0}
+.ns-row.next .ns-t{color:var(--gold)}
+.ns-row.next .ns-a{color:var(--white);font-weight:600}
