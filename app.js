@@ -54,13 +54,14 @@ function renderNow(){
   const nowMin=now.getHours()*60+now.getMinutes();
   const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;};
   let stepsHtml='';
-  if(today&&today.steps&&today.steps.length){
-    const ss=today.steps; let cur=-1; ss.forEach((s,i)=>{if(toMin(s.t)<=nowMin)cur=i;});
-    const nextI=cur+1;
+  const ssrc=today&&(today.tl||today.steps);
+  if(ssrc&&ssrc.length){
+    const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(toMin(s.t)<=nowMin)cur=i;});
+    const nextI=cur+1; const lbl=s=>s.title||s.a;
     stepsHtml=`<div class="ns">${ss.map((s,i)=>{
       const cl=i<cur?'done':i===cur?'now':i===nextI?'next':'up';
       const tag=i===nextI?'👉 ':i===cur?'▸ ':'';
-      return `<div class="ns-row ${cl}"><span class="ns-t">${s.t}</span><span class="ns-a">${tag}${telLink(esc(s.a))}</span></div>`;
+      return `<div class="ns-row ${cl}"><span class="ns-t">${s.t}</span><span class="ns-a">${tag}${telLink(esc(lbl(s)))}</span></div>`;
     }).join('')}${cur>=ss.length-1?`<div class="ns-row up"><span class="ns-t">✓</span><span class="ns-a">今日行程完${nx?`,準備聽日 ${esc(nx.title)}`:''}</span></div>`:''}</div>`;
   }
   const todayInner = stepsHtml || (tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:'');
@@ -114,29 +115,80 @@ function renderDays(){
   V.querySelectorAll('.legchip').forEach(b=>b.onclick=()=>{dayLeg=b.dataset.l;renderDays();});
   V.querySelectorAll('.daycard').forEach(b=>b.onclick=()=>renderDayDetail(b.dataset.d));
 }
+/* ---------- 時間軸 timeline（收合卡）---------- */
+let BUY=JSON.parse(localStorage.sw_buy||'{}');
+const KIND={fixed:{c:'#e8956a'},move:{c:'#7c89b5'},task:{c:'#34c6d8'},flex:{c:'#a78bda'}};
+function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';return`<details class="wxbar"><summary><span>🌤 今日天氣</span><span class="wxchip">${esc(w.chip)}</span><span class="wxcaret">▾</span></summary><div class="wxd">${esc(w.detail)}</div></details>`;}
+function tlItem(d,it,ti){
+  const ki=KIND[it.k]||KIND.flex;
+  const buy=(it.buy&&it.buy.length)?`<div class="tl-buy"><div class="tl-buyh">🛒 要買 / 要做（撳格仔 tick 住去做）</div>${it.buy.map((b,bi)=>{const k='b_'+d.id+'_'+ti+'_'+bi;const on=BUY[k];return`<label class="buyck ${on?'done':''}" data-k="${k}"><input type="checkbox" ${on?'checked':''}><span>${telLink(esc(b))}</span></label>`;}).join('')}</div>`:'';
+  const fk={open:'🕐',price:'💰',booking:'📋'};
+  const facts=it.facts?Object.entries(it.facts).filter(e=>e[1]).map(e=>`<span class="tl-fact">${fk[e[0]]||''} ${esc(e[1])}</span>`).join(''):'';
+  const tips=(it.tips&&it.tips.length)?`<ul class="tl-tips">${it.tips.map(t=>`<li>${telLink(esc(t))}</li>`).join('')}</ul>`:'';
+  const warn=it.warn?`<div class="tl-warn">⚠️ ${telLink(esc(it.warn))}</div>`:'';
+  let acts='';
+  if(it.ll)acts+=`<a class="tl-act" target="_blank" href="${gmaps(it.title,it.ll)}">📍 Maps</a>`;
+  if(it.phone)acts+=`<a class="tl-act" href="tel:${(''+it.phone).replace(/[^\d+]/g,'')}">📞 ${esc(it.phone)}</a>`;
+  if(it.link)acts+=`<a class="tl-act" target="_blank" href="${esc(it.link)}">🔗 ${esc(it.linkLabel||'官網')}</a>`;
+  const bk=it.bk?`<span class="st ${it.bk.s}">${S.BK[it.bk.s].ico} ${esc(it.bk.t)}</span>`:'';
+  const tags=`${it.buy?'<span class="tl-tag buy">🛒</span>':''}${it.warn?'<span class="tl-tag warn">⚠️</span>':''}${it.bk?`<span class="tl-tag s-${it.bk.s}">${S.BK[it.bk.s].ico}</span>`:''}`;
+  const body=it.desc||facts||buy||tips||warn||acts||bk;
+  return`<div class="tl k-${it.k||'flex'}" style="--kc:${ki.c}">
+    <div class="tl-time">${esc(it.t)}</div><span class="tl-node"></span>
+    <div class="tl-card">
+      <button class="tl-main" type="button" aria-expanded="false"${body?'':' disabled'}>
+        <span class="tl-ico">${it.ico||'•'}</span>
+        <span class="tl-head"><span class="tl-ttl">${esc(it.title)}</span>${it.loc?`<span class="tl-loc">📍 ${esc(it.loc)}</span>`:''}</span>
+        <span class="tl-tags">${tags}</span>${body?'<span class="tl-caret">▾</span>':''}
+      </button>
+      ${body?`<div class="tl-body"><div class="tl-bodyin">
+        ${it.desc?`<p class="tl-desc">${telLink(esc(it.desc))}</p>`:''}
+        ${facts?`<div class="tl-facts">${facts}</div>`:''}${buy}${tips}${warn}
+        ${(acts||bk)?`<div class="tl-acts">${acts}${bk}</div>`:''}
+      </div></div>`:''}
+    </div></div>`;
+}
+function bindTl(scope){
+  scope.querySelectorAll('.tl-main:not([disabled])').forEach(btn=>{btn.onclick=e=>{if(e.target.closest('a,label,input'))return;const tl=btn.closest('.tl');const o=tl.classList.toggle('is-open');btn.setAttribute('aria-expanded',o?'true':'false');};});
+  scope.querySelectorAll('.buyck').forEach(l=>{l.querySelector('input').onchange=e=>{if(e.target.checked)BUY[l.dataset.k]=1;else delete BUY[l.dataset.k];localStorage.sw_buy=JSON.stringify(BUY);l.classList.toggle('done',e.target.checked);};});
+}
 function renderDayDetail(id){
   killDmap();const d=dayById(id);window.scrollTo(0,0);
-  const sun=S.SUN[legOf(id)];const ex=S.EX[id];
-  const cap=S.HERO_CAP[id]||'';
+  const sun=S.SUN[legOf(id)];const ex=S.EX[id];const cap=S.HERO_CAP[id]||'';
+  const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
+  const bks=(d.bk||[]).map(b=>`<span class="st ${b.s}">${S.BK[b.s].ico} ${esc(b.t)}</span>`).join('');
+  const dir=dirURL(d.stops||[]);
+  const heroHtml=`<div class="dd-hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8)),url('${img(d)}')">
+     <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
+     ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>`;
+  const exHtml=ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:'';
+  const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
+  if(d.tl&&d.tl.length){
+    const tlHtml=`<div class="timeline">${d.tl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
+    const mapBlock=noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`
+      :(d.stops&&d.stops.length?`<div class="block"><div class="bh">🗺 今日地圖 ${dir?`<a class="gm" style="margin-left:auto" href="${dir}" target="_blank">🧭 Google 路線</a>`:''}</div><div id="dmap" class="dmap"></div></div>`:'');
+    V.innerHTML=`<button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
+      ${heroHtml}${wxBar(legOf(id))}
+      <div class="tl-h">⏱ 今日時間線<span class="muted"> · 撳一格展開詳情 / 要買咩 / 注意</span></div>
+      ${tlHtml}${accomHtml}${exHtml}${mapBlock}
+      <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>`;
+    bindTl(V);if(document.getElementById('dmap'))makeMini(d);return;
+  }
+  /* —— fallback：未轉 timeline 嘅日子 —— */
   const meals=`<div class="meal"><span>🌅 ${esc(d.meals.b)}</span><span>☀️ ${esc(d.meals.l)}</span><span>🌙 ${esc(d.meals.d)}</span></div>`;
   const stops=(d.stops||[]).sort((a,b)=>a.o-b.o).map(s=>`
     <div class="stop ${s.opt?'opt':''}"><div class="o">${s.opt?'＋':s.o}</div>
       <div class="sb"><b>${esc(s.n)}</b> <span class="c">· ${esc(s.cat)}</span>${isPhoto(s)?' <span class="pc">📷</span>':''}<div class="nt">${telLink(esc(s.note||''))}</div></div>
       <a class="gm" href="${gmaps(s.n,s.ll)}" target="_blank">📍Maps</a></div>`).join('');
   const notes=(d.notes||[]).map(n=>`<div class="note-li">${telLink(esc(n))}</div>`).join('');
-  const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
-  const bks=(d.bk||[]).map(b=>`<span class="st ${b.s}">${S.BK[b.s].ico} ${esc(b.t)}</span>`).join('');
-  const dir=dirURL(d.stops||[]);
   V.innerHTML=`
    <button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
-   <div class="dd-hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8)),url('${img(d)}')">
-     <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
-     ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>
+   ${heroHtml}${wxBar(legOf(id))}
    ${sun?`<div class="sunbar"><b>${sun.badge}</b> ${esc(sun.txt)}</div>`:''}
-   ${ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:''}
-   <div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>
+   ${exHtml}
+   ${accomHtml}
    <div class="block"><div class="bh">🍽 早 / 午 / 晚</div>${meals}</div>
-   <div class="block"><div class="bh">📍 去邊 · 點行順 ${d.stops&&d.stops[0]?`<a class="wxlink" href="${wxURL(d.stops[0].ll)}" target="_blank">🌤 查天氣</a>`:''}${dir?`<a class="gm" style="margin-left:8px" href="${dir}" target="_blank">🧭 路線</a>`:''}</div>
+   <div class="block"><div class="bh">📍 去邊 · 點行順 ${dir?`<a class="gm" style="margin-left:8px" href="${dir}" target="_blank">🧭 路線</a>`:''}</div>
      ${noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`:'<div id="dmap" class="dmap"></div>'}${stops||'<div class="muted">—</div>'}</div>
    <div class="block"><div class="bh">⚠️ 注意</div>${notes||'<div class="muted">—</div>'}</div>
    ${rvDay(id)}

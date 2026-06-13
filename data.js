@@ -31,7 +31,13 @@ const DAYS = [
   title:'抵瑞典', theme:'HK → Arlanda 過夜',
   accom:{name:'Comfort Hotel Arlanda（機場過夜）', status:'paid'},
   meals:{b:'機上', l:'機上', d:'機場 / 酒店'},
-  steps:[{t:'07:00',a:'到香港機場 check-in;寄喼叫地勤確認行李牌印 ARN(直掛 Stockholm)'},{t:'09:45',a:'MU724 起飛去上海'},{t:'12:25',a:'到上海 PVG — 唔使攞行李/唔使入境/唔使簽證:過一次轉機安檢去下一班 gate'},{t:'14:50',a:'MU289 起飛去 Stockholm'},{t:'20:10',a:'到 ARN → Comfort Hotel Arlanda(機場內)過夜,買定水/早餐'}],
+  tl:[
+    {t:'07:00',ico:'🧳',k:'fixed',title:'香港機場 check-in',loc:'HKG',desc:'寄喼嗰陣叫地勤確認行李牌印「ARN」(直掛 Stockholm·回程印 HKG)=唯一保險,10 秒事。',warn:'氣罐唔好帶上機(到 Kiruna 先買)',bk:{s:'paid',t:'✈️ China Eastern 來回'}},
+    {t:'09:45',ico:'✈️',k:'move',title:'MU724 香港 → 上海 PVG',desc:'~12:25 到 PVG。'},
+    {t:'12:25',ico:'🔁',k:'fixed',title:'上海 PVG 轉機',loc:'PVG',desc:'同一張飛同一間東航,行李直掛 Stockholm。唔使攞喼 / 唔使入境 / 唔使中國簽證:落機 → 過一次轉機安檢 → 去下一班 gate。',warn:'轉機 2h25 = 唯一壓力位,落機即衝去 gate'},
+    {t:'14:50',ico:'✈️',k:'move',title:'MU289 上海 → Stockholm ARN',desc:'~20:10 到 ARN(Stockholm 時間,比香港慢 6 鐘)。'},
+    {t:'20:10',ico:'🏨',k:'fixed',title:'到 ARN → Comfort Hotel Arlanda',loc:'機場內行得到',desc:'落機過一晚,翌日飛 Kiruna。買定水 + 聽日早餐,早瞓——上山前最後一張正常床(到 7/4 先有得沖涼)。',ll:[59.6468,17.9370],bk:{s:'paid',t:'🏨 Comfort Hotel Arlanda'}},
+  ],
   stops:[{n:'Comfort Hotel Arlanda',ll:[59.6468,17.9370],cat:'機場酒店',note:'落機過一晚,翌日飛 Kiruna',o:1}],
   notes:['✈️ PVG 轉機 2h25(14:50 起飛)——同一張飛同一間東航,行李直掛去 Stockholm,唔使喺上海攞喼/唔使入境/唔使中國簽證:落機→過轉機安檢→去 gate。','✅ HKG check-in 寄喼時叫地勤 confirm 行李牌印「ARN」(回程印「HKG」)=唯一保險,10 秒事。','落 ARN 21:00 後到 Comfort Hotel Arlanda,買定水/早餐。'],
   bk:[{s:'paid',t:'✈️ China Eastern 來回(PNR 喺 Apple Note)'},{s:'paid',t:'🏨 Comfort Hotel Arlanda'}] },
@@ -40,7 +46,18 @@ const DAYS = [
   title:'飛 Kiruna · 買糧+氣罐', theme:'極圈補給日',
   accom:{name:'STF Kiruna', status:'paid'},
   meals:{b:'酒店', l:'機上 / Kiruna', d:'Kiruna'},
-  steps:[{t:'08:30',a:'退房 → 去 ARN 國內 gate(Norwegian)'},{t:'11:35',a:'D8 4063 起飛去 Kiruna'},{t:'13:10',a:'到 Kiruna → 叫的士去 STF(400 SEK/車·+46 980-120 20)'},{t:'14:30',a:'ICA Kvantum 買 6 日主糧+2 日 buffer ｜ ⚠️週日 Jaktia 多數閉:氣罐先試 Intersport/超市,搞唔掂就 6/29 Abisko Fjällboden 買(已 email 預留)'},{t:'18:00',a:'執行山裝備、城市行李寄存 STF reception、早瞓'}],
+  tl:[
+    {t:'08:30',ico:'🛏',k:'move',title:'退房 → ARN 國內 gate',loc:'Comfort Hotel Arlanda',desc:'去 Norwegian 國內出發 gate。'},
+    {t:'11:35',ico:'✈️',k:'fixed',title:'D8 4063 ARN → Kiruna',desc:'~13:10 到 Kiruna。座位 20A/20B(靠窗一齊)·行李已買。',bk:{s:'paid',t:'✈️ Norwegian ARN→Kiruna'}},
+    {t:'13:10',ico:'🚖',k:'fixed',title:'到 Kiruna → 的士去 STF',loc:'Kiruna Airport',desc:'兩大喼 → 的士最方便。平版 = 機場巴士 110/人 落「Ok/Parken」站行 10 分鐘。',facts:{price:'的士固定 400 SEK/車(1-4人)'},phone:'+46 980-120 20',ll:[67.8496,20.3063]},
+    {t:'14:00',ico:'🏨',k:'task',title:'STF Kiruna check-in · 放低大喼',loc:'STF Kiruna',desc:'放低城市行李,換上行山 mode。',bk:{s:'paid',t:'🛏 STF Kiruna'}},
+    {t:'14:30',ico:'🛒',k:'task',title:'ICA Kvantum 買 6 日行山糧',loc:'Österleden 2',desc:'落機放低嘢 → Österleden 一條街掃晒。黃昏買最順。只孭 2 日,沿途山屋 shop 補返。',facts:{open:'每日 07–22'},ll:[67.8485,20.2538],
+      buy:['🍳 早餐 ×6:燕麥/muesli + 奶粉(或即食粥)','🥪 行山午餐 ×6:knäckebröd 硬麵包 + 芝士 + 香腸 + 果仁','🍝 晚餐 ×6:freeze-dried 行山餐 或 即食 pasta/risotto + 醬包','🍫 Snack:朱古力 / 能量 bar / nuts / 果乾','🧂 電解質沖劑 + 咖啡掛耳/茶','💵 撳定 SEK 現金(山屋 card reader 可能失靈)'],
+      tips:['咖啡控買定靚掛耳上山','沿途 Abiskojaure/Alesjaure/Sälka 有 shop;Singi 冇 → 7/2 Sälka 買定 7/3 糧'],bk:{s:'todo',t:'🛒 6 日行山糧'}},
+    {t:'15:00',ico:'🔥',k:'task',title:'買氣罐（Jaktia / Intersport）',loc:'Österleden 12',desc:'2 人 6 日共用爐。EN417 螺紋。',warn:'⚠️ 6/28 係週日,Jaktia(一–五10–18/六10–15)多數閉 → 試 Coop/超市附近;搞唔掂留返 6/29 Abisko Fjällboden 買(已 email abisko.butik@stfturist.se 預留)。氣罐唔上得飛機,一定當地買。',ll:[67.8444,20.2537],
+      buy:['🔥 2× 230g 螺紋(EN417)氣罐','🍴 confirm 爐頭 + 火機/防水火柴帶咗'],bk:{s:'todo',t:'🔥 氣罐(當地買)'}},
+    {t:'18:00',ico:'🎒',k:'task',title:'晚餐 + 執行山背囊 + 寄存大喼 + 早瞓',loc:'STF Kiruna',desc:'城市大喼寄存 STF reception(7/5 出山返到 Kiruna 攞返)。今晚試孭背囊重量,分配二人負重。'},
+  ],
   stops:[
     {n:'Kiruna（極圈城）',ll:[67.8496,20.3063],cat:'城/補給',note:'ARN→Kiruna 11:35–13:10(Norwegian D8 4063)',o:1},
     {n:'ICA Kvantum Kiruna',ll:[67.8485,20.2538],cat:'超市·買糧',note:'Österleden 2 · 每日 07–22 · 行山乾糧/凍乾餐一站買齊 · 黃昏買最順',o:2},
@@ -52,7 +69,17 @@ const DAYS = [
   title:'Abisko 安頓 + 午夜太陽', theme:'輕鬆熱身日(唔行正路)',
   accom:{name:'STF Abisko Turiststation（有餐廳/shop Fjällboden）', status:'paid'},
   meals:{b:'山屋', l:'山屋 Restaurang Kungsleden', d:'山屋'},
-  steps:[{t:'06:30',a:'STF Kiruna 起身 + 早餐 → 大件城市行李寄存 STF reception(7/5 返到攞返) + 最後執行山背囊'},{t:'07:55',a:'的士去 Stadshustorget(Kiruna 市中心巴士站)'},{t:'08:25',a:'Bus 91 Kiruna → Abisko Turiststation(~1h20·當地買·臨行 resrobot/Länstrafiken 查實 2026 班次)'},{t:'09:45',a:'到 Abisko Turiststation check-in → Fjällboden/Coop 買氣罐(若 6/28 未買到)+ 最後補給'},{t:'13:00',a:'下午輕活動:Abisko Canyon(行)+ Torneträsk 湖(唔踩單車)'},{t:'18:00',a:'晚餐(自煮 / Restaurang Kungsleden)→ 執 Day1 背囊早瞓;想影午夜太陽可上 Nuolja'}],
+  tl:[
+    {t:'06:30',ico:'🌅',k:'task',title:'起身 + 早餐',loc:'STF Kiruna',desc:'今日入 Abisko 起步行山。'},
+    {t:'07:35',ico:'🧳',k:'task',title:'大喼寄存 STF reception + 最後執背囊',loc:'STF Kiruna',desc:'大件城市行李留 Kiruna(7/5 返到攞),行山淨係孭背囊。',buy:['🎒 confirm:濾水器 / 頭網 / 行山杖 / 雨具 / 頭燈','🔋 尿袋叉滿(山屋多數冇電)']},
+    {t:'07:55',ico:'🚖',k:'move',title:'的士去 Stadshustorget',loc:'Kiruna 市中心巴士站',desc:'趕 08:25 Bus 91。'},
+    {t:'08:25',ico:'🚌',k:'fixed',title:'Bus 91 Kiruna → Abisko Turiststation',desc:'~1h20,當地巴士買飛。',warn:'2026 夏季實際班次臨行 resrobot.se / Länstrafiken Norrbotten 查實',bk:{s:'pend',t:'🚌 Bus 91 → Abisko'}},
+    {t:'09:45',ico:'🏔',k:'fixed',title:'到 Abisko Turiststation · check-in',loc:'STF Abisko',desc:'reception 攞 key,放低嘢。',ll:[68.3574,18.7825],bk:{s:'paid',t:'🛏 STF Abisko'}},
+    {t:'10:30',ico:'🛒',k:'task',title:'Fjällboden / Coop 最後補給',loc:'Abisko',desc:'落山前最後買嘢點。',ll:[68.3574,18.7825],
+      buy:['🔥 氣罐(若 Kiruna 週日買唔到 → 呢度買·會 sell out 要趁早)','🍫 補 snack / freeze-dried 餐','🧴 防蚊 / 防曬 backup'],bk:{s:'todo',t:'🔥 氣罐後備(Fjällboden)'}},
+    {t:'13:00',ico:'🥾',k:'flex',title:'下午輕活動:Abisko Canyon + Torneträsk 湖',loc:'Abisko 國家公園',desc:'熱身散步(唔行正路·唔踩單車)。試正式孭背囊。',ll:[68.3490,18.7700]},
+    {t:'18:00',ico:'🍴',k:'task',title:'晚餐 + 執 Day1 背囊 + 早瞓',loc:'Abisko',desc:'自煮 / Restaurang Kungsleden。聽日行 15km。',tips:['☀️ 想影午夜太陽 → 上 Nuolja(Aurora Sky Station 吊椅 ~20:00–01:30·現場買):頂俯瞰 Torneträsk + Lapporten = 攝影 jackpot。但聽日要行,瞓夠先好通頂。']},
+  ],
   stops:[
     {n:'STF Abisko Turiststation',ll:[68.3574,18.7825],cat:'山屋·起點',note:'Fjällboden shop 有 gas/凍乾餐;大件行李留咗喺 STF Kiruna(7/5 返到攞)·Abisko 都有免費上鎖行李房做後備',o:1},
     {n:'Aurora Sky Station（吊椅）',ll:[68.3530,18.7300],cat:'吊椅·觀景',note:'午夜太陽班 6/14–7/19 20:00–01:30 → 6/29 行得 · 頂俯瞰 Torneträsk + Lapporten',o:2}],
@@ -364,6 +391,15 @@ const SUN = {
   sto:{badge:'🌅 黃金時刻', txt:'Stockholm 7 月:日出 ~03:40 · 日落 ~22:00。Gamla Stan 晨攝 ~04:00 人最少;Mosebacke/Monteliusvägen 黃昏 ~20:30–22:00 金光;藍調到深夜。'},
 };
 
+/* 天氣（per leg·climatology 歷史平均·臨行 yr.no 查實時） */
+const WX = {
+  hike:{chip:'🌤 日 ~7–15°C · 夜/山口近 0°C · ☀️午夜太陽', detail:'北極圈 6 月底–7 月中:低地日間 ~10–15°C、夜 ~5–8°C;Tjäktja 山口(1140m)隨時 0–5°C + 大風,7 月都可能風雪+低能見度。24 小時日照(午夜太陽)→ 隨時影,瞓覺要眼罩。蚊高峰 → 頭網+DEET。著法:快乾底層 + fleece 中層 + 防水 shell + 冷帽手套,山口前加全套保暖。⚠️ climatology·臨行 yr.no 查實。'},
+  arctic:{chip:'🌤 日 ~13–18°C · 半夜仲有光', detail:'Harads 喺極圈邊:日間 ~15–18°C、夜 ~10°C。浮喺 Lule 河上嘅冷池,泳衣必帶;7 月頭半夜仲有光,夜晚浸都唔黑。'},
+  gbg:{chip:'🌦 日 ~17–20°C · 西岸多陣雨', detail:'Göteborg 西岸 7 月:日 ~18–20°C、夜 ~12°C,海洋性多陣雨 → 摺傘+輕防水隨身。日出 ~04:20 / 日落 ~22:00,黃昏金光 20:30–22:00。'},
+  ikea:{chip:'🌤 日 ~18–22°C', detail:'Älmhult(Småland 內陸)7 月:日 ~20–22°C、夜 ~12°C,內陸比西岸乾爽少少。'},
+  sto:{chip:'🌤 日 ~18–23°C · 超長日照', detail:'Stockholm 7 月:日 ~20–23°C、夜 ~13°C。日出 ~03:40 / 日落 ~22:00;Gamla Stan 晨攝 ~04:00 人最少,Monteliusvägen 黃昏 20:30–22:00 金光,藍調到深夜。'},
+};
+
 /* 圖片 attribution（CC 授權,footer 標） */
 const IMG_CREDITS = [
   ['lapporten','Lapporten — MPotter-Adams · CC BY-SA 4.0'],['kungsleden','Kungsleden — Alexandre Buisse · CC BY-SA 4.0'],
@@ -461,4 +497,4 @@ const BOOK = [
  {t:'🛡️ 旅遊保險（已買 ✅·兩人都保）',s:'paid',d:'生效 6/27–7/19 · Zurich 自在旅遊',pax:'Yin + Kam Ling 兩人都受保（已確認）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'✅ 已核實:兩人都保·行山有 cover(只 excl >5000m·Kungsleden 最高 1140m 安全)·含 emergency evacuation。24h hotline +852 2886 3977。保單 PDF 下載落手機離線'},
 ];
 
-window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, IMG_CREDITS, CHEAT, EX, PLANB, SAVED, BOOK };
+window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, CHECKLIST, HERO, HERO_CAP, SUN, WX, IMG_CREDITS, CHEAT, EX, PLANB, SAVED, BOOK };
