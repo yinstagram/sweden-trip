@@ -32,7 +32,7 @@ const DAYS = [
   accom:{name:'Comfort Hotel Arlanda（機場過夜）', status:'paid'},
   meals:{b:'機上', l:'機上', d:'機場 / 酒店'},
   stops:[{n:'Comfort Hotel Arlanda',ll:[59.6468,17.9370],cat:'機場酒店',note:'落機過一晚,翌日飛 Kiruna',o:1}],
-  notes:['⚠️ PVG 轉機只 2 鐘 25 分(14:50 起飛)——行李直掛但人要趕過轉機。','落 ARN 21:00 後到酒店,買定水/早餐。'],
+  notes:['✈️ PVG 轉機 2h25(14:50 起飛)——同一張飛同一間東航,行李直掛去 Stockholm,唔使喺上海攞喼/唔使入境/唔使中國簽證:落機→過轉機安檢→去 gate。','✅ HKG check-in 寄喼時叫地勤 confirm 行李牌印「ARN」(回程印「HKG」)=唯一保險,10 秒事。','落 ARN 21:00 後到 Comfort Hotel Arlanda,買定水/早餐。'],
   bk:[{s:'paid',t:'✈️ China Eastern 來回(PNR 喺 Apple Note)'},{s:'paid',t:'🏨 Comfort Hotel Arlanda'}] },
 
 { id:'d0628', date:'6/28', dow:'日', leg:'hike', color:'#6b8a9e',
