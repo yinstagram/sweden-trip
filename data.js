@@ -132,11 +132,11 @@ const DAYS = [
   accom:{name:'Airbnb Majorna「Cozy apartment」(host Marcus)', status:'paid'},
   meals:{b:'Arctic Bath', l:'機上 / 到埗', d:'🍽 Magasinsgatan 一帶'},
   stops:[
-    {n:'Luleå 機場（還車）',ll:[65.5431,22.1219],cat:'還車+機場',note:'Harads→Luleå ~1h15 · 還車 → SK2051 09:55→11:35 直航 GOT（✅6/10 訂票引擎驗證 7/8 有呢班）· bag drop 09:10 截 → 08:30 前到機場、~07:00 離開 Arctic Bath',o:1},
+    {n:'Luleå 機場（還車）',ll:[65.5431,22.1219],cat:'還車+機場',note:'Harads→Luleå ~1h15 · 🔴改 Trip.com 還車時間做 08:30(免費改)→ 07:00 離開 Arctic Bath、08:15 到 LLA 還車、行入 terminal、bag drop 09:10 前、09:55 SK2051 飛 GOT。唔改還車就要 05:55 走趕 07:30 死線(攞苦嚟辛)',o:1},
     {n:'Haga Nygata（Göteborg）',ll:[57.6987,11.9552],cat:'老區散步',note:'落機後 Flygbussarna ~35分入市 → check-in → Haga',o:2},
     {n:'Café Husaren',ll:[57.6984,11.9597],cat:'Café',note:'巨型肉桂卷 Hagabullen(vegan)',o:3},
     {n:'da Matteo',ll:[57.7032,11.9624],cat:'咖啡',note:'2025 北歐最佳烘焙 · Magasinsgatan 17A',o:4}],
-  notes:['✅ SK2051 已驗證(6/10 訂票引擎):7/8 真有直航 09:55→11:35(CityJet CRJ900),HKD ~823–1,949/人。早機!bag drop 09:10 截 → 08:30 前到 LLA → ~07:00 離開 Arctic Bath(冇晨早 spa,同酒店夾早餐/transfer 時間)。','11:35 落 GOT → Flygbussarna 入市 → check-in → 下午 Haga + Café Husaren 大肉桂卷 + da Matteo 照原計劃行!','還車前影低車況 + 電量(EV 場內叉滿先走);LLA 還車喺 P2(24h 還車)行 2 分鐘入 terminal;breakfast bag 已同酒店安排。'],
+  notes:['✅ SK2051 已驗證(6/10 訂票引擎):7/8 真有直航 09:55→11:35(CityJet CRJ900),HKD ~823–1,949/人。早機!bag drop 09:10 截 → 08:30 前到 LLA → ~07:00 離開 Arctic Bath(冇晨早 spa,同酒店夾早餐/transfer 時間)。','11:35 落 GOT → Flygbussarna 入市 → check-in → 下午 Haga + Café Husaren 大肉桂卷 + da Matteo 照原計劃行!','🔴 還車時間矛盾(Codex 驗證):Trip.com 合約寫 07:30 還,但 07:00 走→08:15 到 = 遲 45 分鐘!正解 = Trip.com 改還車去 08:30→07:00 走鬆容;改唔到就 05:55 走。','還車前影低車況 + 電量(EV 場內叉滿先走);LLA 還車喺 P2(24h)行 2 分鐘入 terminal;breakfast bag 06:45 已同酒店安排。'],
   bk:[{s:'paid',t:'✈️ SK2051 已買(Agoda)'},{s:'paid',t:'🏠 GBG Airbnb Majorna(8–12 Jul 已訂)'}] },
 
 //──────────────────── Göteborg ────────────────────
@@ -237,11 +237,11 @@ const DAYS = [
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
   meals:{b:'Gamla Stan café', l:'🍽 Chokladkoppen（Stortorget）', d:'🍽 Aifur 維京餐 / Nationalmuseum 餐廳'},
   stops:[
-    {n:'Stadshuset（市政廳塔）',ll:[59.3275,18.0542],cat:'導覽+觀景',note:'導覽45分(夏季半鐘一團) · 塔5–9月開106m · 票飛T-7/當日08:30 City Hall Shop · 150',o:1},
+    {n:'Stadshuset（市政廳塔）',ll:[59.3275,18.0542],cat:'導覽+觀景',note:'導覽45分(夏季半鐘一團) · 塔5–9月開106m · 7月時段 09:00/09:50/10:40... · 票飛T-7放/當日08:30 City Hall Shop · 成人100 SEK',o:1},
     {n:'Gamla Stan Stortorget',ll:[59.3250,18.0708],cat:'舊城',note:'晨攝 + Nobel Prize Museum(Stortorget 2,你 saved)',o:2},
     {n:'Nationalmuseum',ll:[59.3285,18.0781],cat:'國家美術館(你 saved)',note:'免費常設 + 設計藏品 · 順路 Kungsträdgården',o:3},
     {n:'Acne Studios',ll:[59.3332,18.0738],cat:'時裝',note:'Norrmalmstorg 2 · 手信',o:4,opt:true}],
-  notes:['🎲 彈性日:得 Stadshuset Tower 09:15 係想搶嘅(7/10 先有飛賣)。Nobel/Nationalmuseum/Fotografiska/Aifur 全部未定——嗰朝起身先決定。','🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','🔴 更正(Codex 驗證·官方):Moderna Museet「週五 18-20 免費」只去到 6/12,7/17 已經完咗;正價 170 SEK(週五開 10-20)。想去就當付費館計,或者直接專心 Fotografiska。','🎬 Bio Rio 7 月場次已出:7/13 Tenet·7/14 Akira·7/16 Cowboy Bebop·7/18 Call Me by Your Name(冇 Sentimental Value→Apple TV SE 租 49 SEK)。'],
+  notes:['🎲 彈性日:得 Stadshuset Tower(09:00 頭場·7/10 先有飛賣)係想搶嘅。Nobel/Nationalmuseum/Fotografiska/Aifur 全部未定——嗰朝起身先決定。','🏛️ Stadshuset 導覽(45分),塔 5–9 月限定上 106m → 屋頂漫步替代(原 tour 停咗)。票飛 T-7 放,旺季當日 08:30 City Hall Shop 預先。','一日勿塞太多 → Nobel 同 Nationalmuseum 揀一個做重點,另一快閃。','🔴 更正(Codex 驗證·官方):Moderna Museet「週五 18-20 免費」只去到 6/12,7/17 已經完咗;正價 170 SEK(週五開 10-20)。想去就當付費館計,或者直接專心 Fotografiska。','🎬 Bio Rio 7 月場次已出:7/13 Tenet·7/14 Akira·7/16 Cowboy Bebop·7/18 Call Me by Your Name(冇 Sentimental Value→Apple TV SE 租 49 SEK)。'],
   bk:[{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7)'}] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#a78bda',
@@ -368,9 +368,9 @@ const EX = {
  d0703:{carry:'Sälka 買定嘅一日糧(Singi 冇 shop)·相機留夠電',tip:'宏偉 U 形 Tjäktjavagge 冰蝕谷+馴鹿+吊橋,炸彈日後恢復日,慢慢等光等馴鹿、中途煮午餐沖咖啡、Kam Ling 鈎針。',pace:'12km·-100m·3-4h 最短最 chill,唔使早起;⚠️Singi 岔路口睇路標東行。'},
  d0704:{carry:'輕量換洗衫(今晚有淋浴+桑拿!)·相機電(瑞典最高峰現身)·錢/卡(餐廳 buffet)',tip:'經 Kaffedalen 咖啡谷,Kebnekaise 主峰現身;全程最舒適一晚,洗澡食 buffet 回氣;💡有訊號→訂定 7/5 16:55 巴士飛(山中冇訊號)。',pace:'14km·±150m·4-5h;唔好臨時加登頂(另一日 round-trip)。'},
  d0705:{carry:'防蚊頭網(Nikkaluokta 段蚊極多)·相機',tip:'回望 Kebnekaise 雪峰+Ladtjojaure 綠湖;下船碼頭 Sami 帳篷咖啡 Kaffekåta+馴鹿漢堡打卡;可搭湖船省 6km(臨行查船期)。',pace:'19km·5.5-6.5h→最遲 8:30am 出發趕 16:55 尾班巴士(網訂 15:55 截,喺 Kebnekaise 訂定);錯過=瞓 Nikkaluokta。'},
- d0706:{carry:'護照+HK牌+國際駕照+司機名下實體信用卡(按金)·火車午餐 Kiruna 買定·相機(車窗外極圈景)',tip:'💡朝早叫 STF reception 代 book 的士 12:10 去火車站(佢哋已話肯幫);12:50 上車前食飽+買車上乾糧;Luleå C 落車跟 104 巴士去機場;兩晚 Arctic Culinary 都 book 咗。',pace:'火車 4h22 → 巴士 20 分 → 取車 → 揸 1h15;~19:30-20:00 到酒店,夜晚浸吓熱池先瞓。'},
+ d0706:{carry:'護照+HK牌+國際駕照+司機名下實體信用卡(按金)·火車午餐 Kiruna 買定·相機(車窗外極圈景)',tip:'💡朝早叫 STF reception 代 book 的士 12:10 去火車站(佢哋已話肯幫);12:50 上車前食飽+買車上乾糧;Luleå C 落車跟 104 巴士去機場;兩晚 Arctic Culinary 都 book 咗。',pace:'火車 4h22 → 巴士 20 分 → 取車+租車手續/EV 檢查(15-30 分)→ 揸 1h15;~19:45-20:00 到酒店(晚餐 20:00 會貼線,reception 講聲)。'},
  d0707:{carry:'泳衣/拖鞋(spa)·相機(Commons 冇 Arctic Bath 相,自己影)',tip:'🎂 Yin 21 歲!純 relax 養返行山攰;漂浮 cabin+冷池+sauna。',pace:'純享受日,冇行程壓力。'},
- d0708:{carry:'前一晚執好行李·還車前影低車況+電量·機票 QR 離線截圖',tip:'11:35 落 GOT→Flygbussarna 入市→電車 3/9/11 去 Majorna check-in→下午 Haga/da Matteo 照行(Majorna 去 Haga 電車 ~10 分鐘)。',pace:'⏰ 早機 09:55!bag drop 09:10 截→08:30 到 LLA→~07:00 離開 Arctic Bath(車程 1h15+還車 buffer)。同酒店預早夾定早餐/transfer。'},
+ d0708:{carry:'前一晚執好行李·還車前影低車況+電量·機票 QR 離線截圖',tip:'11:35 落 GOT→Flygbussarna 入市→電車 3/9/11 去 Majorna check-in→下午 Haga/da Matteo 照行(Majorna 去 Haga 電車 ~10 分鐘)。',pace:'⏰ 早機 09:55!最佳解=Trip.com 還車改 08:30→07:00 離開 Arctic Bath→08:15 到 LLA 還車(1h15 車程)→入 terminal→bag drop 09:10 前。breakfast bag 06:45。'},
  d0709:{carry:'學生證(問博物館學生價,20歲要俾75)·薄外套(室內冷氣坐成日)·水樽+snack·相機多帶電+卡',tip:'💡你 saved 嘅 Victor Hasselblad Statue 今日順路影(攝影朝聖);食:Hasselblad 出門 Mr P/Familjen,或場內 Ceno;da Matteo 順手一杯。',pace:'World of Volvo ~2-3h(唔使搶 timed,網買慳10%全日有效)+Hasselblad ~1-1.5h;Konstmuseum 逢一閉今日四 OK;全室內落雨唔怕。'},
  d0710:{carry:'暖 layer(室內+火車冷氣)·Västtrafik app·水樽+snack(Trollhättan 嘢食少)·相機',tip:'💡Saab 隔籬 Innovatum 科學館行2分(combo 票)+運河船閘古工程峽谷(免費上鏡);⚠️瀑布放水 2026 夏天冇(只7/17-19);Radiomuseet/Backa Teater 喺市內唔順路留返。',pace:'火車~38分;Saab~2h+Innovatum~1.5h+船閘~1-1.5h;⚠️Saab hours 矛盾→打 +46-520-289440 confirm 週五開;學生證慳60/人。'},
  d0711:{carry:'⚠️現金 1800 SEK(滑翔傘唔收咭)·波鞋長褲風褸(高空凍)·相機綁帶/GoPro·水樽snack(等風)',tip:'9am 後打 070-66 77 210 confirm 天氣先叫 taxi 去 Kareby(~25分·400-550 SEK);飛唔到→Radiomuseet(週六12-15)/Haga/Feskekörka/Universeum;~15:00 返到 Slottsskogen 黃昏散步。',pace:'全程最靠天一日:飛到=賺,飛唔到=室外咖啡攝影日;滑翔傘半日吊住,唔好再排 must-do。'},
@@ -427,7 +427,7 @@ const BOOK = [
  {t:'🎵 行程期間 live/電音（Robyn 已剔除）',s:'todo',d:'7/8–12 GBG · 7/13–18 STO',pax:'2 人',price:'視乎節目',where:'https://stockholmlive.com/en/events',wl:'查緊替代',dl:'⚠️ 更正：Robyn Stockholm = 10/17 @ 3Arena（trip 之後·場館官方證實）·舊「7/16-17 Avicii Arena」係錯。Gröna Lund/Liseberg 夏季演唱會 + 電音 club 審查中,搵到會更新呢度'},
  {t:'🎟 World of Volvo',s:'todo',d:'7/9',pax:'2 人',price:'成人 220–250 SEK（學生≤25 帶證 165–190）',where:'https://www.worldofvolvo.com/en/visit/',wl:'worldofvolvo.com',dl:'網購慳 10%·全日有效唔使搶時段'},
  {t:'🕯 Avicii Experience',s:'todo',d:'7/16 上午頭場',pax:'2 人',price:'~209–269 SEK/人',where:'https://aviciiexperience.com',wl:'aviciiexperience.com',dl:'提早幾日網上揀時段（旺季）'},
- {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 上午',pax:'2 人',price:'150 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放 / 當日 08:30 City Hall Shop（旺季預先）'},
+ {t:'🏛 Stadshuset Tower',s:'todo',d:'7/17 · 09:00 頭場',pax:'2 人',price:'成人 100 SEK/人（Codex 官方更正·原寫 150 錯）',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'飛 T-7 日放(即 7/10·reminder set) / 當日 08:30 City Hall Shop。7 月時段 09:00/09:50/10:40...'},
  {t:'🚤 RIB Stockholm',s:'todo',d:'7/15 下午（黃昏光靚）',pax:'2 人',price:'1,490 SEK/人（2 人 2,980）',where:'https://www.ribstockholm.com/experiences/2-hour-tour/',wl:'ribstockholm.com',dl:'提早幾日揀日子·睇天氣前一兩日 lock'},
  {t:'🎤 Allsång på Skansen',s:'todo',d:'7/14 晚（⚠️未驗證）',pax:'2 人',price:'~495–595 SEK/人（企位用 Skansen 飛即可）',where:'https://www.skansen.se',wl:'skansen.se',dl:'⚠️ 2026 場次表官方頁 404 未驗證——6 月尾上 skansen.se/SVT 確認 7/14 真有場先買;確認唔到就剔除'},
  {t:'🪂 滑翔傘（天氣 backup）',s:'todo',d:'7/11 12–15（drop-in）',pax:'2 人',price:'900 SEK/人（2 人 1,800·現金/Swish）',where:'tel:0706677210',wl:'打 070-66 77 210',dl:'當日 9am 後打確認天氣先去·唔收咭'},
