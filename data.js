@@ -52,7 +52,7 @@ const DAYS = [
   title:'Abisko 安頓 + 午夜太陽', theme:'輕鬆熱身日(唔行正路)',
   accom:{name:'STF Abisko Turiststation（有餐廳/shop Fjällboden）', status:'paid'},
   meals:{b:'山屋', l:'山屋 Restaurang Kungsleden', d:'山屋'},
-  steps:[{t:'08:30',a:'STF Kiruna 食早餐 → 大件城市行李寄存 STF Kiruna reception(7/5 返到攞返) → 去 Kiruna C 火車站(行/的士)'},{t:'09:37',a:'SJ 火車 Kiruna C → Abisko Turiststation(直達·~1h20·SJ app/站買·平·一日約 3 班)'},{t:'11:00',a:'到 Abisko Turiststation check-in → Fjällboden shop 買氣罐(若 6/28 未買到)'},{t:'13:00',a:'輕鬆熱身散步(唔行正路) + 試孭背囊'},{t:'20:00',a:'上 Aurora Sky Station 吊椅(午夜太陽班 ~20:00–01:30·現場買)→ Nuolja 頂影 midnight sun + Lapporten'}],
+  steps:[{t:'06:30',a:'STF Kiruna 起身 + 早餐 → 大件城市行李寄存 STF reception(7/5 返到攞返) + 最後執行山背囊'},{t:'07:55',a:'的士去 Stadshustorget(Kiruna 市中心巴士站)'},{t:'08:25',a:'Bus 91 Kiruna → Abisko Turiststation(~1h20·當地買·臨行 resrobot/Länstrafiken 查實 2026 班次)'},{t:'09:45',a:'到 Abisko Turiststation check-in → Fjällboden/Coop 買氣罐(若 6/28 未買到)+ 最後補給'},{t:'13:00',a:'下午輕活動:Abisko Canyon(行)+ Torneträsk 湖(唔踩單車)'},{t:'18:00',a:'晚餐(自煮 / Restaurang Kungsleden)→ 執 Day1 背囊早瞓;想影午夜太陽可上 Nuolja'}],
   stops:[
     {n:'STF Abisko Turiststation',ll:[68.3574,18.7825],cat:'山屋·起點',note:'Fjällboden shop 有 gas/凍乾餐;大件行李留咗喺 STF Kiruna(7/5 返到攞)·Abisko 都有免費上鎖行李房做後備',o:1},
     {n:'Aurora Sky Station（吊椅）',ll:[68.3530,18.7300],cat:'吊椅·觀景',note:'午夜太陽班 6/14–7/19 20:00–01:30 → 6/29 行得 · 頂俯瞰 Torneträsk + Lapporten',o:2}],
@@ -268,7 +268,7 @@ const DAYS = [
 const TRANSPORT = [
   {seg:'HKG→PVG→ARN', mode:'✈️ China Eastern MU724+MU289', time:'6/27 09:45→20:10', tick:'PNR 喺 Apple Note', s:'paid'},
   {seg:'ARN→Kiruna', mode:'✈️ Norwegian D8 4063', time:'6/28 11:35→13:10', tick:'YQCIPT(Apple Note)', s:'paid'},
-  {seg:'Kiruna→Abisko Turiststation(起步)', mode:'🚆 SJ 直達', time:'6/29 ~09:37→10:57(~1h20·一日約3班)', tick:'SJ app/站買·平(~$8)·臨行 app 查實 2026 班次', s:'pend'},
+  {seg:'Kiruna→Abisko Turiststation(起步)', mode:'🚌 Bus 91', time:'6/29 08:25→09:45(~1h20)', tick:'的士去 Stadshustorget 搭·當地買·臨行 resrobot 查實 2026 班次', s:'pend'},
   {seg:'Nikkaluokta→Kiruna', mode:'🚌 巴士', time:'7/5 16:55→18:30', tick:'青年票·落 Norrmalm', s:'paid'},
   {seg:'Kiruna→Luleå→Arctic Bath', mode:'🚆 7153 + 🚗 EX30(Trip.com)', time:'7/6 12:50 火車→18:00 取車', tick:'✅ 火車+租車都訂咗(6/11)·7/8 07:30 還車', s:'paid'},
   {seg:'LLA→GOT', mode:'✈️ SK2051', time:'7/8 09:55→11:35', tick:'✅ 已買(Agoda·CityJet 營運)', s:'paid'},
