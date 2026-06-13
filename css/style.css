@@ -349,7 +349,12 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .wxchip{margin-left:auto;font-size:12px;color:var(--text)}
 .wxcaret{color:var(--muted);font-size:12px;transition:transform .22s;flex:none}
 .wxbar[open] .wxcaret{transform:rotate(180deg)}
-.wxd{padding:0 14px 13px;font-size:12.5px;line-height:1.62;color:var(--text)}
+.wxd{padding:4px 14px 12px;font-size:12.5px;line-height:1.55;color:var(--text)}
+.wxrow{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.wxrow:last-of-type{border-bottom:0}
+.wxk{flex:none;width:62px;color:var(--gold);font-weight:600;font-size:12px}
+.wxv{flex:1;color:var(--text)}
+.wxnote{margin-top:8px;font-size:11px;color:var(--muted)}
 /* 上一日 / 下一日 */
 .daynav{display:flex;gap:9px;margin:20px 0 8px}
 .dnav{flex:1;min-width:0;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:11px 13px;text-align:left;cursor:pointer;color:var(--text);display:flex;flex-direction:column;gap:3px;transition:background .18s,transform .12s}

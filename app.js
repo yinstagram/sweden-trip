@@ -123,7 +123,9 @@ function renderDays(){
 /* ---------- 時間軸 timeline（收合卡）---------- */
 let BUY=JSON.parse(localStorage.sw_buy||'{}');
 const KIND={fixed:{c:'#e8956a'},move:{c:'#7c89b5'},task:{c:'#34c6d8'},flex:{c:'#a78bda'}};
-function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';return`<details class="wxbar"><summary><span>🌤 今日天氣</span><span class="wxchip">${esc(w.chip)}</span><span class="wxcaret">▾</span></summary><div class="wxd">${esc(w.detail)}</div></details>`;}
+function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';
+  const rows=(w.rows||[]).map(r=>`<div class="wxrow"><span class="wxk">${esc(r[0])}</span><span class="wxv">${esc(r[1])}</span></div>`).join('');
+  return`<details class="wxbar"><summary><span>🌤 今日天氣</span><span class="wxchip">${esc(w.chip)}</span><span class="wxcaret">▾</span></summary><div class="wxd">${rows||esc(w.detail||'')}${w.note?`<div class="wxnote">⚠️ ${esc(w.note)}</div>`:''}</div></details>`;}
 function tlItem(d,it,ti){
   const ki=KIND[it.k]||KIND.flex;
   const buy=(it.buy&&it.buy.length)?`<div class="tl-buy"><div class="tl-buyh">🛒 要買 / 要做（撳格仔 tick 住去做）</div>${it.buy.map((b,bi)=>{const k='b_'+d.id+'_'+ti+'_'+bi;const on=BUY[k];return`<label class="buyck ${on?'done':''}" data-k="${k}"><input type="checkbox" ${on?'checked':''}><span>${telLink(esc(b))}</span></label>`;}).join('')}</div>`:'';
