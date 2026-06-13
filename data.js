@@ -52,11 +52,11 @@ const DAYS = [
   title:'Abisko 安頓 + 午夜太陽', theme:'輕鬆熱身日(唔行正路)',
   accom:{name:'STF Abisko Turiststation（有餐廳/shop Fjällboden）', status:'paid'},
   meals:{b:'山屋', l:'山屋 Restaurang Kungsleden', d:'山屋'},
-  steps:[{t:'08:30',a:'STF Kiruna 食早餐 → 去 Kiruna C 火車站(行/的士)'},{t:'09:37',a:'SJ 火車 Kiruna C → Abisko Turiststation(直達·~1h20·SJ app/站買·平·一日約 3 班)'},{t:'11:00',a:'到 Abisko Turiststation check-in → Fjällboden shop 買氣罐(若 6/28 未買到) + 安排大行李寄運去 Nikkaluokta'},{t:'13:00',a:'輕鬆熱身散步(唔行正路) + 試孭背囊'},{t:'20:00',a:'上 Aurora Sky Station 吊椅(午夜太陽班 ~20:00–01:30·現場買)→ Nuolja 頂影 midnight sun + Lapporten'}],
+  steps:[{t:'08:30',a:'STF Kiruna 食早餐 → 大件城市行李寄存 STF Kiruna reception(7/5 返到攞返) → 去 Kiruna C 火車站(行/的士)'},{t:'09:37',a:'SJ 火車 Kiruna C → Abisko Turiststation(直達·~1h20·SJ app/站買·平·一日約 3 班)'},{t:'11:00',a:'到 Abisko Turiststation check-in → Fjällboden shop 買氣罐(若 6/28 未買到)'},{t:'13:00',a:'輕鬆熱身散步(唔行正路) + 試孭背囊'},{t:'20:00',a:'上 Aurora Sky Station 吊椅(午夜太陽班 ~20:00–01:30·現場買)→ Nuolja 頂影 midnight sun + Lapporten'}],
   stops:[
-    {n:'STF Abisko Turiststation',ll:[68.3574,18.7825],cat:'山屋·起點',note:'Fjällboden shop 有 gas/凍乾餐;可寄行李去 Nikkaluokta',o:1},
+    {n:'STF Abisko Turiststation',ll:[68.3574,18.7825],cat:'山屋·起點',note:'Fjällboden shop 有 gas/凍乾餐;大件行李留咗喺 STF Kiruna(7/5 返到攞)·Abisko 都有免費上鎖行李房做後備',o:1},
     {n:'Aurora Sky Station（吊椅）',ll:[68.3530,18.7300],cat:'吊椅·觀景',note:'午夜太陽班 6/14–7/19 20:00–01:30 → 6/29 行得 · 頂俯瞰 Torneträsk + Lapporten',o:2}],
-  notes:['🌞 午夜太陽(Abisko ~5/25–7月中,24 小時日照)——6/29 上 Nuolja 頂影 midnight sun + Lapporten U 形谷。','山頂風大保暖;吊椅班次臨行 confirm。','喺 Fjällboden 安排寄行李去 Nikkaluokta(出山輕身)。'],
+  notes:['🌞 午夜太陽(Abisko ~5/25–7月中,24 小時日照)——6/29 上 Nuolja 頂影 midnight sun + Lapporten U 形谷。','山頂風大保暖;吊椅班次臨行 confirm。','🧳 大件城市行李 6/28 已寄存 STF Kiruna reception,7/5 出山返到 Kiruna 攞返(行山只孭背囊)——唔使搞 Nikkaluokta 寄運。STF Abisko 都有免費上鎖行李房做後備。'],
   bk:[{s:'paid',t:'🛏 STF Abisko'},{s:'todo',t:'🎟 Aurora Sky Station 吊椅(現場)'}] },
 
 { id:'d0630', date:'6/30', dow:'二', leg:'hike', color:'#6b8a9e',
@@ -341,7 +341,7 @@ const CHECKLIST = [
     '小鎖(Airbnb/行李寄存) + 行李秤(回程購物後有用)'] },
   {grp:'⚠️ 最易漏（唔貴但漏咗影響行程）', items:[
     '氣罐不可上機→瑞典買·回程唔好帶 ｜ 登山杖/摺刀放寄艙 ｜ 尿袋一定手提','山屋多數無電→手機相機飛行模式慳電 ｜ 山區無訊號→booking/map/保單全離線',
-    '防曬+太陽眼鏡(冷都會曬傷) ｜ 水泡膠布第一日就要易取 ｜ sleep mask(午夜太陽瞓覺) ｜ earplugs(山屋多人房)','相機雨罩(RIB/山雨) ｜ 退稅貨+收據隨身 ｜ 租車按金=司機名下實體卡 ｜ 7/8 breakfast bag 確認 06:00 或更早 ｜ Abisko→Nikkaluokta 行李寄運 deadline/收件點要確認'] },
+    '防曬+太陽眼鏡(冷都會曬傷) ｜ 水泡膠布第一日就要易取 ｜ sleep mask(午夜太陽瞓覺) ｜ earplugs(山屋多人房)','相機雨罩(RIB/山雨) ｜ 退稅貨+收據隨身 ｜ 租車按金=司機名下實體卡 ｜ 7/8 breakfast bag 確認 06:00 或更早 ｜ 大件城市行李 6/28 寄存 STF Kiruna reception(貼名+電話+7/5 取),行山只孭背囊'] },
 ];
 
 /* 每日 hero 相（真實 Wikimedia Commons CC 授權，已 download 落 img/） */
