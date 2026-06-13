@@ -185,7 +185,7 @@ function renderDayDetail(id){
     V.innerHTML=`<button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
       ${heroHtml}${wxBar(legOf(id))}
       <div class="tl-h">⏱ 今日時間線<span class="muted"> · 撳一格展開詳情 / 要買咩 / 注意</span></div>
-      ${tlHtml}${accomHtml}${exHtml}${mapBlock}
+      ${tlHtml}${accomHtml}${mapBlock}
       <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
       ${navHtml}`;
     bindTl(V);if(document.getElementById('dmap'))makeMini(mapStops,d.color);
@@ -243,19 +243,30 @@ function makeMini(stops,color){
 /* ---------- 地圖 MAP ---------- */
 const MAP_STYLE='https://tiles.openfreemap.org/styles/bright';
 function renderMap(){
+  const noSigDays=['d0630','d0701','d0702','d0703','d0704','d0705'];
+  // 📍 每日 Google Maps 路線（用嗰日 timeline 嘅座標砌）
+  const dayRoutes=S.DAYS.map(d=>{
+    const tl=(S.TL&&S.TL[d.id])||d.tl||[];
+    const stops=tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}));
+    const dir=dirURL(stops);
+    const act=dir?`<a class="rr-go" href="${dir}" target="_blank">🧭 開路線</a>`
+      :(noSigDays.includes(d.id)?'<span class="rr-no">山段·離線</span>':'<span class="rr-no">—</span>');
+    return `<div class="routerow"><span class="rr-dot" style="background:${d.color}"></span><span class="rr-day" onclick="window.__day('${d.id}')"><b class="rr-d">${d.date}</b> <span class="rr-t">${esc(d.title)}</span></span>${act}</div>`;
+  }).join('');
   const chipsHtml=S.DAYS.map(d=>`<button class="daychip ${curDay===d.id?'on':''}" style="${curDay===d.id?`background:${d.color}`:''}" data-d="${d.id}"><span class="dot" style="background:${d.color}"></span>${d.date}</button>`).join('');
-  V.innerHTML=`<h1 class="pg">🗺️ 地圖</h1><div class="pg-sub">撳一日 → 只見嗰日 + 真路線 + 動畫</div>
+  V.innerHTML=`<h1 class="pg">🗺️ 地圖 / 路線</h1><div class="pg-sub">每日一鍵開 Google Maps 行嗰日路線 · 下面有全程概覽</div>
+    <div class="sec-h">📍 每日 Google Maps 路線</div>
+    <div class="card routelist">${dayRoutes}</div>
+    <div class="sec-h">🗺 全程概覽 · 撳一日只睇嗰日</div>
     <div class="maptools"><button class="daychip ${!curDay?'on':''}" style="${!curDay?'background:var(--gold)':''}" data-d="">全程</button>${chipsHtml}</div>
     <div id="mapwrap"><div id="map"></div></div>
     <div class="maptools" style="margin-top:10px">
-      <label class="savedtog"><input type="checkbox" id="savedChk" ${showSaved?'checked':''}> 顯示 optional/saved</label>
-      <label class="savedtog"><input type="checkbox" id="photoChk" ${photoLayer?'checked':''}> 📷 攝影點圖層</label></div>`;
+      <label class="savedtog"><input type="checkbox" id="savedChk" ${showSaved?'checked':''}> 顯示 optional / saved 地方</label></div>`;
   if(!map){map=new maplibregl.Map({container:'map',style:MAP_STYLE,center:[17,63],zoom:3.4});
     map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.on('load',()=>drawDay());
   }else{document.getElementById('map').replaceWith(map.getContainer());setTimeout(()=>{map.resize();drawDay();},60);}
   V.querySelectorAll('.daychip').forEach(c=>c.onclick=()=>{curDay=c.dataset.d||null;renderMap();});
   $('#savedChk').onchange=e=>{showSaved=e.target.checked;drawDay();};
-  $('#photoChk').onchange=e=>{photoLayer=e.target.checked;drawDay();};
 }
 function clearMap(){markers.forEach(m=>m.remove());markers=[];['route'].forEach(id=>{if(map.getLayer(id))map.removeLayer(id);if(map.getSource(id))map.removeSource(id);});}
 function haversine(a,b){const R=6371,dLat=(b[1]-a[1])*Math.PI/180,dLon=(b[0]-a[0])*Math.PI/180,x=Math.sin(dLat/2)**2+Math.cos(a[1]*Math.PI/180)*Math.cos(b[1]*Math.PI/180)*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
@@ -302,7 +313,7 @@ function renderStatus(){
   const cnt=s=>bk.filter(b=>b.s===s).length, tot=bk.length, paid=cnt('paid'), pct=Math.round(paid/tot*100);
   const segs=[['paid',cnt('paid')],['pend',cnt('pend')],['todo',cnt('todo')],['hold',cnt('hold')]];
   const segbar=`<div class="segbar">${segs.map(([s,n])=>n?`<i style="width:${(n/tot*100).toFixed(1)}%;background:${S.BK[s].c}"></i>`:'').join('')}</div><div class="seglegend">${segs.map(([s,n])=>`<span><b style="background:${S.BK[s].c}"></b>${S.BK[s].t} ${n}</span>`).join('')}</div>`;
-  const bookHtml=(S.BOOK||[]).map(b=>`<div class="bookcard ${b.s}">
+  const bookCard=b=>`<div class="bookcard ${b.s}">
     <div class="bc-top"><b class="bc-ttl">${esc(b.t)}</b><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico} ${S.BK[b.s].t}</span></div>
     <div class="bc-grid">
       <div><span class="bc-k">📅 訂邊日</span><span class="bc-v">${esc(b.d)}</span></div>
@@ -311,20 +322,24 @@ function renderStatus(){
     </div>
     <div class="bc-dl">⏰ ${telLink(esc(b.dl))}</div>
     <a class="bc-go" href="${b.where}" target="_blank">🔗 去 ${esc(b.wl)} 訂 ›</a>
-  </div>`).join('');
-  const groups=order.map(s=>{const items=bk.filter(b=>b.s===s);if(!items.length)return'';
-    return `<div class="sec-h">${lbl[s]} <span class="muted">(${items.length})</span></div><div class="card">${items.map(b=>`<div class="strow"><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${b.date}</small></div></div>`).join('')}</div>`;}).join('');
+  </div>`;
+  const undone=(S.BOOK||[]).filter(b=>b.s!=='paid');
+  const doneB=(S.BOOK||[]).filter(b=>b.s==='paid');
+  const undoneHtml=undone.length?undone.map(bookCard).join(''):'<div class="card" style="color:var(--green)">🎉 BOOK 清單全部搞掂!</div>';
+  const doneHtml=doneB.map(b=>`<div class="strow"><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${esc(b.d)}</small></div></div>`).join('');
   const pb=S.PLANB;
   const notesHtml=S.TRIP.notesUrl?`<a class="btn ghost" href="${S.TRIP.notesUrl}">🔐 開 Apple Note 睇 code ›</a>`:`<div style="font-size:13px">喺你 iPhone <b>備忘錄/Notes</b> 搜尋「<b>🇸🇪 Sweden 2026 · Booking Codes</b>」(只有你 iCloud 登入睇到)。</div><div class="muted" style="font-size:11px;margin-top:6px">想一撳直達?喺 Notes 整條 iCloud 分享 link 俾我,我嵌落呢度。</div>`;
-  V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">你最在意嘅——一眼睇晒 booking · 行動 · 依賴</div>
-   <div class="card"><div style="display:flex;justify-content:space-between;font-size:13px"><b style="color:var(--white)">已搞掂 ${paid}/${tot}</b><span class="muted">${pct}%</span></div>${segbar}</div>
-   <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
-   <div class="sec-h">📌 仲要做</div>
+  V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">未搞掂嘅喺最上面 · 訂咗嘅自動排落每日時間線</div>
+   <div class="sec-h">🔴 仲要訂 / 未處理（最緊要·由上做落）</div>
+   <div class="pg-sub" style="margin:-2px 2px 8px">撳藍掣直接去官方訂位／報價</div>
+   ${undoneHtml}
+   <div class="sec-h">📌 行前 / 行程中 要做</div>
    <div class="card">${TODO_LIST.map(x=>`<div class="todo-li">${telLink(esc(x))}</div>`).join('')}</div>
-   <div class="sec-h">🎯 你要訂嘅嘢 · 訂邊日 · 邊度 · 幾多人 · 幾多錢 · 幾時截</div>
-   <div class="pg-sub" style="margin:-2px 2px 6px">由最緊要排落去 · 撳藍掣直接去嗰個官方訂位／報價</div>
-   ${bookHtml}
-   ${groups}
+   <div class="sec-h">📊 進度 — 已搞掂 ${paid}/${tot}（${pct}%）</div>
+   <div class="card">${segbar}</div>
+   <div class="sec-h">✅ 已訂 / 已付（${doneB.length}）</div>
+   <div class="card">${doneHtml||'<div class="muted">—</div>'}</div>
+   <div class="planb"><div class="pbt">${esc(pb.title)}</div>${pb.steps.map(s=>`<div style="margin:6px 0">${telLink(esc(s))}</div>`).join('')}</div>
    <div class="sec-h">🔐 機密 code</div>
    <div class="card"><div class="muted" style="font-size:12.5px;margin-bottom:8px">機票 PNR / confirmation / QR 唔放公開站(安全) → 喺你 iPhone 私人 Apple Note。</div>${notesHtml}</div>`;
 }

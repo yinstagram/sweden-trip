@@ -348,6 +348,17 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .tl-now .tl-time{color:var(--gold);font-weight:700}
 .tl-now .tl-time::after{content:' ▸而家';font-size:9.5px;color:var(--gold);display:block;letter-spacing:.05em}
 @keyframes nowpulse{0%,100%{box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent)}50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--gold) 12%,transparent)}}
+/* 📍 每日 Google Maps 路線 list */
+.routelist{padding:2px 12px}
+.routerow{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}
+.routerow:last-child{border-bottom:0}
+.rr-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.rr-day{flex:1;min-width:0;cursor:pointer;display:flex;align-items:baseline;gap:7px;overflow:hidden}
+.rr-d{font-family:var(--D);font-variant-numeric:tabular-nums;font-weight:600;font-size:12.5px;color:var(--muted);flex:none}
+.rr-t{font-size:13px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-go{flex:none;font-size:11.5px;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);border-radius:8px;padding:5px 9px;white-space:nowrap;transition:background .18s}
+.rr-go:hover{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.rr-no{flex:none;font-size:11px;color:var(--muted)}
 /* 天氣 bar */
 .wxbar{background:linear-gradient(165deg,var(--bg2),var(--card));border:1px solid var(--border);border-radius:13px;margin:12px 0;overflow:hidden}
 .wxbar summary{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;font-size:13px;color:var(--white);list-style:none}
