@@ -123,6 +123,8 @@ function renderDays(){
 /* ---------- 時間軸 timeline（收合卡）---------- */
 let BUY=JSON.parse(localStorage.sw_buy||'{}');
 const KIND={fixed:{c:'#e8956a'},move:{c:'#7c89b5'},task:{c:'#34c6d8'},flex:{c:'#a78bda'}};
+const toMinT=t=>{const p=(''+(t||'0:0')).split(':');return (+p[0]||0)*60+(+p[1]||0);};
+function tripDayId(){const start=new Date(2026,5,27);const i=Math.floor((new Date()-start)/864e5);return (i>=0&&i<S.DAYS.length)?S.DAYS[i].id:null;}
 function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';
   const rows=(w.rows||[]).map(r=>`<div class="wxrow"><span class="wxk">${esc(r[0])}</span><span class="wxv">${esc(r[1])}</span></div>`).join('');
   return`<details class="wxbar"><summary><span>🌤 今日天氣</span><span class="wxchip">${esc(w.chip)}</span><span class="wxcaret">▾</span></summary><div class="wxd">${rows||esc(w.detail||'')}${w.note?`<div class="wxnote">⚠️ ${esc(w.note)}</div>`:''}</div></details>`;}
@@ -186,7 +188,17 @@ function renderDayDetail(id){
       ${tlHtml}${accomHtml}${exHtml}${mapBlock}
       <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
       ${navHtml}`;
-    bindTl(V);if(document.getElementById('dmap'))makeMini(mapStops,d.color);return;
+    bindTl(V);if(document.getElementById('dmap'))makeMini(mapStops,d.color);
+    // 🔦 Spotlight：如果係今日,框住「而家」應該做緊嗰格 + 自動展開 + scroll 過去
+    if(id===tripDayId()){
+      const nm=new Date().getHours()*60+new Date().getMinutes();
+      let ni=-1; dtl.forEach((it,i)=>{ if(toMinT(it.t)<=nm) ni=i; });
+      if(ni>=0){ const els=V.querySelectorAll('.timeline .tl'); const el=els[ni];
+        if(el){ el.classList.add('tl-now'); const b=el.querySelector('.tl-main');
+          if(b&&!el.classList.contains('is-open')){ el.classList.add('is-open'); b.setAttribute('aria-expanded','true'); }
+          setTimeout(()=>{try{el.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},120); } }
+    }
+    return;
   }
   /* —— fallback：未轉 timeline 嘅日子 —— */
   const meals=`<div class="meal"><span>🌅 ${esc(d.meals.b)}</span><span>☀️ ${esc(d.meals.l)}</span><span>🌙 ${esc(d.meals.d)}</span></div>`;

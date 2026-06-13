@@ -342,6 +342,12 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .tl-act:hover{background:color-mix(in srgb,var(--gold) 12%,transparent)}
 .tl-acts .st{margin-left:auto}
 .tl.k-fixed .tl-time{color:var(--gold2)}
+/* 🔦 Spotlight：今日「而家」嗰格 */
+.tl-now>.tl-card{border:1.5px solid var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 30%,transparent),var(--shadow)}
+.tl-now .tl-node{background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent);animation:nowpulse 2s ease-in-out infinite}
+.tl-now .tl-time{color:var(--gold);font-weight:700}
+.tl-now .tl-time::after{content:' ▸而家';font-size:9.5px;color:var(--gold);display:block;letter-spacing:.05em}
+@keyframes nowpulse{0%,100%{box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent)}50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--gold) 12%,transparent)}}
 /* 天氣 bar */
 .wxbar{background:linear-gradient(165deg,var(--bg2),var(--card));border:1px solid var(--border);border-radius:13px;margin:12px 0;overflow:hidden}
 .wxbar summary{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;font-size:13px;color:var(--white);list-style:none}
