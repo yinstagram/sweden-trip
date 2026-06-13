@@ -7,8 +7,13 @@ const esc = t=>(''+t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c
 const dayById = id=>S.DAYS.find(d=>d.id===id);
 const legOf = id=>(S.LEGS.find(l=>l.days.includes(id))||{}).key;
 const img = d=>'img/'+(S.HERO[d.id]||'stockholm')+'.jpg';
-// 純座標 → 保證跳到正確位置(唔會"no result");名做 label query 但用座標做中心
-const gmaps = (n,ll)=>`https://www.google.com/maps/search/?api=1&query=${ll[0]}%2C${ll[1]}`;
+// 用「地名」query → Google Maps 顯示有名嘅標點(有營業時間/相/評價);冇名先用座標 fallback
+const gmaps = (q,ll)=>{
+  if(q&&typeof q==='string'){const name=q.replace(/（[^）]*）|\([^)]*\)/g,'').replace(/[:：].*$/,'').trim();
+    if(name&&!/^(到|去|搭|退房|起身|執|早餐|晚餐|起行|轉機)/.test(name))
+      return`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name+' Sweden')}`;}
+  return ll?`https://www.google.com/maps/search/?api=1&query=${ll[0]}%2C${ll[1]}`:'#';
+};
 // 路線:座標 origin/dest/waypoints,唔指定 travelmode → Google 自動揀,保證畫到路線
 const dirURL = stops=>{const p=stops.filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>s.ll[0]+','+s.ll[1]);
   if(p.length<2)return null;return`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p[0])}&destination=${encodeURIComponent(p[p.length-1])}`+(p.length>2?`&waypoints=${encodeURIComponent(p.slice(1,-1).join('|'))}`:'');};
@@ -127,7 +132,7 @@ function tlItem(d,it,ti){
   const tips=(it.tips&&it.tips.length)?`<ul class="tl-tips">${it.tips.map(t=>`<li>${telLink(esc(t))}</li>`).join('')}</ul>`:'';
   const warn=it.warn?`<div class="tl-warn">⚠️ ${telLink(esc(it.warn))}</div>`:'';
   let acts='';
-  if(it.ll)acts+=`<a class="tl-act" target="_blank" href="${gmaps(it.title,it.ll)}">📍 Maps</a>`;
+  if(it.ll||it.q)acts+=`<a class="tl-act" target="_blank" href="${gmaps(it.q,it.ll)}">📍 ${esc(it.q||'Maps')}</a>`;
   if(it.phone)acts+=`<a class="tl-act" href="tel:${(''+it.phone).replace(/[^\d+]/g,'')}">📞 ${esc(it.phone)}</a>`;
   if(it.link)acts+=`<a class="tl-act" target="_blank" href="${esc(it.link)}">🔗 ${esc(it.linkLabel||'官網')}</a>`;
   const bk=it.bk?`<span class="st ${it.bk.s}">${S.BK[it.bk.s].ico} ${esc(it.bk.t)}</span>`:'';
@@ -158,6 +163,8 @@ function renderDayDetail(id){
   const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
   const bks=(d.bk||[]).map(b=>`<span class="st ${b.s}">${S.BK[b.s].ico} ${esc(b.t)}</span>`).join('');
   const dir=dirURL(d.stops||[]);
+  const idx=S.DAYS.findIndex(x=>x.id===id),pv=S.DAYS[idx-1],nx2=S.DAYS[idx+1];
+  const navHtml=`<div class="daynav">${pv?`<button class="dnav" onclick="window.__day('${pv.id}')"><span>‹ 上一日</span><b>${pv.date} ${esc(pv.title)}</b></button>`:'<span></span>'}${nx2?`<button class="dnav nx" onclick="window.__day('${nx2.id}')"><span>下一日 ›</span><b>${nx2.date} ${esc(nx2.title)}</b></button>`:'<span></span>'}</div>`;
   const heroHtml=`<div class="dd-hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8)),url('${img(d)}')">
      <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>`;
@@ -171,7 +178,8 @@ function renderDayDetail(id){
       ${heroHtml}${wxBar(legOf(id))}
       <div class="tl-h">⏱ 今日時間線<span class="muted"> · 撳一格展開詳情 / 要買咩 / 注意</span></div>
       ${tlHtml}${accomHtml}${exHtml}${mapBlock}
-      <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>`;
+      <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
+      ${navHtml}`;
     bindTl(V);if(document.getElementById('dmap'))makeMini(d);return;
   }
   /* —— fallback：未轉 timeline 嘅日子 —— */
@@ -192,9 +200,11 @@ function renderDayDetail(id){
      ${noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`:'<div id="dmap" class="dmap"></div>'}${stops||'<div class="muted">—</div>'}</div>
    <div class="block"><div class="bh">⚠️ 注意</div>${notes||'<div class="muted">—</div>'}</div>
    ${rvDay(id)}
-   <div class="block"><div class="bh">🎟 買飛 / 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>`;
+   <div class="block"><div class="bh">🎟 買飛 / 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
+   ${navHtml}`;
   if(document.getElementById('dmap'))makeMini(d);
 }
+window.__day=id=>{killDmap();renderDayDetail(id);};
 window.__back=()=>{killDmap();go('days');};
 function makeMini(d){
   const pts=(d.stops||[]).map(s=>[s.ll[1],s.ll[0]]);if(!pts.length)return;
