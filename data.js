@@ -8,7 +8,7 @@ const TRIP = {
   title: 'Sweden 2026',
   sub: 'Ng Cho Yin & Cheng Kam Ling · 6/27 – 7/18',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-14c',
+  updated: '2026-06-14d',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
@@ -340,7 +340,7 @@ const CHECKLIST = [
     '🛡️ 保險單 PDF 離線 + 記低 24h hotline + 保單號(Zurich 兩人都保·已確認)',
     '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290 · 12308',
     '📱 eSIM/漫遊開通(瑞典覆蓋好,山區仍可能冇)·帶少量 SEK 現金(北段 card reader 可能失靈)',
-    '📲 裝定 app:SJ · Norwegian · SAS · SL · Västtrafik · Flygbussarna · Arlanda Express · Airbnb · Trip.com · STF',
+    '📲 裝定 app:SJ · Norwegian · SAS · SL · Västtrafik · Flygbussarna · Arlanda Express · Airbnb · Trip.com · STF','🧳 手提行李 contingency:行山鞋著上機 + 處方藥/眼鏡/隱形/充電/booking 截圖/保險/1 套底層+襪/雨褸/證件 放手提——萬一大件 check-in 喼喺 6/27-28 多次轉機(HKG→上海→ARN→Kiruna)失蹤,6 日行山都照行得','📞 報平安 protocol:行前同一個信得過嘅人留低行程+山屋 code +「7/5 晚 X 點前未報平安就打邊個」(山上 6/30-7/5 冇訊號)','🛡️ 確認保險涵蓋:trekking(Kungsleden·已確認 excl >5000m) + ⚠️7/11 水上活動(stand-up surf/eFoil·新加·臨行 confirm 受保) + 租車自負額/意外','🔌 EX30 充電方案:取車前確認租車公司建議嘅充電 app/network + 付款方式(北段 7/6-8 自駕)',
   ]},
   {grp:'🧾 證件 / 錢 / 卡（硬文件·手機+雲端+紙本三份）', items:[
     '🛂 兩本護照(回程後 ≥6 個月有效) + 香港身份證','🚗 國際駕照 IDP + 香港正式駕照(司機 Yin)',
@@ -354,7 +354,7 @@ const CHECKLIST = [
     '💧 濾水器 + 後備淨水片 + 1.5–2L 水樽/soft flask 每人','🔥 爐頭 + 火機/防水火柴 + 小鍋/杯/spork/摺刀 ｜⚠️氣罐落 Kiruna/Abisko 當地買(唔上得飛機)',
     '🍲 6 日主糧 + 2 日 buffer(Kiruna ICA 補·沿途山屋補) + 能量 bar/電解質','🔦 頭燈 + 後備電(午夜太陽全天光但山屋內仍要)',
     '🛏 Sleeping bag liner/床單(STF 床位一般唔使厚睡袋) + 快乾毛巾 + earplugs + eye mask','🩹 急救包 + 水泡膠布(Compeed)第一日易取 + tick remover + after-bite',
-    '🧻 垃圾袋 + 廁紙 + wet wipes + 酒精搓手液','🔧 Repair kit(duct tape/針線/索帶/後備鞋帶) + STF 會員資料 + 8 山屋 code + Kungsleden 紙本地圖+指南針','📢 求生哨 + 🛟 緊急保溫毯/space blanket(輕量·偏遠山段+7/2 Tjäktja 山口安全用) + 綁腿 gaiters(過雪/泥沼/過河防濕·optional)'] },
+    '🧻 垃圾袋 + 廁紙 + wet wipes + 酒精搓手液','🔧 Repair kit(duct tape/針線/索帶/後備鞋帶) + STF 會員資料 + 8 山屋 code + Kungsleden 紙本地圖+指南針','📢 求生哨(查吓背囊胸扣可能已有) + 🛟 緊急保溫毯/space blanket(查吓急救包可能已有·7/2 Tjäktja 山口安全) + 綁腿 gaiters(過雪/泥沼/過河·optional)','🗺 防水地圖套/大密實袋(大風大雨可攤開睇·7/2 山口低能見度·收喺 dry bag 入面攤唔開冇用) + 🥡 食物分裝密實袋(6/28 ICA 砌 6 日糧用·兼控垃圾防濕)'] },
   {grp:'👕 衣物（兩人·北極圈 0–15°C + 城市 15–25°C）', items:[
     '🥾 行山快乾上衣每人 2–3 + 行山褲每人 1–2','👚 城市 top 每人 5–7 + 長褲/裙/dress 每人 2–3 + 輕外套',
     '🩲 內衣褲 7–10 日量(途中洗) + 睡衣 + 晚餐稍整齊 outfit 一套','🩱 泳衣(Arctic Bath spa 7/7 + Landvetter 水上 7/11 都要!) + 可濕涼鞋/水上鞋 + 拖鞋 + 城市舒服鞋',
@@ -369,10 +369,24 @@ const CHECKLIST = [
   {grp:'🛍 城市（購物·退稅·app·防偷）', items:[
     '☂️ 摺傘/輕雨衣 + 環保袋/tote(買毛線+咖啡豆+黑膠)','🧾 退稅文件夾:收據 + passport copy + 貨品清單(退稅貨隨身唔好 check-in)',
     '👜 小斜孭袋/防盜袋 + 水樽','🎓 學生證(Vasa 等問學生價) + 餐廳/活動 booking 截圖',
-    '🔒 小鎖(Airbnb/行李寄存) + 行李秤(回程購物後有用)','📱 防水手機袋(7/11 水上影相/保護電話) + dry bag 裝濕衫(玩完內層會濕)','💺 頸枕(HKG→上海→ARN 來回 4 程長途·瞓得好啲)','🧶 Kam Ling 鈎針工具+毛線(火車/山屋休息日/長途機打發時間·optional)'] },
+    '🔒 小鎖(Airbnb/行李寄存) + 行李秤(回程購物後有用)','📱 防水手機袋(7/11 水上影相/保護電話) + dry bag 裝濕衫(玩完內層會濕)','💺 頸枕(HKG→上海→ARN 來回 4 程長途·瞓得好啲)','🧶 Kam Ling 鈎針工具+毛線(火車/山屋休息日/長途機打發時間·optional)','🎒 可摺輕量 day bag(城市/博物館/群島渡輪/7/11 裝泳衣毛巾·大件擺低淨孭細袋)'] },
   {grp:'⚠️ 最易漏（唔貴但漏咗影響行程）', items:[
     '🔥 氣罐不可上機→瑞典買·回程唔好帶 ｜ 🥢 登山杖/摺刀放寄艙 ｜ 🔋 尿袋一定手提','🔋 山屋多數無電→手機飛行模式慳電 ｜ 📴 山區無訊號→booking/map/保單全離線',
-    '🕶 防曬+太陽眼鏡(冷都會曬傷) ｜ 🩹 水泡膠布第一日易取 ｜ 😴 sleep mask(午夜太陽) ｜ 🔇 earplugs(山屋多人房)','🧳 大件行李 6/28 寄存 STF Kiruna(貼名+電話·7/5 取)·行山只孭背囊 ｜ 🧾 退稅貨隨身 ｜ 💳 租車按金=司機名下實體卡 ｜ ☕ 7/8 breakfast bag 確認 06:00 或更早'] },
+    '🕶 防曬+太陽眼鏡(冷都會曬傷) ｜ 🩹 水泡膠布第一日易取 ｜ 😴 sleep mask(午夜太陽) ｜ 🔇 earplugs(山屋多人房)','🧳 大件行李 6/28 寄存 STF Kiruna(貼名+電話·7/5 取)·行山只孭背囊 ｜ 🧾 退稅貨隨身 ｜ 💳 租車按金=司機名下實體卡 ｜ '] },
+  {grp:'👩 Cheng Kam Ling 個人清單（衣物 / 護理 / 鈎針·方便佢自己執同 tick）', items:[
+    '🛂 護照（Cheng Kam Ling·回程後 ≥6 個月）+ 香港身份證 + 個人卡/Apple Pay + 證件影印本',
+    '🎒 自己嗰個 50–65L 背囊 + broken-in 行山鞋 + 山屋拖鞋/可濕涼鞋',
+    '🥾 行山：快乾上衣 ×2–3 + 行山褲 + Merino 底層 ×2 + fleece + 輕羽絨 + 雨褸 shell + 羊毛襪 4–5 對',
+    '🧢 冷帽 + 薄手套 + buff + 太陽帽/cap + 太陽眼鏡 + 防蚊頭網',
+    '👚 城市：top 5–7 + 裙/dress 2–3 + 長褲 + 輕外套 + 晚餐稍整齊 outfit 一套',
+    '🩲 內衣褲 7–10（途中洗）+ 睡衣 + 🩱 泳衣（Arctic Bath 7/7 + 水上 7/11 都要）',
+    '🩸 女性衛生用品足量（⚠️ 行山段 6/29–7/5 完全無得補！）+ 避孕用品',
+    '💊 個人處方藥（原包裝+英文藥名）+ 暈浪藥 + 個人慣用藥',
+    '🧴 護膚/化妝（如帶）+ 保濕/潤唇/防曬 + 隱形眼鏡/眼鏡 + con 水 + 指甲鉗',
+    '🪥 個人洗漱：牙刷牙膏 + 旅行洗頭沖涼裝 + 快乾毛巾',
+    '🔌 自己手機 + charger + 一個大容量尿袋 + 線 + eye mask（午夜太陽）+ earplugs',
+    '💧 個人水樽/soft flask',
+    '🧶 鈎針工具（鈎針 set + 記號圈·用指甲鉗剪線·唔好帶剪刀手提過安檢）+ 夠用毛線（火車/山屋休息日/長途機打發）｜ 想買瑞典毛線：Nordiska 7/14 · Svensk Hemslöjd & Litet Nystan 7/16'] },
 ];
 
 /* 每日 hero 相（真實 Wikimedia Commons CC 授權，已 download 落 img/） */
