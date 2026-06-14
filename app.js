@@ -301,12 +301,22 @@ const rvItem = r=>`<div class="rv ${r.sev}"><div class="rv-t">${rvSev[r.sev]||''
 function rvDay(id){return'';} /* 每日 agent 審查層已撤——重點已整合入每日「⚠️ 注意」(notes) */
 /* 行前/行程中 仲要做 — 人話清單(唔再 show agent 審查) */
 const TODO_LIST=[
-  '💳 帶實體信用卡（7/6 取車按金；Mox 趕唔切就用你現有嗰張）',
-  '🎟 7/8 搶 Stadshuset Tower 飛（7/15 上塔，提前 7 日放）',
-  '🏄 7/11 eFoil（哥德堡·eFoil Sweden 2,500 SEK/位）— 訂時 confirm 嗰日有 slot；Airbnb 訂用你 $196 折',
+  '⏳ ── 而家–出發前（喺香港搞掂）──',
+  '🛡 跟進 Zurich 覆：7/11 水上活動受唔受保（已寄 enquiry@hk.zurich.com·~3 工作天，未覆就 reminder）',
+  '💬 message Évika host：7/11 個體驗係咪 eFoil？帶咩？天氣有變點安排（Airbnb app）',
+  '📅 share 你個 Google Calendar 俾 Kling（klingggg0621@gmail.com）+ send 網站 link 俾佢',
+  '🛒 買齊新加嘅 gear：細風槍 · 太陽帽 · 求生哨 · 保溫毯 · 防水手機袋 · 頸枕 · 可摺 day bag · Kam Ling 鈎針',
+  '📞 報平安 protocol：留行程＋山屋 code 俾一個信得過嘅人（山上 6/30–7/5 冇訊號）',
+  '💳 決定取車按金卡（Mox 趕唔切就用現有實體卡·袋好）',
+  '🎶 ABBA 7/14（想去就而家提前官網訂時段·夏天爆飛·二揀一同 Viking）',
   '🎤 Allsång på Skansen 7/14 — 6 月尾上 skansen.se 睇有冇場先計',
-  '📞 Saab 7/10 — 去之前打 +46-520-289440 confirm 開放',
-  '🛒 到埗即買：SL 7 日票 · 行山糧+氣罐(Kiruna ICA/Jaktia) · World of Volvo 飛(當日手機買慳10%)',
+  '📲 預載離線地圖 + 截圖所有 booking + 保險 PDF 離線',
+  '✈️ ── 旅程中（特定日先做）──',
+  '🛒 6/28 Kiruna：ICA 買 6 日糧 + 氣罐（週日 Jaktia 多數閉·Coop 後備）',
+  '🎫 7/8 搶 Stadshuset Tower 飛（7/15 上塔·T-7=7/8 放·一放即清）',
+  '🎟 7/9 World of Volvo 飛（當日手機網購慳 10%）',
+  '📞 7/10 Saab 去之前打 +46-520-289440 confirm 開放',
+  '🛒 到埗即買 SL 7 日票（Stockholm 段）',
 ];
 
 /* ---------- 狀態 STATUS ---------- */
