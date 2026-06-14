@@ -8,7 +8,7 @@ const TRIP = {
   title: 'Sweden 2026',
   sub: 'Ng Cho Yin & Cheng Kam Ling · 6/27 – 7/18',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-14h',
+  updated: '2026-06-14i',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
@@ -245,7 +245,7 @@ const DAYS = [
     {n:'Nordiska museet',ll:[59.3291,18.0939],cat:'🧶 紡織/文化',note:'紡織收藏(crochet) · 170',o:2},
     {n:'Skansen',ll:[59.3266,18.1053],cat:'露天博物館',note:'歷史村 + 北歐動物;Solliden 台 = Allsång 場',o:3},
     {n:'ABBA The Museum',ll:[59.3249,18.0966],cat:'博物館(你 saved)',note:'同 Skansen 二揀一',o:4,opt:true}],
-  notes:['🎲 彈性日:定咗 = Vasa 08:30(早去先有位企)。Nordiska/Skansen/ABBA/Viking 全部跟心情——ABBA 用 code「AVICII」9 折。','Vasa 08:30 一開就去(人最少最好影)。Skansen / ABBA 二揀一。','🎤 晚 Allsång på Skansen 7/14 20:00–21:00(官方已公布)。企位/非編號位 = 用普通 Skansen 入場飛;想要編號座位 = Ticketmaster ~545–595 SEK。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 兩個都俾 470。'],
+  notes:['🎲 彈性日:定咗 = Vasa 09:45（早去先有位企）。Nordiska → Vikingaliv（選）→ Rosendals 午餐 → Skansen → Allsång 20:00。','Vasa 09:45 一開就去（人最少最好影）。今日順序：Nordiska → Vikingaliv（可選）→ Skansen。','🎤 晚 Allsång på Skansen 7/14 20:00–21:00(官方已公布)。企位/非編號位 = 用普通 Skansen 入場飛;想要編號座位 = Ticketmaster ~545–595 SEK。','SL 7-day 票到埗 app 買:成人 470 SEK。⚠️ reduced 290 淨係 7-19 歲或瑞典學生證(Mecenat)——你哋 7/13 時 Yin 已 21、Kam Ling 20,HK 學生證唔 work → 兩個都俾 470。'],
   bk:[{s:'pend',t:'🎫 SL 7-day 票(成人 470,到埗買)'},{s:'pend',t:'🎤 Allsång på Skansen 7/14 20:00–21:00（已公布）'}] },
 
 { id:'d0715', date:'7/15', dow:'三', leg:'sto', color:'#a78bda',
@@ -257,7 +257,7 @@ const DAYS = [
     {n:'Gamla Stan Stortorget',ll:[59.3250,18.0708],cat:'舊城',note:'Mårten Trotzigs gränd 窄巷 + Stortorget + Nobel Prize Museum(你 saved)',o:2},
     {n:'Nationalmuseum',ll:[59.3285,18.0781],cat:'國家美術館(你 saved)',note:'成人 160 SEK(週三唔免) + 設計藏品 · 順路 Kungsträdgården',o:3},
     {n:'Fotografiska',ll:[59.3180,18.0847],cat:'攝影博物館(你 saved)',note:'7/15 週三 18:00 後買一送一! · 開到 23:00 · 景觀餐廳',o:4}],
-  notes:['今日係觀光日:Stadshuset 塔(09:00 頭場·飛 T-7=7/8 放) + Gamla Stan + Nationalmuseum + Fotografiska 週三 BOGO 夜。','📷 Fotografiska 7/15 週三 18:00 後買一送一(慳一半)開到 23:00,夜晚啱行 + 景觀餐廳。','⚠️ Nationalmuseum 週三唔免費(成人 160)。','Gamla Stan 行 Mårten Trotzigs gränd 窄巷 + Nobel Prize Museum。'],
+  notes:['今日係觀光日：Stadshuset 塔（09:00 頭場·飛 T-7=7/8 放）+ Gamla Stan + Nobel Prize Museum + Fotografiska 週三 BOGO 夜。','📷 Fotografiska 7/15 週三 18:00 後買一送一(慳一半)開到 23:00,夜晚啱行 + 景觀餐廳。','ℹ️ Nationalmuseum 免費場已移到 7/16 週四 17:00（唔需今日考慮）。','Gamla Stan 行 Mårten Trotzigs gränd 窄巷 + Nobel Prize Museum。'],
   bk:[{s:'todo',t:'🎟 Stadshuset Tower(飛 T-7=7/8 放)'},{s:'pend',t:'🎟 Fotografiska(週三 BOGO·現場)'}] },
 
 { id:'d0716', date:'7/16', dow:'四', leg:'sto', color:'#a78bda',
@@ -274,7 +274,7 @@ const DAYS = [
   bk:[{s:'paid',t:'🎟 Avicii Experience(已買·YZCB51)'}] },
 
 { id:'d0717', date:'7/17', dow:'五', leg:'sto', color:'#a78bda',
-  title:'群島 chill + 咖啡器材', theme:'輕鬆島嶼日（RIB 已撤·改 Fjäderholmarna 渡輪）',
+  title:'群島 chill + 咖啡器材', theme:'輕鬆島嶼日（Fjäderholmarna 渡輪 + SoFo 咖啡器材）',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
   meals:{b:'Gamla Stan café', l:'🍽 Chokladkoppen（Stortorget）', d:'🍽 Aifur 維京餐（Nationalmuseum 餐廳只午餐/fika·週五 kitchen 15:00 關）'},
   stops:[
@@ -284,7 +284,7 @@ const DAYS = [
     {n:'Johan & Nyström',ll:[59.3164,18.0639],cat:'☕ 器材最齊',note:'SoFo 概念店 · GF priority',o:4},
     {n:'Aifur 維京餐廳',ll:[59.3235,18.0668],cat:'晚餐(需提前訂)',note:'Gamla Stan 維京主題 · 臨行查開放日+訂位',o:5},
     {n:'Monteliusvägen',ll:[59.3186,18.0703],cat:'日落觀景',note:'Södermalm 高地 · 俯瞰舊城 · 夏季日落~22:00',o:6}],
-  notes:['🏝️ RIB 已撤(未 book·你寧願喺哥德堡玩 eFoil) → 今日輕鬆島嶼日。','Strömma 渡輪去 Fjäderholmarna(查實尾班船) + 海鮮午餐。','SoFo 咖啡器材 Drop + Johan & Nyström(GF priority)。','晚 Aifur 維京餐需提前訂(臨行查開放日);黃昏 Monteliusvägen 睇日落。'],
+  notes:['🏝️ 輕鬆島嶼日 chill — 無緊迫行程，隨心而行。','Strömma 渡輪去 Fjäderholmarna(查實尾班船) + 海鮮午餐。','SoFo 咖啡器材 Drop + Johan & Nyström(GF priority)。','晚 Aifur 維京餐需提前訂(臨行查開放日);黃昏 Monteliusvägen 睇日落。'],
   bk:[{s:'todo',t:'🍽️ Aifur 維京餐訂位（週五·臨行訂）'}] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#a78bda',
@@ -486,7 +486,7 @@ const EX = {
  d0714:{carry:'⚠️薄外套/冷衫(Vasa 館內 18-19°C,坐成日)·水樽+snack(島上貴)·防曬太陽眼鏡(Skansen 露天)·摺傘·舒服波鞋',tip:'💡Vasa 隔籬 Vikingaliv(你 saved)+Nordiska 同一條 Djurgårdsvägen 串連順路;Rosendals Trädgård 花園 fika;晚 Allsång på Skansen 就喺島上唔使轉場。',pace:'Vasa 08:30 早開~2h+Nordiska~2h(crochet 核心,可 3-4h)+Skansen 半日;⚠️ABBA/Viking 做機動,四館一日做唔晒→鎖 Vasa+Nordiska+Skansen。'},
  d0715:{carry:'薄外套(室內凍)·摺傘·水樽snack·環保袋·學生證',tip:'💡Stadshuset 塔 09:00 頭場(飛 T-7=7/8 放);Gamla Stan 行 Mårten Trotzigs gränd 窄巷+Nobel;Nationalmuseum(週三唔免·成人160);Fotografiska 7/15 週三 18:00 後買一送一,開到23:00。',pace:'觀光日:市政廳塔→舊城→美術館→Fotografiska 夜場。'},
  d0716:{carry:'舒服行街鞋(行成日)·環保袋(買毛線+豆器材+黑膠)·薄外套(店冷氣+河邊風)·摺傘',tip:'💡Avicii 10:00 頭場→行5分 Svensk Hemslöjd(🧶);午餐 Kajsas Fisk;SoFo 你 saved 嘅 Bar Ottocento/Meatballs 晚餐;Mosebacke/Monteliusvägen 日落(夏季 ~22:00)。',pace:'⚠️暑假細店多 sem→Svensk Hemslöjd+Litet Nystan 趁一-五+18:00前(週四=安全日);Avicii~1.5-2h 提早訂時段。'},
- d0717:{carry:'泳衣可帶(Fjäderholmarna 石灘可游)·摺傘·環保袋(SoFo 買咖啡器材)·舒服鞋',tip:'RIB 已撤 → 輕鬆島嶼日:Strömma 渡輪去 Fjäderholmarna(查實尾班船)+海鮮午餐;SoFo Drop Coffee/Johan & Nyström 咖啡器材;晚 Aifur 維京餐(需提前訂)。',pace:'放鬆 chill 日,冇趕車壓力;黃昏 Monteliusvägen 睇日落。'},
+ d0717:{carry:'泳衣可帶(Fjäderholmarna 石灘可游)·摺傘·環保袋(SoFo 買咖啡器材)·舒服鞋',tip:'輕鬆島嶼日:Strömma 渡輪去 Fjäderholmarna(查實尾班船)+海鮮午餐;SoFo Drop Coffee/Johan & Nyström 咖啡器材;晚 Aifur 維京餐(需提前訂)。',pace:'放鬆 chill 日,冇趕車壓力;黃昏 Monteliusvägen 睇日落。'},
  d0718:{carry:'退稅貨+收據隨身唔好 check-in(要驗貨)·外套(機艙/Arlanda Express 凍)·護照+booking code 離線',tip:'💡最後 fika/Gamla Stan 漏網/Åhléns·NK 手信;退稅 Global Blue 喺出發層預 20-40 分排隊。',pace:'⚠️冇 buffer:最遲 20:10 到 ARN(起飛前2.5h)→~19:00 一定起行;住 Helenelund 順方向——SL app 睇 pendeltåg 直去 Arlanda C(~25分+過站費130/人)定入 City 轉 Arlanda Express(youth 160)邊樣快。'},
 };
 
