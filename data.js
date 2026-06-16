@@ -207,10 +207,10 @@ const DAYS = [
   accom:{name:'Airbnb Majorna（Cozy apartment）', status:'paid'},
   meals:{b:'Majorna 自煮', l:'市區', d:'市區'},
   stops:[
-    {n:'Stand Up Surfing @ Évika',ll:[57.6887,12.2190],cat:'水上體驗(你 book 咗)',note:'Östra Eskilsbyvägen 246, Landvetter · 7/11 17:00–19:00 · 2 人 · 已付 Airbnb · 去之前 message host 確認玩咩+帶咩',o:3},
+    {n:'Jet-boarding @ Évika',ll:[57.6887,12.2190],cat:'水上體驗(你 book 咗)',note:'Östra Eskilsbyvägen 246, Landvetter · 7/11 17:00–19:00 · 2 人 · 已付 Airbnb · ✅host 6/14 確認:jet-boarding,提供 wetsuit+頭盔+安全衣,碼頭桑拿屋換衫 → 帶泳衣著底+毛巾即可',o:3},
     {n:'Slottsskogen',ll:[57.6870,11.9419],cat:'公園(免費)',note:'15:00 返到夾得到 · 黃昏行公園+動物(海豹/企鵝)',o:2},
     {n:'Radiomuseet',ll:[57.7087,11.9453],cat:'電台博物館(你 saved)',note:'二–日12–15 · 古董電台 niche · optional',o:8,opt:true}],
-  notes:['🏄 黃昏 17:00 Landvetter 玩 Stand Up Surfing(你 Airbnb book 咗·Évika·你叫 eFoil,listing 寫 stand-up surfing,message host 確認)。','日頭行哥德堡市區:魚市場/Haga/設計店/Slottsskogen;落雨轉 Universeum 室內。','冇租車 → taxi/Bolt 去 Landvetter ~30 分。'],
+  notes:['🏄 黃昏 17:00 Landvetter 玩 jet-boarding(你 Airbnb book 咗·Évika)。✅host 6/14 已回覆:提供 wetsuit+頭盔+安全衣,喺碼頭桑拿屋換衫 → 你只需帶泳衣著底+毛巾。','日頭行哥德堡市區:魚市場/Haga/設計店/Slottsskogen;落雨轉 Universeum 室內。','冇租車 → taxi/Bolt 去 Landvetter ~30 分。'],
   bk:[{s:'paid',t:'🏄 Stand Up Surfing @ Évika（你 book 咗·7/11 17:00–19:00）'}] },
 
 //──────────────────── Älmhult ────────────────────
@@ -478,7 +478,7 @@ const EX = {
  d0708:{carry:'前一晚執好行李·還車前影低車況+電量·機票 QR 離線截圖',tip:'11:35 落 GOT→Flygbussarna 入市→電車 3/9/11 去 Majorna check-in→下午 Haga/da Matteo 照行(Majorna 去 Haga 電車 ~10 分鐘)。',pace:'⏰ 早機 09:55!Yin plan:5:30 起→6:00 攞 breakfast bag 出發→~8:00 到 LLA(1h15 車程+buffer)→還車→入 terminal→bag drop 09:10 前鬆容。寧早莫遲。'},
  d0709:{carry:'學生證(問博物館學生價,20歲要俾75)·薄外套(室內冷氣坐成日)·水樽+snack',tip:'💡你 saved 嘅 Victor Hasselblad Statue 今日順路影(攝影朝聖);食:Hasselblad 出門 Mr P/Familjen,或場內 Ceno;da Matteo 順手一杯。',pace:'World of Volvo ~2-3h(唔使搶 timed,網買慳10%全日有效)+Hasselblad ~1-1.5h;Konstmuseum 逢一閉今日四 OK;全室內落雨唔怕。'},
  d0710:{carry:'暖 layer(室內+火車冷氣)·Västtrafik app·水樽+snack(Trollhättan 嘢食少)',tip:'💡Saab 隔籬 Innovatum 科學館行2分(combo 票)+運河船閘古工程峽谷(免費上鏡);⚠️瀑布放水 2026 夏天冇(只7/17-19);Radiomuseet/Backa Teater 喺市內唔順路留返。',pace:'火車~38分;Saab~2h+Innovatum~1.5h+船閘~1-1.5h;⚠️Saab hours 矛盾→打 +46-520-289440 confirm 週五開;學生證慳60/人。'},
- d0711:{carry:'泳衣著入面·換洗衫+毛巾(wetsuit 主辦多數包)·市區行街鞋',tip:'黃昏 17:00 去 Landvetter 玩 Stand Up Surfing(你 book 咗·Évika);日頭行哥德堡市區(魚市場/Haga/設計店/Slottsskogen);去之前 message host 確認玩咩+帶咩。',pace:'日頭 chill 行市區,黃昏玩 2 鐘水上(strenuous),夜返市區食晚餐。'},
+ d0711:{carry:'泳衣著入面+毛巾(✅host 確認 wetsuit+頭盔+安全衣全提供,碼頭桑拿屋換衫)·市區行街鞋',tip:'黃昏 17:00 去 Landvetter 玩 jet-boarding(你 book 咗·Évika·host 6/14 已確認裝備齊備);日頭行哥德堡市區(魚市場/Haga/設計店/Slottsskogen)。',pace:'日頭 chill 行市區,黃昏玩 2 鐘水上(strenuous),夜返市區食晚餐。'},
  d0712:{carry:'早餐/snack 上火車(4h20)·行李齊裝退房·薄外套·SJ W9NULT2R 截圖離線',tip:'💡IKEA Museum(每日約10-18·票價+hours 官網臨行確認)館內有餐廳→14:15 到先食遲午餐(瑞典肉丸朝聖)再入館;Gothia Cup+Pippi pop-up 暑期氛圍。',pace:'⚠️趕 09:55 早火車(退房+行李+去 Göteborg C 預 buffer);坐4鐘→先 check-in 放行李食飽再行展(~2-3h 暖身)。'},
  d0713:{carry:'行李退房寄存·薄外套·SJ WRAVLE37 截圖·snack/晚餐(車上食)',tip:'💡IKEA Museum 限定手信(唔係普通 IKEA 貨)今日最後機會;⚠️host Jerker 已知 ~21:30 到;有變化先 message。',pace:'玩足上半日(~3-4h)+12:00 午餐,~15:30-16:00 攞行李去站;17:09→20:38 坐成晚。'},
  d0714:{carry:'⚠️薄外套/冷衫(Vasa 館內 18-19°C,坐成日)·水樽+snack(島上貴)·防曬太陽眼鏡(Skansen 露天)·摺傘·舒服波鞋',tip:'💡Vasa 隔籬 Vikingaliv(你 saved)+Nordiska 同一條 Djurgårdsvägen 串連順路;Rosendals Trädgård 花園 fika;晚 Allsång på Skansen 就喺島上唔使轉場。',pace:'Vasa 09:45 早開~2h+Nordiska~2h（crochet 核心，可 3-4h）+Vikingaliv（選·~1h）+Skansen 半日；四館一日做唔晒→鎖 Vasa+Nordiska+Skansen，Vikingaliv 時間夠先加。'},
@@ -537,7 +537,7 @@ const BOOK = [
  {t:'🍽 Aifur 維京餐（7/16 晚餐）',s:'todo',d:'7/16 週四·建議 ~17:30–18:00',pax:'2 人',price:'臨訂時官網/電話 confirm',where:'mailto:booking@aifur.se',wl:'booking@aifur.se / +46 8 20 10 55',dl:'Västerlånggatan 68, Gamla Stan·維京主題+live music·✅官網驗週一–四 17:00–23:00(週日休)·只見 6/19–21 休,無 7 月暑休。email booking@aifur.se 或電話 +46 8 20 10 55 訂 2 位(暑期旺·早訂)'},
  {t:'🍽 Sturehof 晚餐（7/17）',s:'todo',d:'7/17 週五·獨木舟後 ~21:00',pax:'2 人',price:'主菜 ~215–315 SEK/人',where:'https://sturehof.com',wl:'sturehof.com Boka bord',dl:'Stureplan 2(central)·傳統瑞典+海鮮·✅官網明寫「öppet 365 dagar om året」全年無休·週一–六 11:30–02:00→獨木舟 20:30 玩完啱去。線上 Boka bord(waiteraid)訂 2 位。後備:Pelikan(Blekingegatan 40·till 01:00·pelikan.se/boka-bord)'},
  {t:'🏛 Stadshuset Tower（你話興趣唔大→optional）',s:'todo',d:'7/15·想去先 09:00 頭場',pax:'2 人',price:'成人 100 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'你講過對觀光塔興趣唔大 → 設 optional,可以 skip。想去先:塔樓時段票 T-7 日(7/8)放,當日 08:30 City Hall Shop 都有現場票。ABBA Museum + Allsång 你已決定唔去,已從清單移除'},
- {t:'🏄 Stand Up Surfing @ Évika（7/11·已 book ✅）',s:'paid',d:'7/11 17:00–19:00·Landvetter',pax:'2 人',price:'已付 HK$1,493.57（Airbnb）',where:'https://www.airbnb.com',wl:'Airbnb 訂單',dl:'✅ 你 Airbnb book 咗（主辦 Évika Boutique Hotel·Landvetter·Östra Eskilsbyvägen 246·17:00–19:00）。你叫佢 eFoil，但 listing 寫「Stand Up Surfing」→ 去之前 message host 確認係咪電動水翼板 + 帶咩（泳衣/毛巾·wetsuit 通常包）。15 歲以上·強度 strenuous。確認碼喺 Apple Note。冇租車 → taxi/Bolt 去 Landvetter ~30 分（~400–550 SEK）'},
+ {t:'🏄 Jet-boarding @ Évika（7/11·已 book ✅）',s:'paid',d:'7/11 17:00–19:00·Landvetter',pax:'2 人',price:'已付 HK$1,493.57（Airbnb）',where:'https://www.airbnb.com',wl:'Airbnb 訂單',dl:'✅ 你 Airbnb book 咗（主辦 Évika Boutique Hotel·Landvetter·Östra Eskilsbyvägen 246·17:00–19:00）。✅host 6/14 確認:係 jet-boarding,提供 wetsuit+頭盔+安全衣,喺碼頭桑拿屋換衫 → 你只需帶泳衣著底+毛巾。15 歲以上·強度 strenuous。確認碼喺 Apple Note。冇租車 → taxi/Bolt 去 Landvetter ~30 分（~400–550 SEK）'},
  {t:'🛡️ 旅遊保險（已買 ✅·兩人都保）',s:'paid',d:'生效 6/27–7/19 · Zurich 自在旅遊',pax:'Yin + Kam Ling 兩人都受保（已確認）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'✅ 已核實:兩人都保·行山有 cover(只 excl >5000m·Kungsleden 最高 1140m 安全)·含 emergency evacuation。24h hotline +852 2886 3977。保單 PDF 下載落手機離線'},
 ];
 
