@@ -237,7 +237,7 @@ const DAYS = [
 
 //──────────────────── Stockholm ────────────────────
 { id:'d0714', date:'7/14', dow:'二', leg:'sto', color:'#a78bda',
-  title:'Djurgården 博物館島 + Allsång', theme:'Vasa 早開 + 國民合唱夜',
+  title:'Djurgården 博物館島', theme:'Vasa 早開 + Skansen 半日',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
   meals:{b:'出發前', l:'🍽 Rosendals Trädgård 花園 café', d:'Skansen 內 / Djurgården'},
   stops:[
@@ -251,7 +251,7 @@ const DAYS = [
 { id:'d0715', date:'7/15', dow:'三', leg:'sto', color:'#a78bda',
   title:'市政廳塔 + Gamla Stan + Fotografiska', theme:'舊城/高處 + Fotografiska 週三 BOGO 夜',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
-  meals:{b:'出發前', l:'Strandvägen 區輕食', d:'🍽 Fotografiska 餐廳（黃昏景觀·訂位）'},
+  meals:{b:'出發前', l:'Strandvägen 區輕食', d:'🍽 ？（Fotografiska 餐廳 6/14–8/20 夏休·待替代）'},
   stops:[
     {n:'Stadshuset（市政廳塔）',ll:[59.3275,18.0542],cat:'市政廳+塔',note:'塔樓導覽 09:00 頭場 · 5–9 月開 106m · 飛 T-7=7/8 放/當日 08:30 City Hall Shop · 成人 100 SEK',o:1},
     {n:'Gamla Stan Stortorget',ll:[59.3250,18.0708],cat:'舊城',note:'Mårten Trotzigs gränd 窄巷 + Stortorget + Nobel Prize Museum(你 saved)',o:2},
@@ -263,7 +263,7 @@ const DAYS = [
 { id:'d0716', date:'7/16', dow:'四', leg:'sto', color:'#a78bda',
   title:'Avicii + 毛線 + 古著黑膠', theme:'crochet 日 + SoFo 日落夜',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
-  meals:{b:'🍽 Vete-Katten（百年 konditori）', l:'🍽 Kajsas Fisk（Hötorget 魚湯)', d:'🍽 Pelikan / Meatballs for the People'},
+  meals:{b:'🍽 Vete-Katten（百年 konditori）', l:'🍽 Meatballs for the People（Nytorget 30·訂位：meatball.se/book-a-table·Thu 11:00–22:30 ✅）', d:'🍽 Aifur 維京餐（Gamla Stan·Västerlånggatan 68·週四 17:00–23:00·需訂位）'},
   stops:[
     {n:'Avicii Experience',ll:[59.3331,18.0642],cat:'體驗館(你 saved)',note:'Sergelgatan 2 · ✅ 飛已買(YZCB51·10:00 頭場·1 成人+1 學生)· 帶學生證',o:1},
     {n:'Svensk Hemslöjd',ll:[59.3353,18.0712],cat:'🧶 官方手工藝(你 saved)',note:'Norrlandsgatan 20 · 行 5 分鐘 · 瑞典羊毛',o:2},
@@ -271,21 +271,20 @@ const DAYS = [
     {n:'Pet Sounds Records',ll:[59.3121,18.0780],cat:'二手黑膠',note:'Skånegatan 53',o:4,opt:true},
     {n:'Mosebacke/Monteliusvägen',ll:[59.3186,18.0703],cat:'日落觀景',note:'SoFo 晚餐後行過去睇日落(夏季 ~22:00 先落)',o:9,opt:true}],
   notes:['🎲 半彈性:定咗 = Avicii 10:00(飛已買)。之後成個下晝(Hemslöjd/Kajsas/Söder 咖啡毛線黑膠/晚餐/日落)全部係建議路線,唔使跟足。','🕯️ Avicii 10:00 頭場(提早訂時段)→ 行 5 分鐘 Svensk Hemslöjd(🧶)。','⚠️ 暑假細店多 semesterstängt → Svensk Hemslöjd/Litet Nystan 趁一–五營業 + 18:00 前。','🎵 更正:Robyn Stockholm 場係 10/17 @ 3Arena(trip 之後)——之前「7/16-17 Avicii Arena」係錯,已剔除;行程期間 live/電音替代查緊。'],
-  bk:[{s:'paid',t:'🎟 Avicii Experience(已買·YZCB51)'}] },
+  bk:[{s:'paid',t:'🎟 Avicii Experience(已買·YZCB51)'},{s:'todo',t:'🍽 Meatballs for the People 午餐訂位（7/16·meatball.se/book-a-table）'},{s:'todo',t:'🍽 Aifur 維京餐訂位（7/16 晚餐·booking@aifur.se / +46 8 20 10 55）'}] },
 
 { id:'d0717', date:'7/17', dow:'五', leg:'sto', color:'#a78bda',
   title:'群島 chill + 咖啡器材', theme:'輕鬆島嶼日（Fjäderholmarna 渡輪 + SoFo 咖啡器材）',
   accom:{name:'Stockholm · Helenelund Airbnb', status:'paid'},
-  meals:{b:'Gamla Stan café', l:'🍽 Chokladkoppen（Stortorget）', d:'🍽 Aifur 維京餐（Nationalmuseum 餐廳只午餐/fika·週五 kitchen 15:00 關）'},
+  meals:{b:'Gamla Stan café', l:'🍽 Chokladkoppen（Stortorget）', d:'🍽 輕食（待定·Aifur 已移 7/16）'},
   stops:[
     {n:'Fjäderholmarna 群島',ll:[59.3284,18.1751],cat:'群島(渡輪)',note:'Strömma 渡輪 Strandvägen ~25-30 分到 · craft village + 海鮮午餐 + 石灘 · 查實尾班船',o:1},
     {n:'Östermalms Saluhall',ll:[59.3350,18.0770],cat:'美食市場',note:'室內歷史美食市場 · 海鮮/熟食午餐',o:2},
     {n:'Drop Coffee',ll:[59.3169,18.0627],cat:'☕ 咖啡器材',note:'SoFo · 賣豆+器材 · 臨行查實地址',o:3},
     {n:'Johan & Nyström',ll:[59.3164,18.0639],cat:'☕ 器材最齊',note:'SoFo 概念店 · GF priority',o:4},
-    {n:'Aifur 維京餐廳',ll:[59.3235,18.0668],cat:'晚餐(需提前訂)',note:'Gamla Stan 維京主題 · 臨行查開放日+訂位',o:5},
     {n:'Monteliusvägen',ll:[59.3186,18.0703],cat:'日落觀景',note:'Södermalm 高地 · 俯瞰舊城 · 夏季日落~22:00',o:6}],
   notes:['🏝️ 輕鬆島嶼日 chill — 無緊迫行程，隨心而行。','Strömma 渡輪去 Fjäderholmarna(查實尾班船) + 海鮮午餐。','SoFo 咖啡器材 Drop + Johan & Nyström(GF priority)。','晚 Aifur 維京餐需提前訂(臨行查開放日);黃昏 Monteliusvägen 睇日落。'],
-  bk:[{s:'todo',t:'🍽️ Aifur 維京餐訂位（週五·臨行訂）'}] },
+  bk:[] },
 
 { id:'d0718', date:'7/18', dow:'六', leg:'sto', color:'#a78bda',
   title:'收尾 + 飛走', theme:'半日 → Arlanda → 22:40 飛 HK',
