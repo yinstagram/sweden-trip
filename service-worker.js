@@ -1,8 +1,8 @@
 /* Sweden 2026 PWA — offline app shell（地圖底圖要訊號;行程/清單/緊急離線） */
-const CACHE = 'sweden-v48';
+const CACHE = 'sweden-v49';
 const IMGS = ['lapporten','abiskocanyon','abiskojaure','alesjaure','salka','singi','kebnekaise','nikkaluokta','midnightsun','kungsleden','harads','volvo','saab','konstmuseum','trollhattan','ikea','haga','slottsskogen','vasa','nordiska','fjaderholmarna','fotografiska','avicii','skansen','gamlastan','monteliusvagen','stadshuset','nationalmuseum','stockholm'].map(n=>'./img/'+n+'.jpg');
 const ASSETS = [
-  './', './index.html', './data.js?v=48', './review.js?v=48', './app.js?v=48', './css/style.css?v=48', './manifest.json',
+  './', './index.html', './data.js?v=49', './review.js?v=49', './app.js?v=49', './css/style.css?v=49', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png',
   'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js',
   'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css',
