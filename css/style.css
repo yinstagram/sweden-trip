@@ -1,40 +1,42 @@
-/* Sweden 2026 PWA — v3 redesign：暖調 ink + brass · 紙質顆粒 · 五段配色 · editorial 旅誌
-   設計層全面翻新；所有 class selector 同 app.js 保持一致,功能零改動。 */
+/* Sweden 2026 PWA — v57 liquid glass：iOS-style frosted panels · calm travel assistant.
+   All class selectors stay compatible with app.js; design-only layer keeps existing features. */
 :root{
   --fs:16px;
-  /* dark (default) — 暖中性 ink,戒走冷藍 AI 感 */
-  --bg:#0e0d12; --bg2:#15131c; --bg3:#1d1b26; --card:#17151f;
-  --border:#2a2735; --line:#221f2c;
-  --gold:#e2a948; --gold2:#f2cd80; --cyan:#6fb3c6; --green:#73c79a; --red:#e58277; --amber:#e2a948;
-  --muted:#8d889c; --text:#d8d4e1; --white:#f5f2fa;
+  --bg:#05070b; --bg2:rgba(255,255,255,.075); --bg3:rgba(255,255,255,.105); --card:rgba(255,255,255,.115);
+  --border:rgba(255,255,255,.17); --line:rgba(255,255,255,.105);
+  --gold:#8fd3ff; --gold2:#d8f1ff; --cyan:#67e8f9; --green:#72e0a6; --red:#ff7b83; --amber:#ffd166;
+  --muted:rgba(235,245,255,.62); --text:rgba(248,251,255,.86); --white:#fbfdff;
   --D:'Space Grotesk','PingFang HK','Hiragino Sans GB','Avenir Next',system-ui,sans-serif;
   --M:'Space Grotesk','SF Mono',ui-monospace,monospace;
-  --shadow:0 1px 2px rgba(8,6,14,.55), 0 14px 36px rgba(6,4,12,.42);
-  --radius:18px;
-  --grain:.045;
+  --shadow:0 1px 0 rgba(255,255,255,.12) inset, 0 18px 44px rgba(0,0,0,.32);
+  --radius:24px; --blur:24px;
+  --grain:0;
 }
 :root[data-theme="light"]{
-  /* warm paper editorial */
-  --bg:#f5f1e8; --bg2:#fffdf7; --bg3:#efe9db; --card:#fffdf7;
-  --border:#e4ddcd; --line:#ece5d6;
-  --gold:#9a5b2e; --gold2:#b5803a; --cyan:#356c83; --green:#3c6b4a; --red:#b14a39; --amber:#9a5b2e;
-  --muted:#76705f; --text:#34302a; --white:#211e18;
-  --shadow:0 1px 2px rgba(60,48,28,.06), 0 12px 30px rgba(70,56,30,.09);
-  --grain:.03;
+  --bg:#eef3f8; --bg2:rgba(255,255,255,.54); --bg3:rgba(255,255,255,.68); --card:rgba(255,255,255,.72);
+  --border:rgba(31,41,55,.13); --line:rgba(31,41,55,.09);
+  --gold:#007aff; --gold2:#0057d9; --cyan:#00a6d6; --green:#168a52; --red:#d92d3a; --amber:#b7791f;
+  --muted:rgba(42,50,62,.62); --text:#17202b; --white:#07111f;
+  --shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 16px 42px rgba(58,77,103,.13);
+  --grain:0;
 }
 @media (prefers-color-scheme: light){
   :root[data-theme="auto"]{
-    --bg:#f5f1e8; --bg2:#fffdf7; --bg3:#efe9db; --card:#fffdf7;
-    --border:#e4ddcd; --line:#ece5d6;
-    --gold:#9a5b2e; --gold2:#b5803a; --cyan:#356c83; --green:#3c6b4a; --red:#b14a39; --amber:#9a5b2e;
-    --muted:#76705f; --text:#34302a; --white:#211e18;
-    --shadow:0 1px 2px rgba(60,48,28,.06), 0 12px 30px rgba(70,56,30,.09);
-    --grain:.03;
+    --bg:#eef3f8; --bg2:rgba(255,255,255,.54); --bg3:rgba(255,255,255,.68); --card:rgba(255,255,255,.72);
+    --border:rgba(31,41,55,.13); --line:rgba(31,41,55,.09);
+    --gold:#007aff; --gold2:#0057d9; --cyan:#00a6d6; --green:#168a52; --red:#d92d3a; --amber:#b7791f;
+    --muted:rgba(42,50,62,.62); --text:#17202b; --white:#07111f;
+    --shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 16px 42px rgba(58,77,103,.13);
+    --grain:0;
   }
 }
 *{box-sizing:border-box}
 html{font-size:var(--fs);scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--D);font-weight:420;
+body{margin:0;background:
+  linear-gradient(180deg,rgba(120,180,255,.14),transparent 26%),
+  linear-gradient(135deg,rgba(103,232,249,.10),transparent 35%),
+  linear-gradient(225deg,rgba(255,209,102,.08),transparent 38%),
+  var(--bg);color:var(--text);font-family:var(--D);font-weight:420;
   line-height:1.62;letter-spacing:.005em;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;
   padding-bottom:env(safe-area-inset-bottom);position:relative;overflow-x:hidden}
 /* 紙質顆粒 overlay — 破除數碼平板感 */
@@ -57,12 +59,12 @@ a{color:var(--gold);text-decoration:none}
 
 /* ── topbar (glass) ── */
 .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-  padding:11px 15px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(18px) saturate(1.4);
-  -webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid color-mix(in srgb,var(--border) 70%,transparent)}
-.brand{font-family:var(--D);font-weight:700;font-size:16px;color:var(--white);letter-spacing:-.01em}
+  padding:11px 15px;background:color-mix(in srgb,var(--bg) 46%,transparent);backdrop-filter:blur(var(--blur)) saturate(1.65);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.65);border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(255,255,255,.08) inset}
+.brand{font-family:var(--D);font-weight:700;font-size:16px;color:var(--white);letter-spacing:0}
 .brand span{color:var(--gold);margin-left:7px;font-size:12px;font-weight:600;letter-spacing:.02em}
 .topctl{display:flex;gap:7px}
-.ic{background:color-mix(in srgb,var(--card) 60%,transparent);border:1px solid var(--border);color:var(--muted);border-radius:10px;
+.ic{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:14px;
   padding:6px 10px;font-family:var(--M);font-size:12px;cursor:pointer;transition:transform .15s,color .15s,border-color .15s}
 .ic:hover{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 50%,transparent)}
 .ic:active{transform:scale(.92)}
@@ -71,8 +73,8 @@ main{max-width:760px;margin:0 auto;padding:18px 15px 96px;min-height:60vh}
 
 /* ── tabbar (glass + active 指示) ── */
 .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;
-  background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(20px) saturate(1.4);
-  -webkit-backdrop-filter:blur(20px) saturate(1.4);border-top:1px solid color-mix(in srgb,var(--border) 75%,transparent);
+  background:color-mix(in srgb,var(--bg) 44%,transparent);backdrop-filter:blur(28px) saturate(1.8);
+  -webkit-backdrop-filter:blur(28px) saturate(1.8);border-top:1px solid var(--border);
   padding:7px 4px env(safe-area-inset-bottom)}
 .tab{flex:1;position:relative;background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;
   gap:3px;padding:7px 2px 6px;cursor:pointer;font-family:var(--D);transition:color .2s}
@@ -84,9 +86,9 @@ main{max-width:760px;margin:0 auto;padding:18px 15px 96px;min-height:60vh}
   border-radius:0 0 6px 6px;background:var(--gold)}
 
 /* ── generic ── */
-h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:var(--white);margin:.05em 0;letter-spacing:-.02em;text-wrap:balance}
+h1.pg{font-family:var(--D);font-weight:700;font-size:30px;color:var(--white);margin:.05em 0;letter-spacing:0;text-wrap:balance}
 .pg-sub{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-weight:600}
-.card{background:var(--card);border:1px solid color-mix(in srgb,var(--border) 62%,transparent);border-radius:16px;padding:15px 16px;margin:13px 0;box-shadow:var(--shadow)}
+.card{background:var(--card);border:1px solid color-mix(in srgb,var(--border) 80%,transparent);border-radius:20px;padding:15px 16px;margin:13px 0;box-shadow:var(--shadow);backdrop-filter:blur(var(--blur)) saturate(1.35);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.35)}
 .sec-h{font-family:var(--D);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:34px 3px 9px;display:flex;align-items:center;gap:8px}
 .sec-h::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 30%,transparent),transparent)}
 .muted{color:var(--muted)}
@@ -98,6 +100,7 @@ h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:
 .st.pend{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 42%,transparent);background:color-mix(in srgb,var(--amber) 11%,transparent)}
 .st.todo{color:var(--cyan);border-color:color-mix(in srgb,var(--cyan) 42%,transparent);background:color-mix(in srgb,var(--cyan) 11%,transparent)}
 .st.hold{color:var(--red);border-color:color-mix(in srgb,var(--red) 48%,transparent);background:color-mix(in srgb,var(--red) 12%,transparent)}
+.st.free{color:var(--muted);border-color:var(--border);background:color-mix(in srgb,var(--bg3) 55%,transparent)}
 
 /* ── home ── */
 .hero{background:linear-gradient(160deg,var(--bg2),var(--card));border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:8px}
@@ -113,7 +116,7 @@ h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:
 .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}
 .statgrid div{background:linear-gradient(165deg,var(--bg3),var(--card));border:1px solid var(--border);border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer;transition:transform .18s,border-color .18s}
 .statgrid div:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--gold) 35%,transparent)}
-.statgrid .n{font-family:var(--D);font-weight:700;font-size:25px;color:var(--white);letter-spacing:-.02em;line-height:1.1}
+.statgrid .n{font-family:var(--D);font-weight:700;font-size:25px;color:var(--white);letter-spacing:0;line-height:1.1}
 .statgrid .l{font-size:10.5px;color:var(--muted);margin-top:2px;font-weight:500}
 
 /* ── day list ── */
@@ -183,9 +186,8 @@ h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:
 .nowhero.live{min-height:clamp(190px,30vh,300px);padding:22px 20px 20px}
 .nowhero::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 80% 10%,transparent,color-mix(in srgb,var(--gold) 8%,transparent));pointer-events:none}
 .nh-top{font-family:var(--D);font-weight:700;color:#fff;font-size:12px;letter-spacing:.16em;opacity:.92;text-transform:uppercase}
-.nh-big{font-family:var(--D);font-weight:700;color:#fff;font-size:clamp(32px,9.5vw,50px);margin:6px 0 3px;letter-spacing:-.03em;line-height:1.02;text-shadow:0 2px 18px rgba(0,0,0,.55)}
-.nh-big b{color:var(--gold2)}
-.nh-sub{color:#ece9f0;font-size:12.5px;opacity:.92}
+.nh-big{font-family:var(--D);font-weight:700;color:#fff;font-size:46px;margin:6px 0 3px;letter-spacing:0;line-height:1.04;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.nh-big b{color:var(--gold);font-size:1.2em}
 .nowassist{background:linear-gradient(165deg,var(--bg2),var(--card));border:1px solid color-mix(in srgb,var(--gold) 28%,transparent);border-radius:16px;padding:14px;margin:12px 0 14px;box-shadow:var(--shadow)}
 .na-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .na-head span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
@@ -204,7 +206,7 @@ h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:
 .na-note{font-size:10.8px;color:var(--muted);line-height:1.45;margin-top:7px}
 @media(max-width:560px){
   .nowhero.live{min-height:210px;border-radius:22px}
-  .nowhero.live .nh-big{font-size:clamp(34px,10vw,44px)}
+  .nowhero.live .nh-big{font-size:40px}
   .nowassist{padding:12px;margin:10px 0 12px}
   .na-card{min-height:66px;padding:9px 10px}
   .na-card p{font-size:12.4px;line-height:1.45}
@@ -226,14 +228,14 @@ h1.pg{font-family:var(--D);font-weight:700;font-size:clamp(24px,6vw,34px);color:
 .dc-img{height:160px;background-size:cover;background-position:center;padding:13px 15px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
 .dc-date{position:absolute;top:11px;left:13px;font-family:var(--D);font-weight:700;font-size:12.5px;color:#fff;background:rgba(0,0,0,.42);padding:3px 10px;border-radius:20px;backdrop-filter:blur(6px);letter-spacing:.01em}
 .dc-sun{position:absolute;top:11px;right:13px;font-size:11px;color:#1a1206;background:color-mix(in srgb,var(--gold2) 92%,#fff);padding:3px 10px;border-radius:20px;font-weight:700}
-.dc-ttl{font-family:var(--D);font-weight:700;color:#fff;font-size:18px;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.65);line-height:1.2}
+.dc-ttl{font-family:var(--D);font-weight:700;color:#fff;font-size:18px;letter-spacing:0;text-shadow:0 2px 10px rgba(0,0,0,.65);line-height:1.2}
 .dc-th{color:#ece9f0;font-size:11.5px;opacity:.94;margin-top:1px}
 .dc-chips{padding:9px 13px;display:flex;flex-wrap:wrap;gap:6px}
 .chip{font-size:11px;padding:4px 10px;border-radius:9px;background:color-mix(in srgb,var(--bg3) 70%,transparent);border:1px solid var(--border);color:var(--text);font-weight:500}
 /* day detail hero */
 .dd-hero{border-radius:18px;background-size:cover;background-position:center;min-height:clamp(200px,35vh,310px);padding:18px;display:flex;flex-direction:column;justify-content:flex-end;margin-bottom:11px;overflow:hidden;position:relative}
 .dd-date{color:#ece9f0;font-size:12.5px;font-weight:600}
-.dd-ttl{font-family:var(--D);font-weight:700;color:#fff;font-size:clamp(22px,5.5vw,26px);letter-spacing:-.01em;text-shadow:0 2px 12px rgba(0,0,0,.65);line-height:1.18}
+.dd-ttl{font-family:var(--D);font-weight:700;color:#fff;font-size:25px;letter-spacing:0;text-shadow:0 2px 12px rgba(0,0,0,.65);line-height:1.18}
 .dd-th{color:#ece9f0;font-size:12.5px;opacity:.94}
 .dd-cap{color:#d7d3df;font-size:10px;margin-top:6px;opacity:.85}
 .sunbar{background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 12%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--gold) 30%,transparent);border-radius:13px;padding:10px 14px;font-size:12.5px;margin:11px 0}
@@ -295,7 +297,7 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .bookcard.pend::before{background:var(--amber);opacity:.6}
 .bookcard.paid::before{background:var(--green);opacity:.6}
 .bc-top{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:12px}
-.bc-ttl{color:var(--white);font-size:15px;font-weight:700;font-family:var(--D);line-height:1.25;letter-spacing:-.01em}
+.bc-ttl{color:var(--white);font-size:15px;font-weight:700;font-family:var(--D);line-height:1.25;letter-spacing:0}
 .bc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-bottom:10px}
 .bc-grid .bc-wide{grid-column:1/-1}
 .bc-grid>div{display:flex;flex-direction:column;gap:2px}
@@ -316,7 +318,7 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .rvblock{border-color:color-mix(in srgb,var(--cyan) 28%,transparent)}
 /* ── 今日 + 時間感「下一步」timeline ── */
 .today{position:relative}
-.today-h{font-weight:700;font-size:14px;margin-bottom:11px;letter-spacing:-.01em}
+.today-h{font-weight:700;font-size:14px;margin-bottom:11px;letter-spacing:0}
 .ns{margin:2px 0}
 .ns-row{display:flex;gap:11px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
 .ns-row:last-child{border:0}
@@ -355,6 +357,7 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .tl-tag.buy{background:color-mix(in srgb,var(--cyan) 18%,transparent)}
 .tl-tag.s-paid{background:color-mix(in srgb,var(--green) 16%,transparent)}
 .tl-tag.s-todo,.tl-tag.s-pend{background:color-mix(in srgb,var(--amber) 16%,transparent)}
+.tl-tag.s-free{background:color-mix(in srgb,var(--muted) 14%,transparent)}
 .tl-caret{flex:none;color:var(--muted);font-size:12px;transition:transform .22s}
 .tl.is-open .tl-caret{transform:rotate(180deg)}
 .tl-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s ease}
@@ -415,3 +418,46 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .dnav:active{transform:scale(.98)}
 .dnav span{font-size:11px;color:var(--gold);font-weight:600}
 .dnav b{font-size:12.5px;color:var(--white);font-weight:500;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* ===== v57 iOS liquid glass finish ===== */
+.nowhero,.dd-hero,.dc-img{box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 24px 54px rgba(0,0,0,.24)}
+.nowhero::before,.dd-hero::before,.dc-img::before{content:'';position:absolute;inset:0;border-radius:inherit;border:1px solid rgba(255,255,255,.18);pointer-events:none;z-index:1}
+.nowhero>*,
+.dd-hero>*,
+.dc-img>*{position:relative;z-index:2}
+.nowhero::after{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.48) 72%,rgba(0,0,0,.64))}
+.dd-hero::after,.dc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.5) 72%,rgba(0,0,0,.66));pointer-events:none}
+.nh-top,.dc-date,.dc-sun{backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5)}
+.nh-big{letter-spacing:0;text-shadow:0 2px 24px rgba(0,0,0,.58)}
+
+.nowassist,.na-card,.na-prep,.quick,.daycard,.legchip,.wxbar,.hikepb,.hpbrow,.bookcard,.planb,.rv,.subtabs,.exbox,.tl-card,.dnav,.sos,.meal span,.tl-fact,.tl-buy,.tl-warn,.bc-dl,.statgrid div,.daychip,#map,.dmap{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,rgba(255,255,255,.08)),color-mix(in srgb,var(--card) 72%,transparent));
+  border-color:color-mix(in srgb,var(--border) 86%,transparent);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(var(--blur)) saturate(1.42);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.42);
+}
+.na-card.focus,.ns-row.next,.tl-now>.tl-card{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 18%,var(--card)),color-mix(in srgb,var(--card) 78%,transparent));
+  border-color:color-mix(in srgb,var(--gold) 42%,transparent);
+}
+.na-card.warn,.hikepb,.tl-warn,.offwarn{
+  border-color:color-mix(in srgb,var(--amber) 34%,var(--border));
+}
+.btn,.notifybtn,.bc-go{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 88%,#fff),color-mix(in srgb,var(--gold) 78%,#0b1220));
+  border:1px solid color-mix(in srgb,var(--gold) 45%,rgba(255,255,255,.2));
+  box-shadow:0 1px 0 rgba(255,255,255,.36) inset,0 12px 28px color-mix(in srgb,var(--gold) 22%,transparent);
+}
+.btn.ghost,.tl-act,.rr-go,.gm,.act,.wxlink{
+  background:color-mix(in srgb,var(--card) 48%,transparent);
+  backdrop-filter:blur(14px) saturate(1.35);
+  -webkit-backdrop-filter:blur(14px) saturate(1.35);
+}
+.tab.is-active::before{border-radius:999px;height:4px;top:1px;box-shadow:0 0 18px color-mix(in srgb,var(--gold) 72%,transparent)}
+.tab.is-active .tab__txt{font-weight:800}
+.tl-card,.daycard,.bookcard{overflow:hidden}
+.dc-img,.dd-hero,.nowhero{background-blend-mode:normal}
+@supports not ((backdrop-filter:blur(10px)) or (-webkit-backdrop-filter:blur(10px))){
+  .card,.nowassist,.na-card,.quick,.daycard,.wxbar,.hikepb,.bookcard,.tl-card,.topbar,.tabbar{background:color-mix(in srgb,var(--bg) 92%,#fff 8%)}
+}

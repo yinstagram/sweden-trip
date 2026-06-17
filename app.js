@@ -2,6 +2,9 @@
 (function(){
 const S = window.SWEDEN, V = document.getElementById('view');
 let map=null,dmap=null,curDay=null,showSaved=false,photoLayer=false,kitSub='pack',markers=[];
+window.addEventListener('unhandledrejection',e=>{if(String(e.reason&&e.reason.name||e.reason||'').includes('AbortError'))e.preventDefault();});
+const consoleError=console.error.bind(console);
+console.error=(...args)=>{if(args.some(x=>String((x&&x.message)||x).includes('AbortError')))return;consoleError(...args);};
 const $ = s=>document.querySelector(s);
 const esc = t=>(''+t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const dayById = id=>S.DAYS.find(d=>d.id===id);
@@ -18,6 +21,8 @@ function nowInfo(){
 const getNow=()=>nowInfo().date;
 const tripIdx=(now=getNow())=>Math.floor((now-TRIP_START)/DAY_MS);
 const short=t=>{t=(''+(t||'')).replace(/\s+/g,' ').trim();return t.length>92?t.slice(0,90)+'…':t;};
+const bkMeta=s=>S.BK[s]||{ico:'•',t:'狀態未分類',c:'#9ca3af'};
+const bkClass=s=>S.BK[s]?s:'todo';
 // 用「地名」query → Google Maps 顯示有名嘅標點(有營業時間/相/評價);冇名先用座標 fallback
 const gmaps = (q,ll)=>{
   if(q&&typeof q==='string'){const name=q.replace(/（[^）]*）|\([^)]*\)/g,'').replace(/[:：].*$/,'').trim();
@@ -61,7 +66,7 @@ function renderNow(){
   const paid=bk.filter(b=>b.s==='paid').length,pend=bk.filter(b=>b.s==='pend').length,todo=bk.filter(b=>b.s==='todo').length,hold=bk.filter(b=>b.s==='hold').length;
   const dayIdx=tripIdx(now);
   const daysUntil=Math.ceil((TRIP_START-now)/DAY_MS);
-  const cd = daysUntil>0?`距離出發 <b style="font-size:1.5em">${daysUntil}</b> 日`:(dayIdx>=0&&dayIdx<D.length?`旅程第 ${dayIdx+1} 日`:'旅程已完');
+  const cd = daysUntil>0?`出發前 <b>${daysUntil}</b> 日`:(dayIdx>=0&&dayIdx<D.length?`旅程第 ${dayIdx+1} 日`:'旅程已完');
   const today=(dayIdx>=0&&dayIdx<D.length)?D[dayIdx]:null,nx=today?D[dayIdx+1]:null;
   const heroD=today||dayById('d0629');
   const dis=JSON.parse(localStorage.sw_dismiss||'{}');
@@ -107,7 +112,6 @@ function renderNow(){
    <div class="nowhero ${today?'live':''}" style="background-image:linear-gradient(180deg,rgba(5,6,14,.15),rgba(5,6,14,.92)),url('${img(heroD)}')">
      <div class="nh-top">🇸🇪 Sweden 2026</div>
      <div class="nh-big">${cd}</div>
-     <div class="nh-sub">${esc(S.TRIP.sub)} · 22 日</div>
    </div>
    ${assistHtml}
    ${todayBlock}
@@ -197,8 +201,9 @@ function tlItem(d,it,ti){
   if(it.ll||it.q)acts+=`<a class="tl-act" target="_blank" href="${gmaps(it.q,it.ll)}">📍 ${esc(it.q||'Maps')}</a>`;
   if(it.phone)acts+=`<a class="tl-act" href="tel:${(''+it.phone).replace(/[^\d+]/g,'')}">📞 ${esc(it.phone)}</a>`;
   if(it.link)acts+=`<a class="tl-act" target="_blank" href="${esc(it.link)}">🔗 ${esc(it.linkLabel||'官網')}</a>`;
-  const bk=it.bk?`<span class="st ${it.bk.s}">${S.BK[it.bk.s].ico} ${esc(it.bk.t)}</span>`:'';
-  const tags=`${it.buy?'<span class="tl-tag buy">🛒</span>':''}${it.warn?'<span class="tl-tag warn">⚠️</span>':''}${it.bk?`<span class="tl-tag s-${it.bk.s}">${S.BK[it.bk.s].ico}</span>`:''}`;
+  const bkm=it.bk?bkMeta(it.bk.s):null, bkc=it.bk?bkClass(it.bk.s):'';
+  const bk=it.bk?`<span class="st ${bkc}">${bkm.ico} ${esc(it.bk.t)}</span>`:'';
+  const tags=`${it.buy?'<span class="tl-tag buy">🛒</span>':''}${it.warn?'<span class="tl-tag warn">⚠️</span>':''}${it.bk?`<span class="tl-tag s-${bkc}">${bkm.ico}</span>`:''}`;
   const body=it.desc||facts||buy||tips||warn||acts||bk;
   return`<div class="tl k-${it.k||'flex'}" style="--kc:${ki.c}">
     <div class="tl-time">${esc(it.t)}</div><span class="tl-node"></span>
@@ -223,7 +228,7 @@ function renderDayDetail(id){
   killDmap();const d=dayById(id);window.scrollTo(0,0);
   const sun=S.SUN[legOf(id)];const ex=S.EX[id];const cap=S.HERO_CAP[id]||'';
   const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
-  const bks=(d.bk||[]).map(b=>`<span class="st ${b.s}">${S.BK[b.s].ico} ${esc(b.t)}</span>`).join('');
+  const bks=(d.bk||[]).map(b=>{const m=bkMeta(b.s);return`<span class="st ${bkClass(b.s)}">${m.ico} ${esc(b.t)}</span>`;}).join('');
   const dir=dirURL(d.stops||[]);
   const idx=S.DAYS.findIndex(x=>x.id===id),pv=S.DAYS[idx-1],nx2=S.DAYS[idx+1];
   const navHtml=`<div class="daynav">${pv?`<button class="dnav" onclick="window.__day('${pv.id}')"><span>‹ 上一日</span><b>${pv.date} ${esc(pv.title)}</b></button>`:'<span></span>'}${nx2?`<button class="dnav nx" onclick="window.__day('${nx2.id}')"><span>下一日 ›</span><b>${nx2.date} ${esc(nx2.title)}</b></button>`:'<span></span>'}</div>`;
@@ -232,7 +237,8 @@ function renderDayDetail(id){
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>`;
   const hikePbHtml=hikePlanBHtml(id);
   const exHtml=ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:'';
-  const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
+  const am=bkMeta(d.accom.status);
+  const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${bkClass(d.accom.status)}" style="margin-left:auto">${am.ico} ${am.t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
   const dtl=(S.TL&&S.TL[id])||d.tl;
   if(dtl&&dtl.length){
     const tlHtml=`<div class="timeline">${dtl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
@@ -388,7 +394,7 @@ function renderStatus(){
   const segs=[['paid',cnt('paid')],['pend',cnt('pend')],['todo',cnt('todo')],['hold',cnt('hold')]];
   const segbar=`<div class="segbar">${segs.map(([s,n])=>n?`<i style="width:${(n/tot*100).toFixed(1)}%;background:${S.BK[s].c}"></i>`:'').join('')}</div><div class="seglegend">${segs.map(([s,n])=>`<span><b style="background:${S.BK[s].c}"></b>${S.BK[s].t} ${n}</span>`).join('')}</div>`;
   const bookCard=b=>`<div class="bookcard ${b.s}">
-    <div class="bc-top"><b class="bc-ttl">${esc(b.t)}</b><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico} ${S.BK[b.s].t}</span></div>
+    <div class="bc-top"><b class="bc-ttl">${esc(b.t)}</b><span class="st ${bkClass(b.s)}" style="margin:0">${bkMeta(b.s).ico} ${bkMeta(b.s).t}</span></div>
     <div class="bc-grid">
       <div><span class="bc-k">📅 訂邊日</span><span class="bc-v">${esc(b.d)}</span></div>
       <div><span class="bc-k">👥 幾多人</span><span class="bc-v">${esc(b.pax)}</span></div>
@@ -400,7 +406,7 @@ function renderStatus(){
   const undone=(S.BOOK||[]).filter(b=>b.s!=='paid');
   const doneB=(S.BOOK||[]).filter(b=>b.s==='paid');
   const undoneHtml=undone.length?undone.map(bookCard).join(''):'<div class="card" style="color:var(--green)">🎉 BOOK 清單全部搞掂!</div>';
-  const doneHtml=doneB.map(b=>`<div class="strow"><span class="st ${b.s}" style="margin:0">${S.BK[b.s].ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${esc(b.d)}</small></div></div>`).join('');
+  const doneHtml=doneB.map(b=>`<div class="strow"><span class="st ${bkClass(b.s)}" style="margin:0">${bkMeta(b.s).ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${esc(b.d)}</small></div></div>`).join('');
   const pb=S.PLANB;
   const notesHtml=S.TRIP.notesUrl?`<a class="btn ghost" href="${S.TRIP.notesUrl}">🔐 開 Apple Note 睇 code ›</a>`:`<div style="font-size:13px">喺你 iPhone <b>備忘錄/Notes</b> 搜尋「<b>🇸🇪 Sweden 2026 · Booking Codes</b>」(只有你 iCloud 登入睇到)。</div><div class="muted" style="font-size:11px;margin-top:6px">想一撳直達?喺 Notes 整條 iCloud 分享 link 俾我,我嵌落呢度。</div>`;
   V.innerHTML=`<h1 class="pg">✅ 狀態</h1><div class="pg-sub">未搞掂嘅喺最上面 · 訂咗嘅自動排落每日時間線</div>

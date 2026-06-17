@@ -8,12 +8,13 @@ const TRIP = {
   title: 'Sweden 2026',
   sub: 'Ng Cho Yin & Cheng Kam Ling · 6/27 – 7/18',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-14j',
+  updated: '2026-06-17a',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
 const BK = { paid:{ico:'✅',t:'已付/已訂',c:'#4ade80'}, pend:{ico:'⏳',t:'暫定·等確認',c:'#e8a930'},
-             todo:{ico:'🕒',t:'未訂',c:'#22d3ee'}, hold:{ico:'⛔',t:'On-hold·等依賴',c:'#f87171'} };
+             todo:{ico:'🕒',t:'未訂',c:'#22d3ee'}, hold:{ico:'⛔',t:'On-hold·等依賴',c:'#f87171'},
+             free:{ico:'🆓',t:'免費/免訂',c:'#9ca3af'} };
 
 const LEGS = [
   { key:'hike',   name:'🏔 行山 · Kungsleden', accent:'#6b8a9e', days:['d0627','d0628','d0629','d0630','d0701','d0702','d0703','d0704','d0705'] },
