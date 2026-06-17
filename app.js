@@ -7,6 +7,17 @@ const esc = t=>(''+t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c
 const dayById = id=>S.DAYS.find(d=>d.id===id);
 const legOf = id=>(S.LEGS.find(l=>l.days.includes(id))||{}).key;
 const img = d=>'img/'+(S.HERO[d.id]||'stockholm')+'.jpg';
+const DAY_MS=864e5, TRIP_START=new Date(2026,5,27);
+const clockMin=t=>{const m=(''+(t||'')).match(/(\d{1,2}):(\d{2})/);return m?(+m[1])*60+(+m[2]):9999;};
+const stepLabel=s=>s?(s.title||s.a||''):'';
+function nowInfo(){
+  const q=new URLSearchParams(location.search), raw=q.get('now')||q.get('mockNow')||localStorage.sw_mock_now||'';
+  if(raw){const d=new Date(raw.replace(' ','T'));if(!Number.isNaN(+d))return{date:d,mock:true,raw};}
+  return{date:new Date(),mock:false,raw:''};
+}
+const getNow=()=>nowInfo().date;
+const tripIdx=(now=getNow())=>Math.floor((now-TRIP_START)/DAY_MS);
+const short=t=>{t=(''+(t||'')).replace(/\s+/g,' ').trim();return t.length>92?t.slice(0,90)+'…':t;};
 // 用「地名」query → Google Maps 顯示有名嘅標點(有營業時間/相/評價);冇名先用座標 fallback
 const gmaps = (q,ll)=>{
   if(q&&typeof q==='string'){const name=q.replace(/（[^）]*）|\([^)]*\)/g,'').replace(/[:：].*$/,'').trim();
@@ -45,24 +56,45 @@ function go(tab,arg){killDmap();document.querySelectorAll('.tab').forEach(b=>b.c
 
 /* ---------- 此刻 NOW ---------- */
 function renderNow(){
-  const start=new Date(2026,5,27), now=new Date();
-  const dd=Math.ceil((start-now)/864e5);
-  const cd = dd>0?`距離出發 <b style="font-size:1.5em">${dd}</b> 日`:(dd>-22?`旅程 Day ${23+dd}`:'旅程已完');
+  const ni=nowInfo(), now=ni.date;
   const D=S.DAYS, bk=D.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
   const paid=bk.filter(b=>b.s==='paid').length,pend=bk.filter(b=>b.s==='pend').length,todo=bk.filter(b=>b.s==='todo').length,hold=bk.filter(b=>b.s==='hold').length;
-  const dayIdx=Math.floor((now-start)/864e5);
+  const dayIdx=tripIdx(now);
+  const daysUntil=Math.ceil((TRIP_START-now)/DAY_MS);
+  const cd = daysUntil>0?`距離出發 <b style="font-size:1.5em">${daysUntil}</b> 日`:(dayIdx>=0&&dayIdx<D.length?`旅程第 ${dayIdx+1} 日`:'旅程已完');
   const today=(dayIdx>=0&&dayIdx<D.length)?D[dayIdx]:null,nx=today?D[dayIdx+1]:null;
   const heroD=today||dayById('d0629');
   const dis=JSON.parse(localStorage.sw_dismiss||'{}');
   const tEX=today?S.EX[today.id]:null;
   // 時間感「下一步」timeline(旅程進行中)
   const nowMin=now.getHours()*60+now.getMinutes();
-  const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;};
-  let stepsHtml='';
+  let stepsHtml='',assistHtml='';
   const ssrc=today&&((S.TL&&S.TL[today.id])||today.tl||today.steps);
   if(ssrc&&ssrc.length){
-    const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(toMin(s.t)<=nowMin)cur=i;});
+    const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(clockMin(s.t)<=nowMin)cur=i;});
     const nextI=cur+1; const lbl=s=>s.title||s.a;
+    const current=cur>=0?ss[cur]:null,next=ss[nextI]||null;
+    const tonight=ss.find((s,i)=>i>=Math.max(nextI,0)&&clockMin(s.t)>=17*60&&/晚餐|dinner|獨木舟|kayak|Fotografiska|Hermans|Aifur|Sturehof|Arctic Culinary|check-in|就寢|返回|返 /.test(stepLabel(s)))||ss.find(s=>clockMin(s.t)>=18*60);
+    const prepRe=/帶齊|準備|執|買|check|裝備|泳衣|防水袋|乾衫|毛巾|退稅|護照|叉滿/i;
+    const needsPrep=s=>prepRe.test([stepLabel(s),s.desc,s.warn,...(s.buy||[]),...(s.tips||[])].filter(Boolean).join(' '));
+    const futurePrep=ss.filter((s,i)=>i>=Math.max(nextI,0)&&needsPrep(s)).slice(0,2);
+    const prepPool=[current,next,...futurePrep].filter(Boolean);
+    const prepBits=s=>[...(s.buy||[]),s.warn,...(s.tips||[]),needsPrep(s)?`${s.t||''} ${stepLabel(s)}${s.desc?'：'+s.desc:''}`:''].filter(Boolean);
+    const prep=[...new Set(prepPool.flatMap(prepBits).map(short))].slice(0,3);
+    const concern=short((current&&current.warn)||(next&&next.warn)||(tonight&&tonight.warn)||(tEX&&tEX.tip)||'跟住時間線行就得,下一步開始前先飲水/叉電/睇路線。');
+    const fmt=s=>s?`<b>${esc(s.t||'')}</b> ${telLink(esc(short(stepLabel(s))))}`:'<span class="muted">未開始</span>';
+    assistHtml=`<div class="nowassist">
+      <div class="na-head"><span>${ni.mock?'🧪 測試此刻':'⚡ 此刻提示'}</span><b>${today.date} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</b></div>
+      <div class="na-grid">
+        <div class="na-card focus"><span>而家</span><p>${fmt(current)}</p></div>
+        <div class="na-card"><span>下一步</span><p>${fmt(next)}</p></div>
+        <div class="na-card"><span>今晚</span><p>${fmt(tonight)}</p></div>
+        <div class="na-card warn"><span>即時關注</span><p>${telLink(esc(concern))}</p></div>
+      </div>
+      ${prep.length?`<div class="na-prep"><b>出門前 / 轉場前</b>${prep.map(x=>`<div>${telLink(esc(x))}</div>`).join('')}</div>`:''}
+      <button class="notifybtn" onclick="window.__notifyToday()">🔔 開今日提醒</button>
+      <div class="na-note">通知係 best-effort: app/瀏覽器開住最可靠,無 backend 時唔保證關 app 後仍會響。</div>
+    </div>`;
     stepsHtml=`<div class="ns">${ss.map((s,i)=>{
       const cl=i<cur?'done':i===cur?'now':i===nextI?'next':'up';
       const tag=i===nextI?'👉 ':i===cur?'▸ ':'';
@@ -72,11 +104,12 @@ function renderNow(){
   const todayInner = stepsHtml || (tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:'');
   const todayBlock=today?`<div class="card today" style="border-left:4px solid ${today.color}"><div class="today-h" style="color:${today.color}">📍 今日 ${today.date}（${today.dow}）· ${esc(today.title)}</div>${todayInner}<button class="btn ghost" style="margin-top:11px" onclick="window.__dayDetail('${today.id}')">睇今日全部 ›</button>${nx&&!stepsHtml?`<div class="muted" style="font-size:12px;margin-top:9px">明日 ${nx.date}：${esc(nx.title)}</div>`:''}</div>`:'';
   V.innerHTML=`
-   <div class="nowhero" style="background-image:linear-gradient(180deg,rgba(5,6,14,.15),rgba(5,6,14,.92)),url('${img(heroD)}')">
+   <div class="nowhero ${today?'live':''}" style="background-image:linear-gradient(180deg,rgba(5,6,14,.15),rgba(5,6,14,.92)),url('${img(heroD)}')">
      <div class="nh-top">🇸🇪 Sweden 2026</div>
      <div class="nh-big">${cd}</div>
      <div class="nh-sub">${esc(S.TRIP.sub)} · 22 日</div>
    </div>
+   ${assistHtml}
    ${todayBlock}
    <div class="sec-h">📊 一眼睇晒 Booking</div>
    <div class="statgrid">
@@ -96,6 +129,26 @@ function renderNow(){
 window.__go=go; window.__photomap=()=>{photoLayer=true;go('map');};
 window.__dayDetail=id=>{go('days');setTimeout(()=>renderDayDetail(id),20);};
 window.__dismiss=k=>{const d=JSON.parse(localStorage.sw_dismiss||'{}');d[k]=1;localStorage.sw_dismiss=JSON.stringify(d);renderNow();};
+let notifyTimers=[];
+window.__notifyToday=async()=>{
+  const now=getNow(), i=tripIdx(now), today=(i>=0&&i<S.DAYS.length)?S.DAYS[i]:null;
+  if(!today){alert('而家唔喺旅程日期內,未有今日提醒。');return;}
+  if(!('Notification' in window)){alert('呢個瀏覽器唔支援通知;請用此刻頁面做 in-app 提醒。');return;}
+  const perm=Notification.permission==='granted'?'granted':await Notification.requestPermission();
+  if(perm!=='granted'){alert('通知未開到;你仍然可以用此刻頁面睇即時提示。');return;}
+  notifyTimers.forEach(clearTimeout);notifyTimers=[];
+  const ss=((S.TL&&S.TL[today.id])||today.tl||today.steps||[]), nowMin=getNow().getHours()*60+getNow().getMinutes();
+  const important=s=>s.k==='fixed'||s.warn||/晚餐|火車|巴士|飛|出發|check|獨木舟|kayak|買|取車|還車|登機|早餐/.test(stepLabel(s));
+  const upcoming=ss.filter(s=>clockMin(s.t)>nowMin&&important(s)).slice(0,6);
+  const show=(title,body,tag)=>{
+    const opt={body,tag,renotify:false,icon:'icons/icon-192.png'};
+    if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification(title,opt)).catch(()=>new Notification(title,opt));
+    else new Notification(title,opt);
+  };
+  if(!upcoming.length){show('🇸🇪 今日提醒','今日餘下冇重大固定提醒;繼續跟此刻頁面。','sw-done');return;}
+  show('🇸🇪 今日提醒已開',`已排 ${upcoming.length} 個 app 開住時嘅提醒。`,'sw-ready');
+  upcoming.forEach(s=>{const delay=Math.max(1000,(clockMin(s.t)-nowMin)*60000);notifyTimers.push(setTimeout(()=>show(`⏰ ${s.t} ${short(stepLabel(s))}`,short(s.warn||s.desc||'到時間處理下一步。'),`sw-${today.id}-${s.t}`),delay));});
+};
 
 /* ---------- 行程 DAYS ---------- */
 let dayLeg='all';
@@ -124,10 +177,15 @@ function renderDays(){
 let BUY=JSON.parse(localStorage.sw_buy||'{}');
 const KIND={fixed:{c:'#e8956a'},move:{c:'#7c89b5'},task:{c:'#34c6d8'},flex:{c:'#a78bda'}};
 const toMinT=t=>{const p=(''+(t||'0:0')).split(':');return (+p[0]||0)*60+(+p[1]||0);};
-function tripDayId(){const start=new Date(2026,5,27);const i=Math.floor((new Date()-start)/864e5);return (i>=0&&i<S.DAYS.length)?S.DAYS[i].id:null;}
+function tripDayId(){const i=tripIdx(getNow());return (i>=0&&i<S.DAYS.length)?S.DAYS[i].id:null;}
 function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';
   const rows=(w.rows||[]).map(r=>`<div class="wxrow"><span class="wxk">${esc(r[0])}</span><span class="wxv">${esc(r[1])}</span></div>`).join('');
   return`<details class="wxbar"><summary><span>🌤 今日天氣</span><span class="wxchip">${esc(w.chip)}</span><span class="wxcaret">▾</span></summary><div class="wxd">${rows||esc(w.detail||'')}${w.note?`<div class="wxnote">⚠️ ${esc(w.note)}</div>`:''}</div></details>`;}
+function hikePlanBHtml(id){
+  const p=S.HIKE_PLAN_B&&S.HIKE_PLAN_B[id]; if(!p)return'';
+  const rows=[['觸發',p.trigger],['cut-off',p.cutoff],['點做',p.action],['後備',p.fallback],['先準備',p.prep]].filter(r=>r[1]);
+  return`<details class="hikepb" open><summary><span class="hpbi">🅱️</span><span><b>${esc(p.title)}</b><small>天氣 / 體力 / 交通出事先睇呢張</small></span><span class="wxcaret">▾</span></summary><div class="hpbgrid">${rows.map(r=>`<div class="hpbrow"><span>${esc(r[0])}</span><p>${telLink(esc(r[1]))}</p></div>`).join('')}</div></details>`;
+}
 function tlItem(d,it,ti){
   const ki=KIND[it.k]||KIND.flex;
   const buy=(it.buy&&it.buy.length)?`<div class="tl-buy"><div class="tl-buyh">🛒 要買 / 要做（撳格仔 tick 住去做）</div>${it.buy.map((b,bi)=>{const k='b_'+d.id+'_'+ti+'_'+bi;const on=BUY[k];return`<label class="buyck ${on?'done':''}" data-k="${k}"><input type="checkbox" ${on?'checked':''}><span>${telLink(esc(b))}</span></label>`;}).join('')}</div>`:'';
@@ -172,6 +230,7 @@ function renderDayDetail(id){
   const heroHtml=`<div class="dd-hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8)),url('${img(d)}')">
      <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
      ${cap?`<div class="dd-cap">${esc(cap)}</div>`:''}</div>`;
+  const hikePbHtml=hikePlanBHtml(id);
   const exHtml=ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:'';
   const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${d.accom.status}" style="margin-left:auto">${S.BK[d.accom.status].ico} ${S.BK[d.accom.status].t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
   const dtl=(S.TL&&S.TL[id])||d.tl;
@@ -184,6 +243,7 @@ function renderDayDetail(id){
       :(mapStops.length?`<div class="block"><div class="bh">🗺 今日地圖 ${dirTl?`<a class="gm" style="margin-left:auto" href="${dirTl}" target="_blank">🧭 Google 路線</a>`:''}</div><div id="dmap" class="dmap"></div></div>`:'');
     V.innerHTML=`<button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
       ${heroHtml}${wxBar(legOf(id))}
+      ${hikePbHtml}
       <div class="tl-h">⏱ 今日時間線<span class="muted"> · 撳一格展開詳情 / 要買咩 / 注意</span></div>
       ${tlHtml}${accomHtml}${mapBlock}
       <div class="block"><div class="bh">🎟 今日 booking 狀態</div><div style="line-height:2.1">${bks||'<div class="muted">—</div>'}</div></div>
@@ -191,7 +251,7 @@ function renderDayDetail(id){
     bindTl(V);if(document.getElementById('dmap'))makeMini(mapStops,d.color);
     // 🔦 Spotlight：如果係今日,框住「而家」應該做緊嗰格 + 自動展開 + scroll 過去
     if(id===tripDayId()){
-      const nm=new Date().getHours()*60+new Date().getMinutes();
+      const _now=getNow(), nm=_now.getHours()*60+_now.getMinutes();
       let ni=-1; dtl.forEach((it,i)=>{ if(toMinT(it.t)<=nm) ni=i; });
       if(ni>=0){ const els=V.querySelectorAll('.timeline .tl'); const el=els[ni];
         if(el){ el.classList.add('tl-now'); const b=el.querySelector('.tl-main');
@@ -211,6 +271,7 @@ function renderDayDetail(id){
    <button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
    ${heroHtml}${wxBar(legOf(id))}
    ${sun?`<div class="sunbar"><b>${sun.badge}</b> ${esc(sun.txt)}</div>`:''}
+   ${hikePbHtml}
    ${exHtml}
    ${accomHtml}
    <div class="block"><div class="bh">🍽 早 / 午 / 晚</div>${meals}</div>
