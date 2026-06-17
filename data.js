@@ -1,14 +1,13 @@
 /* ============================================================
    Sweden Trip 2026 — 單一真相資料層 (data.js)
-   Ng Cho Yin + Cheng Kam Ling · 6/27–7/18 (22 日)
+   Phone-first travel assistant for the Sweden route.
    機密 booking code 唔放呢度（公開站）→ 喺 Apple Note + brain。
    座標 OSM Nominatim 驗證；北段山屋 = STF 地圖約位(remote)。
    ============================================================ */
 const TRIP = {
   title: 'Sweden 2026',
-  sub: 'Ng Cho Yin & Cheng Kam Ling · 6/27 – 7/18',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-17b',
+  updated: '2026-06-17c',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
