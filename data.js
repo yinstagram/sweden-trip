@@ -7,7 +7,7 @@
 const TRIP = {
   title: 'Sweden 2026',
   notesUrl: '',           // ← Yin Apple Note iCloud 私人 link（你出，我嵌；暫空 = 掣開 Notes app）
-  updated: '2026-06-17c',
+  updated: '2026-06-17d',
 };
 
 // booking 狀態色：paid 已付 / pend 暫定等確認 / todo 未訂 / hold on-hold(依賴)
@@ -330,7 +330,7 @@ const EMERGENCY = [
   {cat:'💳 信用卡 lost-card', num:'(Mox 卡背 + 後備卡)', note:'申請後抄低,離線存'},
   {cat:'🛡️ 旅遊保險 24h hotline', num:'(保單上印)', note:'買保險後抄低 + 帶保單 PDF 離線'},
 ];
-const EMERG_NOTE = '行前必做:112 + 兩個領事號 + 12308 存手機;保險 hotline/保單號/Mox 卡號 買完即抄(離線);各住宿直線 check-in 抄低。⚠️ HK 護照非 EU,EHIC 唔 cover → 全靠私人旅保,行山段確認保到。';
+const EMERG_NOTE = '行前必做:112 + 兩個領事號 + 12308 存手機;保險 hotline/保單號/Mox 卡號 買完即抄(離線);各住宿直線 check-in 抄低。⚠️ HK 護照非 EU,EHIC 唔 cover → 全靠私人旅保;Kungsleden / 7·11 水上活動未有 Zurich 書面確認前,唔好當已受保。';
 
 /* 清單 tab — 兩人 22 日完整執喼清單（行山 6 日 + 4 城市 + 攝影）。逐格 tick */
 const CHECKLIST = [
@@ -339,10 +339,10 @@ const CHECKLIST = [
   {grp:'🛫 行前必做（數碼準備·最易漏）', items:[
     '📍 預載離線地圖:Gaia GPS / Maps.me 下載 Kungsleden(Abisko→Nikkaluokta)+ Göteborg + Stockholm 區——⚠️山上 6 日(6/30–7/5)冇訊號,app 互動地圖載唔到底圖,靠呢個 + 紙本 Kungsleden 地圖導航',
     '📸 截圖所有 booking 離線:8 個 STF 山屋 code · 兩段機票 · SJ 三程(app) · Trip.com 租車 voucher+取車文件 · Arctic Bath · 兩個 Airbnb · Zurich 保單 PDF(詳細喺私人 Apple Note)',
-    '🛡️ 保險單 PDF 離線 + 記低 24h hotline + 保單號(Zurich 兩人都保·已確認)',
+    '🛡️ 保險單 PDF 離線 + 記低保單 hotline + 保單號(Zurich 兩人都喺保單內;保障範圍唔等於所有活動都包)',
     '☎ 存手機:112 · 大使館 0046-763383654 · 哥德堡總領館(7/8-12)0046-709395290 · 12308',
     '📱 eSIM/漫遊開通(瑞典覆蓋好,山區仍可能冇)·帶少量 SEK 現金(北段 card reader 可能失靈)',
-    '📲 裝定 app:SJ · Norwegian · SAS · SL · Västtrafik · Flygbussarna · Arlanda Express · Airbnb · Trip.com · STF','🧳 手提行李 contingency:行山鞋著上機 + 處方藥/眼鏡/隱形/充電/booking 截圖/保險/1 套底層+襪/雨褸/證件 放手提——萬一大件 check-in 喼喺 6/27-28 多次轉機(HKG→上海→ARN→Kiruna)失蹤,6 日行山都照行得','📞 報平安 protocol:行前同一個信得過嘅人留低行程+山屋 code +「7/5 晚 X 點前未報平安就打邊個」(山上 6/30-7/5 冇訊號)','🛡️ 確認保險涵蓋:trekking(Kungsleden·已確認 excl >5000m) + ⚠️7/11 水上活動(stand-up surf/eFoil·新加·臨行 confirm 受保) + 租車自負額/意外','🔌 EX30 充電方案:取車前確認租車公司建議嘅充電 app/network + 付款方式(北段 7/6-8 自駕)',
+    '📲 裝定 app:SJ · Norwegian · SAS · SL · Västtrafik · Flygbussarna · Arlanda Express · Airbnb · Trip.com · STF','🧳 手提行李 contingency:行山鞋著上機 + 處方藥/眼鏡/隱形/充電/booking 截圖/保險/1 套底層+襪/雨褸/證件 放手提——萬一大件 check-in 喼喺 6/27-28 多次轉機(HKG→上海→ARN→Kiruna)失蹤,6 日行山都照行得','📞 報平安 protocol:行前同一個信得過嘅人留低行程+山屋 code +「7/5 晚 X 點前未報平安就打邊個」(山上 6/30-7/5 冇訊號)','🛡️ 保險真相（Zurich 自在旅遊·易選計劃·最基本級·兩人都保）：只保 醫療HK$50萬 / 個人意外HK$50萬 / 緊急醫療運送HK$20萬。','⚠️ 未確認：Kungsleden 自助行恐受 exclusion 2(d)「跋涉/極度體力/極端環境/特別器材」影響 → 出發前打 2968 2288 攞「書面」確認受保；7/11 水上活動同樣要 confirm。','❌ 唔受保：行程縮短/取消（Arctic Bath 不可退＝自己孭）、行李/個人財物、個人責任、租車自負額（自駕遊 add-on 冇買 → 靠租車公司 CDW）。','🔌 EX30 充電方案:取車前確認租車公司建議嘅充電 app/network + 付款方式(北段 7/6-8 自駕)',
   ]},
   {grp:'🧾 證件 / 錢 / 卡（硬文件·手機+雲端+紙本三份）', items:[
     '🛂 兩本護照(回程後 ≥6 個月有效) + 香港身份證','🚗 國際駕照 IDP + 香港正式駕照(司機 Yin)',
@@ -551,7 +551,7 @@ const BOOK = [
  {t:'🍽 Sturehof 晚餐（7/17·✅已訂）',s:'paid',d:'7/17 週五 21:00–23:00',pax:'2 人',price:'主菜 ~215–315 SEK/人',where:'https://sturehof.com',wl:'66776203',dl:'✅已訂 7/17 21:00（ref 66776203·waiteraid email）·Stureplan 2(central)·傳統瑞典+海鮮·獨木舟後去。⚠️cross-check(codex+agy 一致):獨木舟 Eden Kayak @ Smedsudden(Kungsholmen 西)20:30 收場 → 還裝備+換衫+去 Stureplan(中)= 21:00 趕唔切 → **建議而家改 21:30**(email modify link 或 call 08-440 57 30·系統有位),或 20:30 即打 taxi。後備 Pelikan'},
  {t:'🏛 Stadshuset Tower（optional·你話興趣唔大）',s:'pend',d:'7/15·想去先 09:00 頭場',pax:'2 人',price:'成人 100 SEK/人',where:'https://stadshuset.stockholm/en/visit-stockholm-city-hall/city-hall-tower/',wl:'City Hall',dl:'你講過對觀光塔興趣唔大 → 設 optional(唔當「要訂」),可以 skip。想去先:塔樓時段票 T-7 日(7/8)放,當日 08:30 City Hall Shop 都有現場票。ABBA Museum + Allsång 你已決定唔去,已從清單移除'},
  {t:'🏄 Jet-boarding @ Évika（7/11·已 book ✅）',s:'paid',d:'7/11 17:00–19:00·Landvetter',pax:'2 人',price:'已付 HK$1,493.57（Airbnb）',where:'https://www.airbnb.com',wl:'Airbnb 訂單',dl:'✅ 你 Airbnb book 咗（主辦 Évika Boutique Hotel·Landvetter·Östra Eskilsbyvägen 246·17:00–19:00）。✅host 6/14 確認:係 jet-boarding,提供 wetsuit+頭盔+安全衣,喺碼頭桑拿屋換衫 → 你只需帶泳衣著底+毛巾。15 歲以上·強度 strenuous。確認碼喺 Apple Note。冇租車 → taxi/Bolt 去 Landvetter ~30 分（~400–550 SEK）'},
- {t:'🛡️ 旅遊保險（已買 ✅·兩人都保）',s:'paid',d:'生效 6/27–7/19 · Zurich 自在旅遊',pax:'Yin + Kam Ling 兩人都受保（已確認）',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'✅ 已核實:兩人都保·行山有 cover(只 excl >5000m·Kungsleden 最高 1140m 安全)·含 emergency evacuation。24h hotline +852 2886 3977。保單 PDF 下載落手機離線'},
+ {t:'🛡️ 旅遊保險（已買 ✅·兩人列名）',s:'paid',d:'生效 6/27–7/19 · Zurich 自在旅遊',pax:'Yin + Kam Ling 兩人都喺保單內',price:'已付 HK$1,086',where:'https://www.zurich.com.hk',wl:'保單 PDF',dl:'保障好薄：醫療HK$50萬 / 個人意外HK$50萬 / 緊急醫療運送HK$20萬。⚠️ 未書面確認：Kungsleden 自助重裝行山可能受 exclusion 2(d)「跋涉/極度體力/極端環境/特別器材」影響；7/11 水上活動同樣要問 Zurich。❌ 無：行程取消/縮短、行李/財物、個人責任、租車自負額/自駕遊保障。出發前打 2968 2288 攞書面確認；保單 hotline/保單號離線存。'},
 ];
 
 /* 每日完整時間線 TL[id]（22 日·multi-agent build+verify·v30） */
