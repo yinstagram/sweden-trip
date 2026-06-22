@@ -109,7 +109,7 @@ const DAYS = [
   stops:[
     {n:'Tjäktja Pass 1140m（全程最高）',ll:[68.0500,18.4900],cat:'山口·最高點',note:'兩邊兩種地貌 · 冰川背景 · 過後落谷碎石濕滑',o:1},
     {n:'STF Sälka',ll:[67.9670,18.5030],cat:'山屋(約位)',note:'有桑拿 + shop',o:2}],
-  notes:['🔴 全程最辛苦一日!STF 官方拆做兩日,你哋夾一日 ~25km 過最高山口 → 慢行 pace 隨時 10–11 鐘。','務必最早出發(理想 7–8am)。山口天氣變化大、7 月都可能風雪、能見度低 → 慢行、帶行山杖。','高原溪流稀疏,過山口前後補夠水。','💡 可考慮喺 Tjäktja 加一晚拆兩日(要 rebook STF)——同 Yin confirm。'],
+  notes:['🔴 全程最辛苦一日!STF 官方拆做兩日,你哋夾一日 ~25km 過最高山口 → 慢行 pace 隨時 10–11 鐘。','務必最早出發(理想 7–8am)。山口天氣變化大、7 月都可能風雪、能見度低 → 慢行、帶行山杖。','高原溪流稀疏,過山口前後補夠水。','✅ Yin 已決定唔 rebook(臨行太遲)·照行一日 ~25km。鐵律:06:30 前出發 + 到 Tjäktja 一帶若時間/體力/天氣唔對 = 即用 Tjäktja 作停損點搵 STF host 處理 emergency bed·唔好硬推 Sälka。出發前問 Alesjaure host 最新山口天氣。'],
   bk:[{s:'paid',t:'🛏 STF Sälka'}] },
 
 { id:'d0703', date:'7/3', dow:'五', leg:'hike', color:'#6b8a9e',
@@ -472,7 +472,7 @@ const EX = {
  d0629:{carry:'背囊正式上身·濾水器·防蚊頭網·行山杖·冷帽手套(Nuolja 頂近0°C)',tip:'黃昏/夜上 Aurora Sky 吊椅(夜班20:00-01:30)→Nuolja 頂俯瞰 Torneträsk+Lapporten=絕景;Fjällboden 順手買氣罐+寄行李去 Nikkaluokta。',pace:'安頓+輕鬆熱身(唔行正路);午夜太陽冇盡頭易玩通頂,但聽日行 15km,瞓夠。'},
  d0630:{carry:'頭網+防蚊(低地蚊巢)·水樽×2+濾水器·輕雨衣',tip:'穿 Abisko 國家公園峽谷,清澈河水 + 白樺林靚景;Abiskojaure 有桑拿+shop,早到沖湖焗桑拿補糧。',pace:'15km·+100m·4-5h 最易一日,搵節奏。'},
  d0701:{carry:'多1條能量bar·防曬+太陽眼鏡(無遮蔭·午夜太陽UV)·shell(高地風大)',tip:'「Lapland 最美一面」野河廣谷=Lapland 最靚一段;Alesjaure 柴火桑拿+shop,補返一罐氣罐;暑期或有船過湖省路(臨行查)。',pace:'21km·+300m·6-7h(慢行預 7-8h),早出發 8-9am。'},
- d0702:{carry:'⚠️過山口前裝滿2樽水(高原溪流稀疏)·全套保暖+shell+冷帽手套(7月都可能風雪)·行山杖(落坡碎石濕滑)·多1-2份高能量糧',tip:'🚨炸彈日!~25km 過全程最高 Tjäktja 1140m(STF 官方拆兩日);💡可考慮 Tjäktja 加一晚(rebook STF)。',pace:'~25km·8-9h 淨行(慢行預 10-11h),務必 7-8am 出發;Sälka 到埗買定 7/3 全日糧(Singi 冇 shop)。'},
+ d0702:{carry:'⚠️過山口前裝滿2樽水(高原溪流稀疏)·全套保暖+shell+冷帽手套(7月都可能風雪)·行山杖(落坡碎石濕滑)·多1-2份高能量糧',tip:'🚨炸彈日!~25km 過全程最高 Tjäktja 1140m(STF 官方拆兩日)。✅唔 rebook·照行一日·06:30 出發·到 Tjäktja 狀態唔對即停損搵 STF host(唔硬推 Sälka)。',pace:'~25km·8-9h 淨行(慢行預 10-11h),務必 06:30-07:00 出發;Sälka 到埗買定 7/3 全日糧(Singi 冇 shop)。'},
  d0703:{carry:'Sälka 買定嘅一日糧(Singi 冇 shop)',tip:'宏偉 U 形 Tjäktjavagge 冰蝕谷+馴鹿+吊橋,炸彈日後恢復日,慢慢等光等馴鹿、中途煮午餐沖咖啡、Kam Ling 鈎針。',pace:'12km·-100m·3-4h 最短最 chill,唔使早起;⚠️Singi 岔路口睇路標東行。'},
  d0704:{carry:'輕量換洗衫(今晚有淋浴+桑拿!)·錢/卡(餐廳 buffet)',tip:'經 Kaffedalen 咖啡谷,Kebnekaise 主峰現身;全程最舒適一晚,洗澡食 buffet 回氣;💡有訊號→訂定 7/5 16:55 巴士飛(山中冇訊號)。',pace:'14km·±150m·4-5h;唔好臨時加登頂(另一日 round-trip)。'},
  d0705:{carry:'防蚊頭網(Nikkaluokta 段蚊極多)',tip:'回望 Kebnekaise 雪峰+Ladtjojaure 綠湖;下船碼頭 Sami 帳篷咖啡 Kaffekåta+馴鹿漢堡打卡;可搭湖船省 6km(臨行查船期)。',pace:'19km·5.5-6.5h→最遲 8:30am 出發趕 16:55 尾班巴士(網訂 15:55 截,喺 Kebnekaise 訂定);錯過=瞓 Nikkaluokta。'},
