@@ -407,7 +407,7 @@ function renderStatus(){
   const doneB=(S.BOOK||[]).filter(b=>b.s==='paid');
   const undoneHtml=undone.length?undone.map(bookCard).join(''):'<div class="card" style="color:var(--green)">🎉 BOOK 清單全部搞掂!</div>';
   const paidDetail=b=>/旅遊保險/.test(b.t)
-    ? '⚠️ 保障好薄：Kungsleden 可能受 exclusion 2(d) 影響；7·11 水上活動要 Zurich 書面確認；取消/縮短、行李、租車自負額唔受保。'
+    ? '⚠️ 保障好薄：Kungsleden 可能受 exclusion 2(d) 影響；7·11 水上活動要 Zurich 書面確認；取消/縮短、行李/失喼、租車自負額唔受保。'
     : b.d;
   const doneHtml=doneB.map(b=>`<div class="strow"><span class="st ${bkClass(b.s)}" style="margin:0">${bkMeta(b.s).ico}</span><div class="sm"><b>${esc(b.t)}</b><small>${esc(paidDetail(b))}</small></div></div>`).join('');
   const pb=S.PLANB;
@@ -429,11 +429,17 @@ function renderStatus(){
 
 /* ---------- 實用 KIT ---------- */
 function renderKit(){
-  const subs=[['pack','🎒 行李'],['sos','🆘 緊急'],['cheat','📋 小抄']];
+  const subs=[['pack','🎒 行李'],['lost','🧳 失喼'],['sos','🆘 緊急'],['cheat','📋 小抄']];
   let body='';
   if(kitSub==='pack'){const ck=JSON.parse(localStorage.sw_ck||'{}');
     S.CHECKLIST.forEach((g,gi)=>{body+=`<div class="sec-h">${esc(g.grp)}</div><div class="card">`;
       g.items.forEach((it,ii)=>{const k=gi+'_'+ii,done=ck[k];body+=`<label class="ck ${done?'done':''}" data-k="${k}"><input type="checkbox" ${done?'checked':''}><span>${esc(it)}</span></label>`;});body+=`</div>`;});}
+  else if(kitSub==='lost'){
+    const lb=S.LOST_BAGGAGE||{verdict:'未有行李寄失資料。',sections:[],links:[]};
+    body=`<div class="losthero"><div class="lostk">今日行李寄失</div><p>${telLink(esc(lb.verdict))}</p><small>更新 ${esc(lb.updated||'')}</small></div>`+
+      (lb.sections||[]).map(sec=>`<div class="sec-h">${esc(sec.h)}</div><div class="card lostcard">${(sec.items||[]).map((it,i)=>`<div class="lostrow"><span>${i+1}</span><p>${telLink(esc(it))}</p></div>`).join('')}</div>`).join('')+
+      ((lb.links&&lb.links.length)?`<div class="sec-h">🔗 官方 / claim link</div><div class="card lostlinks">${lb.links.map(l=>`<a href="${esc(l.u)}" target="_blank">${esc(l.t)} ›</a>`).join('')}</div>`:'');
+  }
   else if(kitSub==='sos'){body=S.EMERGENCY.map(e=>{const tel=e.num.replace(/[^0-9+]/g,'');const call=/[0-9]/.test(e.num)?`<a class="call" href="tel:${tel}">撥打</a>`:'';
       return `<div class="sos"><div class="sl"><b>${esc(e.cat)}</b><small>${esc(e.num)} · ${esc(e.note)}</small></div>${call}</div>`;}).join('')+`<div class="card" style="font-size:12.5px;margin-top:12px">${esc(S.EMERG_NOTE)}</div>`;}
   else{body=S.CHEAT.map(c=>`<div class="sec-h">${esc(c.h)}</div><div class="card"><ul class="cheat">${c.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')+
