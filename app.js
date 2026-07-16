@@ -352,7 +352,7 @@ async function drawDay(){
   const pts=[];
   stops.forEach(s=>{const ll=[s.ll[1],s.ll[0]];pts.push(ll);
     mkr(ll,s.color,false,false,`<b>${esc(s.n)}</b><br>${esc(s.cat)}<br><span style="opacity:.85">${esc(s.note||'')}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});
-  if(showSaved){const rT={in:'✅ 排咗',opt:'🤔 可選',skip:'💭 我建議 skip'};S.SAVED.forEach(s=>{mkr([s.ll[1],s.ll[0]],s.rec==='skip'?'#c8a59a':'#d8c08a',true,false,`<b>${esc(s.n)}</b><br>${rT[s.rec]||''}<br><span style="opacity:.85">${esc(s.why)}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});}
+  if(showSaved){const rT={in:'✅ 排咗',opt:'🤔 可選',skip:'💭 我建議 skip',done:'✓ 已完成'};S.SAVED.forEach(s=>{mkr([s.ll[1],s.ll[0]],s.rec==='skip'?'#c8a59a':s.rec==='done'?'#72e0a6':'#d8c08a',true,false,`<b>${esc(s.n)}</b><br>${rT[s.rec]||''}<br><span style="opacity:.85">${esc(s.why)}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});}
   if(curDay){const main=tlStops(curDay).map(s=>[s.ll[1],s.ll[0]]);
     if(main.length>1){let full=[];for(let i=0;i<main.length-1;i++){const seg=await osrm(main[i],main[i+1]);full=full.concat(i?seg.slice(1):seg);}
       if(map.getSource('route')){if(map.getLayer('route'))map.removeLayer('route');map.removeSource('route');}

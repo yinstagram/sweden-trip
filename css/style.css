@@ -373,23 +373,23 @@ ul.cheat{margin:4px 0;padding-left:18px}ul.cheat li{font-size:13px;margin:6px 0}
 .tl.is-open .tl-caret{transform:rotate(180deg)}
 .tl-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s ease}
 .tl.is-open .tl-body{grid-template-rows:1fr}
-.tl-bodyin{overflow:hidden;min-height:0}
+.tl-bodyin{overflow:hidden;min-height:0;min-width:0;overflow-wrap:anywhere;word-break:break-word}
 .tl.is-open .tl-bodyin{border-top:1px solid var(--line)}
-.tl-desc{font-size:13px;line-height:1.6;color:var(--text);margin:0 12px;padding-top:10px;padding-bottom:10px}
-.tl-facts{display:flex;flex-wrap:wrap;gap:6px;margin:0 12px 10px}
+.tl-desc{font-size:13px;line-height:1.6;color:var(--text);margin:0 12px;padding-top:10px;padding-bottom:10px;max-width:calc(100% - 24px);overflow-wrap:anywhere;word-break:break-word}
+.tl-facts{display:flex;flex-wrap:wrap;gap:6px;margin:0 12px 10px;max-width:calc(100% - 24px)}
 .tl-fact{font-size:11.5px;color:var(--text);background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:3px 8px}
-.tl-buy{background:color-mix(in srgb,var(--cyan) 7%,var(--bg2));border:1px solid color-mix(in srgb,var(--cyan) 26%,transparent);border-radius:11px;padding:9px 11px;margin:0 12px 10px}
+.tl-buy{background:color-mix(in srgb,var(--cyan) 7%,var(--bg2));border:1px solid color-mix(in srgb,var(--cyan) 26%,transparent);border-radius:11px;padding:9px 11px;margin:0 12px 10px;max-width:calc(100% - 24px)}
 .tl-buyh{font-size:11.5px;font-weight:700;color:var(--cyan);letter-spacing:.03em;margin-bottom:6px}
 .buyck{display:flex;align-items:flex-start;gap:9px;padding:5px 0;font-size:13px;line-height:1.45;cursor:pointer;color:var(--text)}
 .buyck input{margin-top:2px;accent-color:var(--cyan);width:16px;height:16px;flex:none}
 .buyck.done span{text-decoration:line-through;color:var(--muted)}
-.tl-tips{margin:0 12px 10px;padding-left:19px}
-.tl-tips li{font-size:12.5px;line-height:1.55;color:var(--text);margin:3px 0}
-.tl-warn{font-size:12.5px;line-height:1.55;color:var(--text);background:color-mix(in srgb,var(--red) 9%,var(--card));border:1px solid color-mix(in srgb,var(--red) 30%,transparent);border-radius:10px;padding:8px 11px;margin:0 12px 10px}
-.tl-acts{display:flex;flex-wrap:wrap;gap:7px;margin:0 12px 11px;align-items:center}
-.tl-act{font-size:11.5px;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);border-radius:8px;padding:5px 9px;white-space:nowrap;transition:background .18s}
+.tl-tips{margin:0 12px 10px;padding-left:19px;max-width:calc(100% - 24px)}
+.tl-tips li{font-size:12.5px;line-height:1.55;color:var(--text);margin:3px 0;overflow-wrap:anywhere;word-break:break-word}
+.tl-warn{font-size:12.5px;line-height:1.55;color:var(--text);background:color-mix(in srgb,var(--red) 9%,var(--card));border:1px solid color-mix(in srgb,var(--red) 30%,transparent);border-radius:10px;padding:8px 11px;margin:0 12px 10px;max-width:calc(100% - 24px);overflow-wrap:anywhere;word-break:break-word}
+.tl-acts{display:flex;flex-wrap:wrap;gap:7px;margin:0 12px 11px;align-items:center;max-width:calc(100% - 24px)}
+.tl-act{font-size:11.5px;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);border-radius:8px;padding:5px 9px;white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:break-word;transition:background .18s}
 .tl-act:hover{background:color-mix(in srgb,var(--gold) 12%,transparent)}
-.tl-acts .st{margin-left:auto}
+.tl-acts .st{margin-left:0;white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
 .tl.k-fixed .tl-time{color:var(--gold2)}
 /* 🔦 Spotlight：今日「而家」嗰格 */
 .tl-now>.tl-card{border:1.5px solid var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 30%,transparent),var(--shadow)}
