@@ -13,6 +13,16 @@ const img = d=>'img/'+(S.HERO[d.id]||'stockholm')+'.jpg';
 const DAY_MS=864e5, TRIP_START=new Date(2026,5,27);
 const clockMin=t=>{const m=(''+(t||'')).match(/(\d{1,2}):(\d{2})/);return m?(+m[1])*60+(+m[2]):9999;};
 const stepLabel=s=>s?(s.title||s.a||''):'';
+const TRACK_META={
+  yin:{label:'Yin solo',short:'Yin',color:'#35a7c6',ico:'Y'},
+  kamling:{label:'Kam Ling solo',short:'Kam Ling',color:'#df8b63',ico:'K'},
+  together:{label:'Together',short:'Together',color:'#78b889',ico:'2'}
+};
+const TRACK_ORDER=['yin','kamling','together'];
+const trackMeta=k=>TRACK_META[k]||{label:'行程',short:'行程',color:'#8a93b5',ico:'•'};
+const hasTracks=ss=>(ss||[]).some(s=>s.track);
+const timeText=s=>s?(s.end?s.t+'–'+s.end:(s.t||'')):'';
+const chronological=ss=>(ss||[]).map((s,i)=>({...s,__i:i})).sort((a,b)=>clockMin(a.t)-clockMin(b.t)||(TRACK_ORDER.indexOf(a.track)-TRACK_ORDER.indexOf(b.track)));
 function nowInfo(){
   const q=new URLSearchParams(location.search), raw=q.get('now')||q.get('mockNow')||localStorage.sw_mock_now||'';
   if(raw){const d=new Date(raw.replace(' ','T'));if(!Number.isNaN(+d))return{date:d,mock:true,raw};}
@@ -60,8 +70,13 @@ const gmaps = (q,ll)=>{
   return ll?`https://www.google.com/maps/search/?api=1&query=${ll[0]}%2C${ll[1]}`:'#';
 };
 // 路線:座標 origin/dest/waypoints,唔指定 travelmode → Google 自動揀,保證畫到路線
-const dirURL = stops=>{const p=stops.filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>s.ll[0]+','+s.ll[1]);
+const dirURL = stops=>{const p=stops.filter(s=>!s.opt).sort((a,b)=>a.o-b.o).map(s=>s.ll[0]+','+s.ll[1]).filter((p,i,a)=>i===0||p!==a[i-1]);
   if(p.length<2)return null;return`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p[0])}&destination=${encodeURIComponent(p[p.length-1])}`+(p.length>2?`&waypoints=${encodeURIComponent(p.slice(1,-1).join('|'))}`:'');};
+function routeGroups(items){
+  const ss=(items||[]).filter(it=>it.ll&&it.ll.length===2);
+  if(!hasTracks(ss))return[{key:'default',meta:null,stops:ss.map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}))}];
+  return TRACK_ORDER.map(key=>({key,meta:trackMeta(key),stops:ss.filter(it=>it.track===key).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1,track:key}))})).filter(g=>g.stops.length);
+}
 // 電話自動 tel: link(esc 之後先 call,避免 over-escape);保守 regex(+46 / 0 開頭長號)
 const telLink=t=>(''+t).replace(/(\+46[\s\d-]{6,}\d|\b0\d{2,3}[\s-]?\d{2}[\s-]?\d{2}[\d\s-]*\d)/g,m=>`<a href="tel:${m.replace(/[^\d+]/g,'')}">${m.trim()}</a>`);
 const wxURL=ll=>`https://www.yr.no/en/forecast/daily-table/${ll[0]},${ll[1]}`;
@@ -105,35 +120,60 @@ function renderNow(){
   let stepsHtml='',assistHtml='';
   const ssrc=timelineForDay(rawToday,now);
   if(ssrc&&ssrc.length){
-    const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(clockMin(s.t)<=nowMin)cur=i;});
-    const nextI=cur+1; const lbl=s=>s.title||s.a;
-    const current=cur>=0?ss[cur]:null,next=ss[nextI]||null;
-    const tonight=ss.find((s,i)=>i>=Math.max(nextI,0)&&clockMin(s.t)>=17*60&&/晚餐|dinner|獨木舟|kayak|Fotografiska|Hermans|Aifur|Sturehof|Arctic Culinary|check-in|就寢|返回|返 /.test(stepLabel(s)))||ss.find(s=>clockMin(s.t)>=18*60);
+    const ss=ssrc,ordered=chronological(ss),tracked=hasTracks(ss);let cur=-1;
+    ordered.forEach((s,i)=>{if(clockMin(s.t)<=nowMin)cur=i;});
+    const nextI=cur+1,lbl=s=>s.title||s.a;
+    const current=cur>=0?ordered[cur]:null,next=ordered[nextI]||null;
+    const nightPool=ordered.filter((s,i)=>i>=Math.max(nextI,0)&&clockMin(s.t)>=17*60);
+    const tonight=nightPool.find(s=>s.k==='fixed'&&/晚餐|dinner|Hermans|Aifur|Sturehof|Arctic Culinary/.test(stepLabel(s)))||nightPool.find(s=>/晚餐|dinner|獨木舟|kayak|Fotografiska|Hermans|Aifur|Sturehof|Arctic Culinary|check-in|就寢|返回|返 /.test(stepLabel(s)))||ordered.find(s=>clockMin(s.t)>=18*60);
     const prepRe=/帶齊|準備|執|買|check|裝備|泳衣|防水袋|乾衫|毛巾|退稅|護照|叉滿/i;
     const needsPrep=s=>prepRe.test([stepLabel(s),s.desc,s.warn,...(s.buy||[]),...(s.tips||[])].filter(Boolean).join(' '));
-    const futurePrep=ss.filter((s,i)=>i>=Math.max(nextI,0)&&needsPrep(s)).slice(0,2);
-    const prepPool=[current,next,...futurePrep].filter(Boolean);
-    const prepBits=s=>[...(s.buy||[]),s.warn,...(s.tips||[]),needsPrep(s)?`${s.t||''} ${stepLabel(s)}${s.desc?'：'+s.desc:''}`:''].filter(Boolean);
-    const prep=[...new Set(prepPool.flatMap(prepBits).map(short))].slice(0,3);
-    const concern=short((current&&current.warn)||(next&&next.warn)||(tonight&&tonight.warn)||(tEX&&tEX.tip)||'跟住時間線行就得,下一步開始前先飲水/叉電/睇路線。');
-    const fmt=s=>s?`<b>${esc(s.t||'')}</b> ${telLink(esc(short(stepLabel(s))))}`:'<span class="muted">未開始</span>';
-    assistHtml=`<div class="nowassist">
-      <div class="na-head"><span>${ni.mock?'🧪 測試此刻':'⚡ 此刻提示'}</span><b>${today.date} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</b></div>
-      <div class="na-grid">
-        <div class="na-card focus"><span>而家</span><p>${fmt(current)}</p></div>
-        <div class="na-card"><span>下一步</span><p>${fmt(next)}</p></div>
-        <div class="na-card"><span>今晚</span><p>${fmt(tonight)}</p></div>
-        <div class="na-card warn"><span>即時關注</span><p>${telLink(esc(concern))}</p></div>
-      </div>
-      ${prep.length?`<div class="na-prep"><b>出門前 / 轉場前</b>${prep.map(x=>`<div>${telLink(esc(x))}</div>`).join('')}</div>`:''}
-      <button class="notifybtn" onclick="window.__notifyToday()">🔔 開今日提醒</button>
-      <div class="na-note">通知係 best-effort: app/瀏覽器開住最可靠,無 backend 時唔保證關 app 後仍會響。</div>
-    </div>`;
-    stepsHtml=`<div class="ns">${ss.map((s,i)=>{
-      const cl=i<cur?'done':i===cur?'now':i===nextI?'next':'up';
-      const tag=i===nextI?'👉 ':i===cur?'▸ ':'';
-      return `<div class="ns-row ${cl}"><span class="ns-t">${s.t}</span><span class="ns-a">${tag}${telLink(esc(lbl(s)))}</span></div>`;
-    }).join('')}${cur>=ss.length-1?`<div class="ns-row up"><span class="ns-t">✓</span><span class="ns-a">今日行程完${nx?`,準備聽日 ${esc(nx.title)}`:''}</span></div>`:''}</div>`;
+    const prepBits=s=>[...(s.buy||[]),s.warn,...(s.tips||[]),needsPrep(s)?`${timeText(s)} ${stepLabel(s)}${s.desc?'：'+s.desc:''}`:''].filter(Boolean);
+    const fmt=s=>s?`<b>${esc(timeText(s))}</b> ${telLink(esc(short(stepLabel(s))))}`:'<span class="muted">未開始</span>';
+    if(tracked){
+      const stateFor=key=>{const arr=ordered.filter(s=>s.track===key);let i=-1;arr.forEach((s,n)=>{if(clockMin(s.t)<=nowMin)i=n;});return{key,current:i>=0?arr[i]:null,next:arr[i+1]||null};};
+      const states=TRACK_ORDER.map(stateFor),togetherLive=states[2].current!==null;
+      const active=togetherLive?[states[2].current]:states.slice(0,2).map(s=>s.current).filter(Boolean);
+      const nextTrack=states.map(s=>s.next).filter(Boolean);
+      const futurePrep=ordered.filter(s=>clockMin(s.t)>=nowMin&&needsPrep(s)).slice(0,3);
+      const prep=[...new Set([...active,...nextTrack,...futurePrep].filter(Boolean).flatMap(prepBits).map(short))].slice(0,4);
+      const shared=states[2].current||states[2].next;
+      const concern=short(active.map(s=>s&&s.warn).find(Boolean)||(shared&&shared.warn)||(next&&next.warn)||(tonight&&tonight.warn)||(tEX&&tEX.tip)||'兩邊跟自己 track 行,14:15 Meatballs 會合。');
+      const stateLine=st=>{
+        if(st.key!=='together'&&togetherLive)return'<span class="muted">14:15 起已會合</span>';
+        const s=st.current||st.next,p=st.current?'而家':'下一步';
+        return s?`<em>${p}</em> ${fmt(s)}`:'<span class="muted">今日已完成</span>';
+      };
+      assistHtml=`<div class="nowassist">
+        <div class="na-head"><span>${ni.mock?'🧪 測試此刻':'⚡ 此刻提示'}</span><b>${today.date} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</b></div>
+        <div class="na-tracklist">${states.map(st=>{const m=trackMeta(st.key);return`<div class="na-trackrow" style="--tc:${m.color}"><span class="track-badge">${m.label}</span><p>${stateLine(st)}</p></div>`;}).join('')}</div>
+        <div class="na-grid compact">
+          <div class="na-card"><span>今晚</span><p>${fmt(tonight)}</p></div>
+          <div class="na-card warn"><span>即時關注</span><p>${telLink(esc(concern))}</p></div>
+        </div>
+        ${prep.length?`<div class="na-prep"><b>出門前 / 轉場前</b>${prep.map(x=>`<div>${telLink(esc(x))}</div>`).join('')}</div>`:''}
+        <button class="notifybtn" onclick="window.__notifyToday()">🔔 開今日提醒</button>
+        <div class="na-note">通知係 best-effort: app/瀏覽器開住最可靠,無 backend 時唔保證關 app 後仍會響。</div>
+      </div>`;
+      stepsHtml=`<div class="ns ns-tracked">${states.map(st=>{const m=trackMeta(st.key),items=(st.key!=='together'&&togetherLive)?[]:[st.current,st.next].filter((x,i,a)=>x&&a.indexOf(x)===i);return`<div class="ns-track"><div class="ns-trackh" style="--tc:${m.color}">${m.label}</div>${items.length?items.map((s,i)=>`<div class="ns-row ${i===0&&st.current?'now':'next'}"><span class="ns-t">${esc(timeText(s))}</span><span class="ns-a">${i===0&&st.current?'▸ ':'👉 '}${telLink(esc(lbl(s)))}</span></div>`).join(''):'<div class="ns-done">已會合</div>'}</div>`;}).join('')}</div>`;
+    }else{
+      const futurePrep=ordered.filter((s,i)=>i>=Math.max(nextI,0)&&needsPrep(s)).slice(0,2);
+      const prep=[...new Set([current,next,...futurePrep].filter(Boolean).flatMap(prepBits).map(short))].slice(0,3);
+      const concern=short((current&&current.warn)||(next&&next.warn)||(tonight&&tonight.warn)||(tEX&&tEX.tip)||'跟住時間線行就得,下一步開始前先飲水/叉電/睇路線。');
+      assistHtml=`<div class="nowassist">
+        <div class="na-head"><span>${ni.mock?'🧪 測試此刻':'⚡ 此刻提示'}</span><b>${today.date} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</b></div>
+        <div class="na-grid">
+          <div class="na-card focus"><span>而家</span><p>${fmt(current)}</p></div>
+          <div class="na-card"><span>下一步</span><p>${fmt(next)}</p></div>
+          <div class="na-card"><span>今晚</span><p>${fmt(tonight)}</p></div>
+          <div class="na-card warn"><span>即時關注</span><p>${telLink(esc(concern))}</p></div>
+        </div>
+        ${prep.length?`<div class="na-prep"><b>出門前 / 轉場前</b>${prep.map(x=>`<div>${telLink(esc(x))}</div>`).join('')}</div>`:''}
+        <button class="notifybtn" onclick="window.__notifyToday()">🔔 開今日提醒</button>
+        <div class="na-note">通知係 best-effort: app/瀏覽器開住最可靠,無 backend 時唔保證關 app 後仍會響。</div>
+      </div>`;
+      stepsHtml=`<div class="ns">${ordered.map((s,i)=>{const cl=i<cur?'done':i===cur?'now':i===nextI?'next':'up',tag=i===nextI?'👉 ':i===cur?'▸ ':'';return`<div class="ns-row ${cl}"><span class="ns-t">${esc(timeText(s))}</span><span class="ns-a">${tag}${telLink(esc(lbl(s)))}</span></div>`;}).join('')}${cur>=ordered.length-1?`<div class="ns-row up"><span class="ns-t">✓</span><span class="ns-a">今日行程完${nx?(',準備聽日 '+esc(nx.title)):''}</span></div>`:''}</div>`;
+    }
   }
   const todayInner = stepsHtml || (tEX?`<div style="font-size:13px"><b style="color:var(--gold2)">🎒</b> ${telLink(esc(tEX.carry))}</div><div style="font-size:13px;margin-top:5px"><b style="color:var(--gold2)">⏱</b> ${telLink(esc(tEX.pace))}</div>`:'');
   const todayBlock=today?`<div class="card today" style="border-left:4px solid ${today.color}"><div class="today-h" style="color:${today.color}">📍 今日 ${today.date}（${today.dow}）· ${esc(today.title)}</div>${todayInner}<button class="btn ghost" style="margin-top:11px" onclick="window.__dayDetail('${today.id}')">睇今日全部 ›</button>${nx&&!stepsHtml?`<div class="muted" style="font-size:12px;margin-top:9px">明日 ${nx.date}：${esc(nx.title)}</div>`:''}</div>`:'';
@@ -170,14 +210,14 @@ window.__notifyToday=async()=>{
   const perm=Notification.permission==='granted'?'granted':await Notification.requestPermission();
   if(perm!=='granted'){alert('通知未開到;你仍然可以用此刻頁面睇即時提示。');return;}
   notifyTimers.forEach(clearTimeout);notifyTimers=[];
-  const ss=timelineForDay(today,now), nowMin=now.getHours()*60+now.getMinutes();
+  const ss=chronological(timelineForDay(today,now)), nowMin=now.getHours()*60+now.getMinutes();
   const important=s=>s.k==='fixed'||s.warn||/晚餐|火車|巴士|飛|出發|check|獨木舟|kayak|買|取車|還車|登機|早餐/.test(stepLabel(s));
   const unresolved=unresolvedBranch(today),cut=unresolved&&new Date(unresolved.cutoff),cutMin=cut&&!Number.isNaN(+cut)?cut.getHours()*60+cut.getMinutes():null;
   let upcoming=ss.filter(s=>clockMin(s.t)>nowMin&&important(s));
   if(unresolved&&cut&&now<cut){
     upcoming=upcoming.filter(s=>clockMin(s.t)<=cutMin).map(s=>unresolved.cutoffItem&&clockMin(s.t)===cutMin?unresolved.cutoffItem:s);
   }
-  upcoming=upcoming.slice(0,6);
+  upcoming=upcoming.slice(0,10);
   const show=(title,body,tag)=>{
     const opt={body,tag,renotify:false,icon:'icons/icon-192.png'};
     if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification(title,opt)).catch(()=>new Notification(title,opt));
@@ -214,7 +254,7 @@ function renderDays(){
 /* ---------- 時間軸 timeline（收合卡）---------- */
 let BUY=JSON.parse(localStorage.sw_buy||'{}');
 const KIND={fixed:{c:'#e8956a'},move:{c:'#7c89b5'},task:{c:'#34c6d8'},flex:{c:'#a78bda'}};
-const toMinT=t=>{const p=(''+(t||'0:0')).split(':');return (+p[0]||0)*60+(+p[1]||0);};
+const toMinT=clockMin;
 function tripDayId(){const i=tripIdx(getNow());return (i>=0&&i<S.DAYS.length)?S.DAYS[i].id:null;}
 function wxBar(leg){const w=S.WX&&S.WX[leg];if(!w)return'';
   const rows=(w.rows||[]).map(r=>`<div class="wxrow"><span class="wxk">${esc(r[0])}</span><span class="wxv">${esc(r[1])}</span></div>`).join('');
@@ -226,6 +266,7 @@ function hikePlanBHtml(id){
 }
 function tlItem(d,it,ti){
   const ki=KIND[it.k]||KIND.flex;
+  const tm=it.track?trackMeta(it.track):null;
   const buy=(it.buy&&it.buy.length)?`<div class="tl-buy"><div class="tl-buyh">🛒 要買 / 要做（撳格仔 tick 住去做）</div>${it.buy.map((b,bi)=>{const k='b_'+d.id+'_'+ti+'_'+bi;const on=BUY[k];return`<label class="buyck ${on?'done':''}" data-k="${k}"><input type="checkbox" ${on?'checked':''}><span>${telLink(esc(b))}</span></label>`;}).join('')}</div>`:'';
   const fk={open:'🕐',price:'💰',booking:'📋'};
   const facts=it.facts?Object.entries(it.facts).filter(e=>e[1]).map(e=>`<span class="tl-fact">${fk[e[0]]||''} ${esc(e[1])}</span>`).join(''):'';
@@ -239,12 +280,12 @@ function tlItem(d,it,ti){
   const bk=it.bk?`<span class="st ${bkc}">${bkm.ico} ${esc(it.bk.t)}</span>`:'';
   const tags=`${it.buy?'<span class="tl-tag buy">🛒</span>':''}${it.warn?'<span class="tl-tag warn">⚠️</span>':''}${it.bk?`<span class="tl-tag s-${bkc}">${bkm.ico}</span>`:''}`;
   const body=it.desc||facts||buy||tips||warn||acts||bk;
-  return`<div class="tl k-${it.k||'flex'}" style="--kc:${ki.c}">
-    <div class="tl-time">${esc(it.t)}</div><span class="tl-node"></span>
+  return`<div class="tl k-${it.k||'flex'} ${it.track?'track-'+it.track:''}" data-ti="${ti}" style="--kc:${ki.c};${tm?'--tc:'+tm.color:''}">
+    <div class="tl-time">${esc(it.t)}${it.end?`<small>–${esc(it.end)}</small>`:''}</div><span class="tl-node"></span>
     <div class="tl-card">
       <button class="tl-main" type="button" aria-expanded="false"${body?'':' disabled'}>
         <span class="tl-ico">${it.ico||'•'}</span>
-        <span class="tl-head"><span class="tl-ttl">${esc(it.title)}</span>${it.loc?`<span class="tl-loc">📍 ${esc(it.loc)}</span>`:''}</span>
+        <span class="tl-head"><span class="tl-ttl">${tm?`<span class="tl-track">${esc(tm.label)}</span>`:''}${esc(it.title)}</span>${it.loc?`<span class="tl-loc">📍 ${esc(it.loc)}</span>`:''}</span>
         <span class="tl-tags">${tags}</span>${body?'<span class="tl-caret">▾</span>':''}
       </button>
       ${body?`<div class="tl-body"><div class="tl-bodyin">
@@ -257,6 +298,13 @@ function tlItem(d,it,ti){
 function bindTl(scope){
   scope.querySelectorAll('.tl-main:not([disabled])').forEach(btn=>{btn.onclick=e=>{if(e.target.closest('a,label,input'))return;const tl=btn.closest('.tl');const o=tl.classList.toggle('is-open');btn.setAttribute('aria-expanded',o?'true':'false');};});
   scope.querySelectorAll('.buyck').forEach(l=>{l.querySelector('input').onchange=e=>{if(e.target.checked)BUY[l.dataset.k]=1;else delete BUY[l.dataset.k];localStorage.sw_buy=JSON.stringify(BUY);l.classList.toggle('done',e.target.checked);};});
+}
+function timelineHtml(d,items){
+  if(!hasTracks(items))return`<div class="timeline">${items.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
+  return`<div class="track-stack">${TRACK_ORDER.map(key=>{const m=trackMeta(key),rows=items.map((it,ti)=>({it,ti})).filter(x=>x.it.track===key);if(!rows.length)return'';return`<section class="track-section" style="--tc:${m.color}"><div class="track-head"><span class="track-mark">${m.ico}</span><div><b>${esc(m.label)}</b><small>${rows.length} 個步驟</small></div></div><div class="timeline">${rows.map(x=>tlItem(d,x.it,x.ti)).join('')}</div></section>`;}).join('')}</div>`;
+}
+function routeActions(items){
+  return routeGroups(items).map(g=>{const u=dirURL(g.stops);if(!u)return'';const label=g.meta?g.meta.short:'Google 路線',style=g.meta?` style="--tc:${g.meta.color}"`:'';return`<a class="gm route-track" ${style} href="${u}" target="_blank">🧭 ${esc(label)}</a>`;}).join('');
 }
 function renderDayDetail(id){
   killDmap();const raw=dayById(id),d=displayDay(raw);window.scrollTo(0,0);
@@ -275,12 +323,12 @@ function renderDayDetail(id){
   const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${bkClass(d.accom.status)}" style="margin-left:auto">${am.ico} ${am.t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
   const dtl=timelineForDay(raw);
   if(dtl&&dtl.length){
-    const tlHtml=`<div class="timeline">${dtl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
+    const tlHtml=timelineHtml(d,dtl);
     // 地圖由時間線啲有座標嘅 item 自動砌（同當日 timeline 一致）
-    const mapStops=dtl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}));
-    const dirTl=dirURL(mapStops);
+    const mapStops=dtl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1,track:it.track}));
+    const routeHtml=routeActions(dtl);
     const mapBlock=noSig?`<div class="offwarn">⚠️ 山段冇手機訊號 → 地圖底圖載唔到,靠紙本 Kungsleden 地圖 + 預載離線 GPS（Gaia/Maps.me）導航。</div>`
-      :(mapStops.length?`<div class="block"><div class="bh">🗺 今日地圖 ${dirTl?`<a class="gm" style="margin-left:auto" href="${dirTl}" target="_blank">🧭 Google 路線</a>`:''}</div><div id="dmap" class="dmap"></div></div>`:'');
+      :(mapStops.length?`<div class="block"><div class="bh">🗺 今日地圖 <span class="route-actions">${routeHtml}</span></div><div id="dmap" class="dmap"></div></div>`:'');
     V.innerHTML=`<button class="ic" style="margin-bottom:10px" onclick="window.__back()">‹ 返行程</button>
       ${heroHtml}${wxBar(legOf(id))}
       ${hikePbHtml}
@@ -292,11 +340,15 @@ function renderDayDetail(id){
     // 🔦 Spotlight：如果係今日,框住「而家」應該做緊嗰格 + 自動展開 + scroll 過去
     if(id===tripDayId()){
       const _now=getNow(), nm=_now.getHours()*60+_now.getMinutes();
-      let ni=-1; dtl.forEach((it,i)=>{ if(toMinT(it.t)<=nm) ni=i; });
-      if(ni>=0){ const els=V.querySelectorAll('.timeline .tl'); const el=els[ni];
-        if(el){ el.classList.add('tl-now'); const b=el.querySelector('.tl-main');
-          if(b&&!el.classList.contains('is-open')){ el.classList.add('is-open'); b.setAttribute('aria-expanded','true'); }
-          setTimeout(()=>{try{el.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},120); } }
+      const latest=key=>{let idx=-1;dtl.forEach((it,i)=>{if((!key||it.track===key)&&toMinT(it.t)<=nm)idx=i;});return idx;};
+      let indices;
+      if(hasTracks(dtl)){
+        const together=latest('together');
+        indices=together>=0?[together]:['yin','kamling'].map(latest).filter(i=>i>=0);
+      }else indices=[latest(null)].filter(i=>i>=0);
+      const currentEls=indices.map(i=>V.querySelector(`.tl[data-ti="${i}"]`)).filter(Boolean);
+      currentEls.forEach(el=>{el.classList.add('tl-now');const b=el.querySelector('.tl-main');if(b&&!el.classList.contains('is-open')){el.classList.add('is-open');b.setAttribute('aria-expanded','true');}});
+      if(currentEls[0])setTimeout(()=>{try{currentEls[0].scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},120);
     }
     return;
   }
@@ -331,11 +383,10 @@ function makeMini(stops,color){
   color=color||'#8a93b5';
   try{dmap=new maplibregl.Map({container:'dmap',style:MAP_STYLE,interactive:true,attributionControl:false});
     dmap.on('load',()=>{
-      const main=stops.filter(s=>!s.opt).sort((a,b)=>(a.o||0)-(b.o||0)).map(s=>[s.ll[1],s.ll[0]]);
-      if(main.length>1){dmap.addSource('r',{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:main}}});
-        dmap.addLayer({id:'r',type:'line',source:'r',paint:{'line-color':color,'line-width':3.5,'line-opacity':.85}});}
-      stops.forEach(s=>{const el=document.createElement('div');el.style.cssText=`width:${s.opt?11:15}px;height:${s.opt?11:15}px;border-radius:50%;background:${s.opt?'#bdb6a6':color};border:2px solid #fff`;
-        new maplibregl.Marker({element:el}).setLngLat([s.ll[1],s.ll[0]]).setPopup(new maplibregl.Popup({offset:12,closeButton:false}).setHTML(`<b>${esc(s.n)}</b><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Maps ›</a>`)).addTo(dmap);});
+      const groups=hasTracks(stops)?TRACK_ORDER.map(key=>({key,color:trackMeta(key).color,main:stops.filter(s=>s.track===key&&!s.opt).sort((a,b)=>(a.o||0)-(b.o||0)).map(s=>[s.ll[1],s.ll[0]])})): [{key:'default',color,main:stops.filter(s=>!s.opt).sort((a,b)=>(a.o||0)-(b.o||0)).map(s=>[s.ll[1],s.ll[0]])}];
+      groups.forEach(g=>{if(g.main.length>1){const id='r-'+g.key;dmap.addSource(id,{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:g.main}}});dmap.addLayer({id,type:'line',source:id,paint:{'line-color':g.color,'line-width':3.5,'line-opacity':.88}});}});
+      stops.forEach(s=>{const tc=s.track?trackMeta(s.track).color:color,tm=s.track?trackMeta(s.track):null,el=document.createElement('div');el.style.cssText=`width:${s.opt?11:15}px;height:${s.opt?11:15}px;border-radius:50%;background:${s.opt?'#bdb6a6':tc};border:2px solid #fff`;
+        new maplibregl.Marker({element:el}).setLngLat([s.ll[1],s.ll[0]]).setPopup(new maplibregl.Popup({offset:12,closeButton:false}).setHTML(`${tm?`<small style="color:${tm.color};font-weight:700">${esc(tm.label)}</small><br>`:''}<b>${esc(s.n)}</b><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Maps ›</a>`)).addTo(dmap);});
       const b=pts.reduce((B,p)=>B.extend(p),new maplibregl.LngLatBounds(pts[0],pts[0]));dmap.fitBounds(b,{padding:34,maxZoom:13,duration:0});
     });
   }catch(e){}
@@ -348,9 +399,8 @@ function renderMap(){
   // 📍 每日 Google Maps 路線（用嗰日 timeline 嘅座標砌）
   const dayRoutes=S.DAYS.map(raw=>{const d=displayDay(raw);
     const tl=timelineForDay(raw);
-    const stops=tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}));
-    const dir=dirURL(stops);
-    const act=dir?`<a class="rr-go" href="${dir}" target="_blank">🧭 開路線</a>`
+    const groups=routeGroups(tl),links=groups.map(g=>{const u=dirURL(g.stops);if(!u)return'';const m=g.meta;return`<a class="rr-go ${m?'rr-track':''}" ${m?`style="--tc:${m.color}"`:''} href="${u}" target="_blank">${m?esc(m.short):'🧭 開路線'}</a>`;}).join('');
+    const act=links?`<span class="rr-actions">${links}</span>`
       :(noSigDays.includes(d.id)?'<span class="rr-no">山段·離線</span>':'<span class="rr-no">—</span>');
     return `<div class="routerow"><span class="rr-dot" style="background:${d.color}"></span><span class="rr-day" onclick="window.__day('${d.id}')"><b class="rr-d">${d.date}</b> <span class="rr-t">${esc(d.title)}</span></span>${act}</div>`;
   }).join('');
@@ -369,7 +419,7 @@ function renderMap(){
   V.querySelectorAll('.daychip').forEach(c=>c.onclick=()=>{curDay=c.dataset.d||null;renderMap();});
   $('#savedChk').onchange=e=>{showSaved=e.target.checked;drawDay();};
 }
-function clearMap(){markers.forEach(m=>m.remove());markers=[];['route'].forEach(id=>{if(map.getLayer(id))map.removeLayer(id);if(map.getSource(id))map.removeSource(id);});}
+function clearMap(){markers.forEach(m=>m.remove());markers=[];['route','route-default',...TRACK_ORDER.map(k=>'route-'+k)].forEach(id=>{if(map.getLayer(id))map.removeLayer(id);if(map.getSource(id))map.removeSource(id);});}
 function haversine(a,b){const R=6371,dLat=(b[1]-a[1])*Math.PI/180,dLon=(b[0]-a[0])*Math.PI/180,x=Math.sin(dLat/2)**2+Math.cos(a[1]*Math.PI/180)*Math.cos(b[1]*Math.PI/180)*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
 async function osrm(a,b){if(haversine(a,b)>8)return[a,b];try{const r=await fetch(`https://router.project-osrm.org/route/v1/foot/${a[0]},${a[1]};${b[0]},${b[1]}?overview=full&geometries=geojson`);const j=await r.json();return j.routes&&j.routes[0]?j.routes[0].geometry.coordinates:[a,b];}catch(e){return[a,b];}}
 function mkr(ll,color,opt,photo,html){const el=document.createElement('div');el.style.cssText=`width:${opt?13:17}px;height:${opt?13:17}px;border-radius:50%;background:${opt?'#bdb6a6':color};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);${opt?'opacity:.7;':''}${photo?'box-shadow:0 0 0 3px rgba(245,200,66,.6);':''}`;
@@ -379,19 +429,17 @@ async function drawDay(){
   clearMap();
   // 地圖 pin 由每日 timeline(TL) 座標砌 → 同行程永遠一致（唔再靠舊 DAYS.stops，避免對調後 pin 唔啱）
   const tlStops=id=>{const tl=timelineForDay(dayById(id));
-    return tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,cat:it.loc||'',note:it.title||'',o:i+1}));};
+    return tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,cat:it.loc||'',note:it.title||'',o:i+1,track:it.track}));};
   let stops=[];
-  if(curDay){const d=dayById(curDay);stops=tlStops(curDay).map(s=>({...s,color:d.color}));}
-  else{S.DAYS.forEach(d=>tlStops(d.id).forEach(s=>stops.push({...s,color:'#8a93b5'})));}
+  if(curDay){const d=dayById(curDay);stops=tlStops(curDay).map(s=>({...s,color:s.track?trackMeta(s.track).color:d.color}));}
+  else{S.DAYS.forEach(d=>tlStops(d.id).forEach(s=>stops.push({...s,color:s.track?trackMeta(s.track).color:'#8a93b5'})));}
   const pts=[];
   stops.forEach(s=>{const ll=[s.ll[1],s.ll[0]];pts.push(ll);
-    mkr(ll,s.color,false,false,`<b>${esc(s.n)}</b><br>${esc(s.cat)}<br><span style="opacity:.85">${esc(s.note||'')}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});
+    const tm=s.track?trackMeta(s.track):null;
+    mkr(ll,s.color,false,false,`${tm?`<small style="color:${tm.color};font-weight:700">${esc(tm.label)}</small><br>`:''}<b>${esc(s.n)}</b><br>${esc(s.cat)}<br><span style="opacity:.85">${esc(s.note||'')}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});
   if(showSaved){const rT={in:'✅ 排咗',opt:'🤔 可選',skip:'💭 我建議 skip',done:'✓ 已完成'};S.SAVED.forEach(s=>{mkr([s.ll[1],s.ll[0]],s.rec==='skip'?'#c8a59a':s.rec==='done'?'#72e0a6':'#d8c08a',true,false,`<b>${esc(s.n)}</b><br>${rT[s.rec]||''}<br><span style="opacity:.85">${esc(s.why)}</span><br><a href="${gmaps(s.n,s.ll)}" target="_blank">📍 Google Maps ›</a>`);});}
-  if(curDay){const main=tlStops(curDay).map(s=>[s.ll[1],s.ll[0]]);
-    if(main.length>1){let full=[];for(let i=0;i<main.length-1;i++){const seg=await osrm(main[i],main[i+1]);full=full.concat(i?seg.slice(1):seg);}
-      if(map.getSource('route')){if(map.getLayer('route'))map.removeLayer('route');map.removeSource('route');}
-      map.addSource('route',{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:full}}});
-      map.addLayer({id:'route',type:'line',source:'route',paint:{'line-color':dayById(curDay).color,'line-width':3.5,'line-opacity':.9}});}}
+  if(curDay){const items=timelineForDay(dayById(curDay)),groups=routeGroups(items);
+    for(const g of groups){const main=g.stops.map(s=>[s.ll[1],s.ll[0]]);if(main.length<2)continue;let full=[];for(let i=0;i<main.length-1;i++){const seg=await osrm(main[i],main[i+1]);full=full.concat(i?seg.slice(1):seg);}const id='route-'+g.key,color=g.meta?g.meta.color:dayById(curDay).color;map.addSource(id,{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:full}}});map.addLayer({id,type:'line',source:id,paint:{'line-color':color,'line-width':3.5,'line-opacity':.9}});}}
   if(pts.length){const b=pts.reduce((B,p)=>B.extend(p),new maplibregl.LngLatBounds(pts[0],pts[0]));map.fitBounds(b,{padding:50,maxZoom:curDay?13:5,duration:900});}
 }
 

@@ -7,7 +7,7 @@
 const TRIP = {
   "title": "Sweden 2026",
   "notesUrl": "",
-  "updated": "2026-07-16b"
+  "updated": "2026-07-17"
 };
 
 const BK = { paid:{ico:'✅',t:'已付/已訂',c:'#4ade80'}, pend:{ico:'⏳',t:'暫定·等確認',c:'#e8a930'},
@@ -1599,26 +1599,38 @@ const DAYS = [
     "dow": "五",
     "leg": "sto",
     "color": "#a78bda",
-    "title": "SoFo + 日落獨木舟 + Sturehof",
-    "theme": "Meatballs 11:45 → Litet Nystan/Drop Coffee → 16:30 kayak → 21:30 Sturehof",
+    "title": "History／Coffee & Yarn → Meatballs → Sunset Kayak",
+    "theme": "8:30 late start・分開上午行程 → 14:30 Meatballs walk-in → 16:00 kayak 報到 → 21:30 Sturehof",
     "accom": {
       "name": "Stockholm · Helenelund Airbnb",
       "status": "paid"
     },
     "meals": {
-      "b": "Helenelund 輕早餐;出門已帶泳衣/毛巾/乾衫",
-      "l": "🍽 Meatballs for the People 11:45–13:15 已訂（Nytorgsgatan 30）",
-      "d": "🍽 Sturehof 21:30 已正式確認（Stureplan 2）"
+      "b": "Helenelund 自煮早餐",
+      "l": "🍽 Meatballs for the People 14:30 walk-in",
+      "d": "🍽 Sturehof 21:30 已確認"
     },
     "stops": [
       {
-        "n": "Meatballs for the People",
+        "n": "Swedish History Museum",
         "ll": [
-          59.3138,
-          18.0825
+          59.334772,
+          18.0909615
         ],
-        "cat": "午餐·已訂",
-        "note": "Nytorgsgatan 30 · 11:45–13:15 · 守枱 5 分鐘,要準時",
+        "cat": "Yin solo·歷史博物館",
+        "note": "Narvavägen 17 · 12:00–13:35 自由參觀 · 成人 180 SEK",
+        "track": "yin",
+        "o": 1
+      },
+      {
+        "n": "Drop Coffee",
+        "ll": [
+          59.3169,
+          18.0627
+        ],
+        "cat": "Kam Ling solo·咖啡",
+        "note": "Wollmar Yxkullsgatan 10 · 11:30–12:25 · 豆/器材/accessories/merch",
+        "track": "kamling",
         "o": 1
       },
       {
@@ -1627,30 +1639,21 @@ const DAYS = [
           59.3152,
           18.0823
         ],
-        "cat": "🧶 毛線",
-        "note": "Folkungagatan 100 · 7 月平日 11–18,週末/假日休",
+        "cat": "Kam Ling solo·毛線",
+        "note": "Folkungagatan 100 · 12:45–13:45 · 7 月平日 11–18 · cash-free",
+        "track": "kamling",
         "o": 2
       },
       {
-        "n": "Pet Sounds Records",
+        "n": "Meatballs for the People",
         "ll": [
-          59.3121,
-          18.078
+          59.3138,
+          18.0825
         ],
-        "cat": "黑膠 optional",
-        "note": "Skånegatan 53 · 暑期二–五 13–18;如 kayak 前時間緊即 skip",
-        "o": 3,
-        "opt": true
-      },
-      {
-        "n": "Drop Coffee",
-        "ll": [
-          59.3169,
-          18.0627
-        ],
-        "cat": "☕ 咖啡器材/豆",
-        "note": "Wollmar Yxkullsgatan 10 · 平日 8–18;有豆、brewing equipment、accessories、merch",
-        "o": 4
+        "cat": "Together·14:30 walk-in",
+        "note": "Nytorgsgatan 30 · 14:15 登記候位 · 15:30 必須離開",
+        "track": "together",
+        "o": 1
       },
       {
         "n": "Eden Kayak & SUP",
@@ -1658,9 +1661,10 @@ const DAYS = [
           59.3255251,
           18.0236711
         ],
-        "cat": "獨木舟·已訂",
-        "note": "Smedsuddsvägen 23 · 16:30–20:30 · beginner/moderate;帶水、乾衫、防曬、可帶泳衣毛巾",
-        "o": 5
+        "cat": "Together·獨木舟已訂",
+        "note": "Smedsuddsvägen 23 · 16:00 報到 · 16:30–20:30 · beginner/moderate",
+        "track": "together",
+        "o": 2
       },
       {
         "n": "Sturehof",
@@ -1668,22 +1672,19 @@ const DAYS = [
           59.3357,
           18.0728
         ],
-        "cat": "晚餐·已訂 21:30",
-        "note": "Stureplan 2 · 21:30 正式確認;20:30 kayak 完後打 taxi 最穩",
-        "o": 6
+        "cat": "Together·晚餐已確認",
+        "note": "Stureplan 2 · 21:30 已確認 · kayak 後直接 taxi",
+        "track": "together",
+        "o": 3
       }
     ],
     "notes": [
-      "✅ Gmail 正式確認: Meatballs 7/17 11:45–13:15,Sturehof 7/17 21:30,kayak 7/17 16:30–20:30。公開站不顯示任何確認碼或 booking 編號。",
-      "🛶 一早帶齊裝備,SoFo 後直接去 Smedsudden,唔好返 Helenelund。Cityterminalen 可搭 bus 1 去 Fria Ukrainas plats,再行約 11 分鐘;時間緊就 taxi。",
-      "☕ Drop Coffee 官方 café 頁寫有 beans、brewing equipment、accessories、merch,係今日咖啡採購重點。",
-      "🚕 Kayak 20:30 完 → 還裝備/換衫 → Sturehof 21:30;預設打 taxi,唔再沿用舊晚餐提醒。"
+      "🚶 Meatballs 14:30 係 walk-in,按現場候位情況入座;唔係預約。15:30 不論食到幾多都要離開。",
+      "🚕 15:30 出發而想 16:00 左右抵達,預設搭 taxi;公共交通不可假設 30 分鐘內一定到。15:20–15:25 睇 SL,只有 ETA ≤16:05 先改搭公共交通。",
+      "🛶 Kayak 16:30–20:30 已確認;16:00 到 Eden Kayak 報到、換衫、整理防水袋同等安全介紹。",
+      "🍽 Sturehof 21:30 已確認;20:30 還裝備/換衫後直接 taxi,中途不加 stop。"
     ],
     "bk": [
-      {
-        "s": "paid",
-        "t": "🍽 Meatballs 午餐已訂（7/17 11:45–13:15·2 位）"
-      },
       {
         "s": "paid",
         "t": "🛶 日落獨木舟已訂（7/17 16:30–20:30·2 位）"
@@ -2067,7 +2068,7 @@ const HERO = {
 const HERO_CAP = {
   "d0629": "（圖：Nuoljatoppen 午夜太陽·你 6/29 吊椅上嗰個頂）",
   "d0715": "（圖：Gamla stan·Nobel / 舊城會合日）",
-  "d0717": "（圖：Stockholm 水面城市·日落獨木舟日）",
+  "d0717": "（圖：Stockholm 城市水道·museum + kayak 日）",
   "d0706": "（圖：Lule 河 @ Harads — Arctic Bath 就浮喺呢條河上;撳 📍Arctic Bath 睇酒店實景）",
   "d0707": "（圖：Lule 河 @ Harads;撳 📍Arctic Bath 睇酒店實景）",
   "d0716": "（圖：Nationalmuseum·週四 17:00–20:00 免費晚間）",
@@ -2239,9 +2240,9 @@ const EX = {
     "pace": "11:05 Andon → 12:30 Svensk Hemslöjd → 13:20 lunch → 17:00 Nationalmuseum → 20:30 Aifur 目標。"
   },
   "d0717": {
-    "carry": "泳衣著底·防水袋·毛巾·乾衫·水·防曬·太陽眼鏡/帽·環保袋(毛線/咖啡)",
-    "tip": "已確認: Meatballs 11:45、Sunset Kayak 16:30–20:30、Sturehof 21:30。SoFo 後直接去 Smedsudden,不要返 Helenelund。",
-    "pace": "11:45 lunch → 13:25 Litet Nystan → 14:40 Drop Coffee → 15:10 去 kayak → 20:30 taxi → 21:30 Sturehof。"
+    "carry": "水·換洗衣物·毛巾·泳衣·防水袋/膠袋裝濕衫·太陽眼鏡·帽·防曬·薄外套·手機/後備電·環保袋(毛線/咖啡)",
+    "tip": "上午分開行:Yin 去 Historiska;Kam Ling 去 Drop Coffee + Litet Nystan。14:15 Meatballs 會合,14:30 walk-in;15:30 必須離開。",
+    "pace": "8:30 late start → 分開上午 → 14:15 會合 → 14:30 walk-in → 15:30 taxi → 16:00 報到 → 16:30 kayak → 21:30 Sturehof。"
   },
   "d0718": {
     "carry": "退稅貨+receipt 隨身·護照·MU290/MU505 screenshot·行李牌確認 HKG·外套(機艙冷氣)",
@@ -2478,7 +2479,7 @@ const SAVED = [
       18.0823
     ],
     "rec": "in",
-    "why": "d0717 SoFo·7月平日11–18,週末休"
+    "why": "d0717 Kam Ling solo 12:45–13:45·7月平日11–18"
   },
   {
     "n": "Drop Coffee",
@@ -2487,16 +2488,7 @@ const SAVED = [
       18.0627
     ],
     "rec": "in",
-    "why": "d0717 咖啡豆+brewing equipment+accessories+merch"
-  },
-  {
-    "n": "Pet Sounds Records",
-    "ll": [
-      59.3121,
-      18.078
-    ],
-    "rec": "opt",
-    "why": "d0717 optional·暑期二–五13–18;時間緊即 skip"
+    "why": "d0717 Kam Ling solo 11:30–12:25·豆+器材+accessories+merch"
   },
   {
     "n": "Hötorgshallen / P&B Delikatesser",
@@ -2608,16 +2600,6 @@ const BOOK = [
     "where": "https://hermans.se",
     "wl": "Gmail / Apple Note",
     "dl": "已訂 19:00,Fjällgatan 23B;入座編號只喺私人記錄睇。"
-  },
-  {
-    "t": "🍽 Meatballs for the People 午餐（7/17·已訂）",
-    "s": "paid",
-    "d": "7/17 11:45–13:15",
-    "pax": "2 人",
-    "price": "~250–350 SEK/人",
-    "where": "https://meatball.se",
-    "wl": "Gmail / Apple Note",
-    "dl": "Gmail 正式確認 11:45–13:15,Nytorgsgatan 30;守枱 5 分鐘要準時。"
   },
   {
     "t": "🍽 Aifur 維京餐（7/16·時間待確認）",
@@ -7336,97 +7318,168 @@ const TL = {
   ],
   "d0717": [
     {
-      "t": "08:45",
-      "ico": "🍳",
+      "t": "08:30",
+      "ico": "⏰",
       "k": "task",
-      "title": "早餐 + kayak 裝備入袋",
+      "track": "yin",
+      "title": "起身",
       "loc": "Helenelund Airbnb",
       "q": "Helenelund station Stockholm",
       "ll": [
         59.4467,
         17.9497
       ],
-      "desc": "今日全日唔返屋企換衫。出門前帶齊泳衣/毛巾/乾衫/防水袋/水/防曬。",
-      "buy": [
-        "泳衣可著底",
-        "毛巾 + 乾衫",
-        "防水袋/膠袋放濕衫",
-        "水樽 + 防曬 + 太陽眼鏡"
-      ],
-      "warn": "唔好寄望 SoFo 後返 Helenelund,會趕唔切 16:30 kayak。"
+      "desc": "今日 8:30 late start。先飲水;跑步係 flex,唔好為跑步拖慢全日。"
     },
     {
-      "t": "10:35",
+      "t": "08:45",
+      "end": "09:20",
+      "ico": "🏃",
+      "k": "flex",
+      "track": "yin",
+      "title": "Helenelund 附近輕鬆跑步（optional）",
+      "loc": "Helenelund Airbnb",
+      "q": "Helenelund station Stockholm",
+      "ll": [
+        59.4467,
+        17.9497
+      ],
+      "desc": "只做 easy run。起身遲就縮短至 10–15 分鐘或直接 skip,唔補鐘。",
+      "warn": "09:20 一到就收;跑步唔可以推遲早餐、museum 或 14:15 會合。"
+    },
+    {
+      "t": "09:20",
+      "end": "09:45",
+      "ico": "🚿",
+      "k": "task",
+      "track": "yin",
+      "title": "沖涼、換衫",
+      "loc": "Helenelund Airbnb",
+      "desc": "換全日城市活動 + kayak 方便換裝嘅衫。"
+    },
+    {
+      "t": "09:45",
+      "end": "10:45",
+      "ico": "🍳",
+      "k": "task",
+      "track": "yin",
+      "title": "自煮早餐 + 慢慢食",
+      "loc": "Helenelund Airbnb",
+      "desc": "食飽先出發,避免 museum 途中再搵正式午餐。"
+    },
+    {
+      "t": "10:45",
+      "end": "11:05",
+      "ico": "🎒",
+      "k": "task",
+      "track": "yin",
+      "title": "洗碗、執全日 + kayak 裝備",
+      "loc": "Helenelund Airbnb",
+      "desc": "今日出門後唔返 Helenelund;一次過帶齊下午水上活動用品。",
+      "buy": [
+        "飲用水",
+        "換洗衣物 + 毛巾 + 泳衣",
+        "防水袋 / 膠袋裝濕衫",
+        "太陽眼鏡 + 帽 + 防曬",
+        "薄外套",
+        "手機 + 後備電"
+      ],
+      "warn": "11:05 準時出門;唔好漏防水袋、乾衫或後備電。"
+    },
+    {
+      "t": "11:05",
       "ico": "🚇",
       "k": "move",
-      "title": "Helenelund → SoFo",
-      "loc": "Helenelund → Medborgarplatsen / Nytorgsgatan",
+      "track": "yin",
+      "title": "Helenelund → Swedish History Museum",
+      "loc": "Helenelund → Narvavägen 17",
+      "q": "Swedish History Museum Stockholm",
+      "ll": [
+        59.334772,
+        18.0909615
+      ],
+      "desc": "以 SL App 即時路線為準。常見做法係 pendeltåg 入城再轉 bus 67（Historiska museet 站）;亦可用 69/76、tram 7 或 metro 到 Karlaplan/Östermalmstorg再行。",
+      "link": "https://sl.se/",
+      "linkLabel": "SL 即時路線"
+    },
+    {
+      "t": "11:50",
+      "end": "12:00",
+      "ico": "🎟️",
+      "k": "task",
+      "track": "yin",
+      "title": "抵達、買票、寄存物品",
+      "loc": "Swedish History Museum · Narvavägen 17",
+      "q": "Swedish History Museum Stockholm",
+      "ll": [
+        59.334772,
+        18.0909615
+      ],
+      "desc": "入口即場買票;地下 entrance hall 有可上鎖 lockers,大件物品可向 information desk 借大 locker 鎖匙。",
+      "facts": {
+        "open": "6/1–8/31 每日 10:00–17:00",
+        "price": "成人/學生 180 SEK · 0–18 免費",
+        "booking": "毋須預購;門口買票"
+      },
+      "link": "https://historiska.se/en/visit/admissions-and-tickets/",
+      "linkLabel": "官方票價"
+    },
+    {
+      "t": "12:00",
+      "end": "13:35",
+      "ico": "🏛️",
+      "k": "fixed",
+      "track": "yin",
+      "title": "Swedish History Museum 自由參觀",
+      "loc": "Narvavägen 17",
+      "q": "Swedish History Museum Stockholm",
+      "ll": [
+        59.334772,
+        18.0909615
+      ],
+      "desc": "自己行,唔綁 guided tour。優先 The Viking World → Gold Room → 瑞典中世紀/其他歷史展。門票同時包同一棟 Economy Museum;時間唔夠就唔入。",
+      "tips": [
+        "官方 Highlights audio guide 約 1 小時;手機聽免費,借機 20 SEK",
+        "官方建議完整參觀約 1–2.5 小時;今日有 95 分鐘"
+      ],
+      "link": "https://historiska.se/en/visit/audio-guide/",
+      "linkLabel": "官方 audio guide"
+    },
+    {
+      "t": "13:35",
+      "ico": "🚇",
+      "k": "move",
+      "track": "yin",
+      "title": "Historiska → Meatballs 會合點",
+      "loc": "Narvavägen 17 → Nytorgsgatan 30",
       "q": "Meatballs for the People Stockholm",
       "ll": [
         59.3138,
         18.0825
       ],
-      "desc": "預 45–60 分鐘含轉車和步行,11:35 前到附近。"
+      "desc": "目標 14:10–14:20 到 Nytorgsgatan 30,同 Kam Ling 會合。先睇 SL App 即時路線。",
+      "warn": "13:45 仲未離開 museum 就直接 taxi,唔好為慳少量車費拖遲會合。"
     },
     {
-      "t": "11:45",
-      "ico": "🍽️",
-      "k": "fixed",
-      "title": "Meatballs for the People 午餐（已訂）",
-      "loc": "Nytorgsgatan 30",
-      "q": "Meatballs for the People Stockholm",
+      "t": "10:45",
+      "ico": "🚇",
+      "k": "move",
+      "track": "kamling",
+      "title": "Helenelund → Drop Coffee",
+      "loc": "Helenelund → Wollmar Yxkullsgatan 10",
+      "q": "Drop Coffee Roasters Stockholm",
       "ll": [
-        59.3138,
-        18.0825
+        59.3169,
+        18.0627
       ],
-      "desc": "Gmail 正式確認 7/17 11:45–13:15,2 位。餐廳只守枱 5 分鐘,要準時。",
-      "warn": "遲到超過 5 分鐘可能放枱。",
-      "link": "https://meatball.se/",
-      "linkLabel": "Meatballs 官網",
-      "bk": {
-        "s": "paid",
-        "t": "🍽 Meatballs 11:45 已訂"
-      }
+      "desc": "以 SL App 即時路線為準;目標 11:30 到 Mariatorget 附近。"
     },
     {
-      "t": "13:25",
-      "ico": "🧶",
-      "k": "fixed",
-      "title": "Litet Nystan — 毛線採購",
-      "loc": "Folkungagatan 100",
-      "q": "Litet Nystan Stockholm",
-      "ll": [
-        59.3152,
-        18.0823
-      ],
-      "desc": "官方頁:7 月夏令時間平日 11–18,週末/假日休。今日週五係最後安全窗口。",
-      "buy": [
-        "Gotland / natural fibre yarn",
-        "crochet 小工具如有需要",
-        "卡付款;店方 cash-free"
-      ],
-      "link": "https://litetnystan.se/",
-      "linkLabel": "Litet Nystan 官網"
-    },
-    {
-      "t": "14:05",
-      "ico": "🎧",
-      "k": "flex",
-      "title": "Pet Sounds Records（optional）",
-      "loc": "Skånegatan 53",
-      "q": "Pet Sounds Records Stockholm",
-      "ll": [
-        59.3121,
-        18.078
-      ],
-      "desc": "暑期營業:二–五 13–18。只行 20–30 分鐘;若購物/午餐拖長即 skip。",
-      "link": "https://petsounds.se/shop",
-      "linkLabel": "Pet Sounds 官網"
-    },
-    {
-      "t": "14:40",
+      "t": "11:30",
+      "end": "12:25",
       "ico": "☕",
       "k": "fixed",
+      "track": "kamling",
       "title": "Drop Coffee — 豆 + 器材 + merch",
       "loc": "Wollmar Yxkullsgatan 10",
       "q": "Drop Coffee Roasters Stockholm",
@@ -7434,7 +7487,7 @@ const TL = {
         59.3169,
         18.0627
       ],
-      "desc": "官方 café 頁寫平日 8–18;可買 freshly-roasted beans、brewing equipment、accessories、Drop Coffee merch。",
+      "desc": "今日週五官方 08:00–18:00。飲咖啡之餘可睇 freshly roasted beans、brewing equipment、accessories 同 merch。",
       "buy": [
         "咖啡豆",
         "濾紙/濾杯/手沖器材",
@@ -7444,36 +7497,145 @@ const TL = {
       "linkLabel": "Drop Coffee café"
     },
     {
-      "t": "15:10",
-      "ico": "🚌",
+      "t": "12:25",
+      "end": "12:45",
+      "ico": "🚶",
       "k": "move",
-      "title": "SoFo → Eden Kayak 集合點",
-      "loc": "SoFo → Smedsuddsvägen 23",
+      "track": "kamling",
+      "title": "Drop Coffee → Litet Nystan",
+      "loc": "Wollmar Yxkullsgatan 10 → Folkungagatan 100",
+      "q": "Litet Nystan Stockholm",
+      "ll": [
+        59.3152,
+        18.0823
+      ],
+      "desc": "預留約 20 分鐘轉場;以 SL/步行導航即時決定。"
+    },
+    {
+      "t": "12:45",
+      "end": "13:45",
+      "ico": "🧶",
+      "k": "fixed",
+      "track": "kamling",
+      "title": "Litet Nystan — 毛線採購",
+      "loc": "Folkungagatan 100",
+      "q": "Litet Nystan Stockholm",
+      "ll": [
+        59.3152,
+        18.0823
+      ],
+      "desc": "今日已由官網核實 7 月平日 11:00–18:00。主力睇 natural fibre、Swedish/Gotland yarn、crochet/knitting materials。",
+      "buy": [
+        "natural fibre / Swedish / Gotland yarn",
+        "crochet / knitting materials",
+        "只收 card / Swish;cash-free"
+      ],
+      "link": "https://litetnystan.se/",
+      "linkLabel": "Litet Nystan 官網"
+    },
+    {
+      "t": "13:45",
+      "end": "14:15",
+      "ico": "🚶",
+      "k": "move",
+      "track": "kamling",
+      "title": "Litet Nystan → Meatballs 會合點",
+      "loc": "Folkungagatan 100 → Nytorgsgatan 30",
+      "q": "Meatballs for the People Stockholm",
+      "ll": [
+        59.3138,
+        18.0825
+      ],
+      "desc": "直接去 Meatballs,唔加第二間咖啡或其他 shopping stop;目標 14:15 前後同 Yin 會合。"
+    },
+    {
+      "t": "14:15",
+      "end": "14:30",
+      "ico": "👫",
+      "k": "fixed",
+      "track": "together",
+      "title": "會合 + 登記 Meatballs walk-in",
+      "loc": "Meatballs for the People · Nytorgsgatan 30",
+      "q": "Meatballs for the People Stockholm",
+      "ll": [
+        59.3138,
+        18.0825
+      ],
+      "desc": "14:30 冇預約;到場向 host 登記 walk-in,按現場候位情況入座。官方星期五 11:00–00:00,會保留部分枱畀 drop-in guests。",
+      "warn": "晚市官方提醒常有長龍;14:30 只係目標入座時間,唔係保證。",
+      "link": "https://meatball.se/book-a-table",
+      "linkLabel": "Meatballs 官網"
+    },
+    {
+      "t": "14:30",
+      "end": "15:20",
+      "ico": "🍽️",
+      "k": "fixed",
+      "track": "together",
+      "title": "Meatballs 午餐（walk-in）",
+      "loc": "Nytorgsgatan 30",
+      "q": "Meatballs for the People Stockholm",
+      "ll": [
+        59.3138,
+        18.0825
+      ],
+      "desc": "14:30 walk-in；按現場候位情況入座。食到 15:20 左右就準備埋單。",
+      "warn": "15:30 係 hard departure cutoff;就算未食完都要離開。"
+    },
+    {
+      "t": "15:20",
+      "end": "15:30",
+      "ico": "⏱️",
+      "k": "task",
+      "track": "together",
+      "title": "付款、去廁所、整理行李、叫車",
+      "loc": "Meatballs for the People",
+      "q": "Meatballs for the People Stockholm",
+      "ll": [
+        59.3138,
+        18.0825
+      ],
+      "desc": "15:20–15:25 睇一次 SL App:只有實時 ETA 顯示 16:05 前到 Eden Kayak先考慮公共交通;否則即叫 taxi/Uber/Bolt。",
+      "warn": "唔好等到 15:30 先開始搵車。"
+    },
+    {
+      "t": "15:30",
+      "end": "16:00",
+      "ico": "🚕",
+      "k": "fixed",
+      "track": "together",
+      "title": "HARD CUT-OFF：離開 Meatballs → Eden Kayak",
+      "loc": "Nytorgsgatan 30 → Smedsuddsvägen 23",
       "q": "Eden Kayak SUP Smedsuddsvägen 23 Stockholm",
       "ll": [
         59.3255251,
         18.0236711
       ],
-      "desc": "Airbnb 指示:Cityterminalen 搭 bus 1 往 Stora Essingen,Fria Ukrainas plats 落,行 11 分鐘;SoFo 出發建議直接用 SL 實時路線或 taxi。",
-      "warn": "15:25 後仲未離開 SoFo,直接 taxi。"
+      "desc": "預設 taxi/Uber/Bolt,planning target 15:50–16:05 到。公共交通只可按即時 SL ETA 決定;Airbnb 參考係 Cityterminalen→bus 1 往 Stora Essingen→Fria Ukrainas plats→行約 750m/11 分鐘。",
+      "warn": "15:30 出發而想 16:00 左右抵達,預設搭 taxi;公共交通不可假設 30 分鐘內一定到。"
     },
     {
-      "t": "15:50",
+      "t": "16:00",
+      "end": "16:30",
       "ico": "🎒",
       "k": "task",
-      "title": "到 Smedsudden 換裝/準備",
-      "loc": "Smedsuddsvägen 23",
-      "q": "Smedsuddsvägen 23 Stockholm",
+      "track": "together",
+      "title": "Eden Kayak 報到 + 換裝準備",
+      "loc": "Eden Kayak & SUP · Smedsuddsvägen 23",
+      "q": "Eden Kayak SUP Smedsudden Stockholm",
       "ll": [
         59.3255251,
         18.0236711
       ],
-      "desc": "預早到集合點,飲水、防曬、整理乾衫。"
+      "desc": "搵入口、去洗手間、換衫、整理防水袋、補水、防曬、報到,再等安全介紹。",
+      "warn": "16:30 活動開始;16:00 係目標抵達時間。"
     },
     {
       "t": "16:30",
+      "end": "20:30",
       "ico": "🛶",
       "k": "fixed",
+      "track": "together",
       "title": "Sunset Kayak Tour（已訂）",
       "loc": "Eden Kayak & SUP, Smedsuddsvägen 23",
       "q": "Eden Kayak SUP Smedsudden Stockholm",
@@ -7481,7 +7643,7 @@ const TL = {
         59.3255251,
         18.0236711
       ],
-      "desc": "Gmail/Airbnb 確認 7/17 16:30–20:30,2 guests。Beginner/moderate;會 paddling + safety intro + city canals + fika。",
+      "desc": "16:30–20:30 CEST,2 guests,Stockholm Nature 主辦。Beginner skill / moderate activity;包括 paddling、安全介紹、城市水道同 fika。",
       "buy": [
         "Drinking water",
         "Change of clothes",
@@ -7495,22 +7657,25 @@ const TL = {
     },
     {
       "t": "20:30",
+      "end": "21:10",
       "ico": "🚕",
       "k": "move",
-      "title": "Kayak 完 → 直接去 Sturehof",
+      "track": "together",
+      "title": "還裝備、換衫 → 直接去 Sturehof",
       "loc": "Smedsudden → Stureplan 2",
       "q": "Sturehof Stockholm",
       "ll": [
         59.3357,
         18.0728
       ],
-      "desc": "還裝備/換衫後直接 taxi 最穩。公共交通可行但 buffer 少。",
-      "warn": "目標 21:10–21:20 到 Sturehof;唔好再加其他 stop。"
+      "desc": "還裝備、換衫後直接 taxi/Uber/Bolt。目標約 21:10 到 Sturehof。",
+      "warn": "中途唔加夜景、便利店或其他 stop;晚餐 21:30 已確認。"
     },
     {
       "t": "21:30",
       "ico": "🍽️",
       "k": "fixed",
+      "track": "together",
       "title": "Sturehof 晚餐（21:30 已確認）",
       "loc": "Stureplan 2",
       "q": "Sturehof Stockholm",
@@ -7518,7 +7683,7 @@ const TL = {
         59.3357,
         18.0728
       ],
-      "desc": "Gmail 正式確認 Friday 17 July 2026,21:30,2 people。Kayak 後直接去,唔再加其他 stop。",
+      "desc": "Sturehof 21:30 已確認,2 人。Kayak 後直接去。",
       "link": "https://sturehof.com/",
       "linkLabel": "Sturehof 官網",
       "bk": {
@@ -7530,6 +7695,7 @@ const TL = {
       "t": "23:30",
       "ico": "🚇",
       "k": "move",
+      "track": "together",
       "title": "返 Helenelund",
       "loc": "Stureplan → Helenelund",
       "q": "Helenelund station Stockholm",
