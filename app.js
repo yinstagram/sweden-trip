@@ -19,6 +19,35 @@ function nowInfo(){
   return{date:new Date(),mock:false,raw:''};
 }
 const getNow=()=>nowInfo().date;
+const unresolvedBranch=d=>d&&S.LIVE_BRANCHES&&S.LIVE_BRANCHES[d.id]&&S.LIVE_BRANCHES[d.id].state!=='confirmed'?S.LIVE_BRANCHES[d.id]:null;
+function activeBranch(d,now=getNow()){
+  const b=unresolvedBranch(d);if(!b)return null;
+  const cut=new Date(b.cutoff);return !Number.isNaN(+cut)&&now>=cut?b:null;
+}
+function displayDay(d,now=getNow()){
+  if(!d)return null;const b=activeBranch(d,now);if(!b)return d;
+  const day={...d,...(b.day||{})};
+  if(b.day&&b.day.meals)day.meals={...(d.meals||{}),...b.day.meals};
+  if(b.removeStops||b.stopUpdates){
+    const removes=b.removeStops||[],updates=b.stopUpdates||{};
+    day.stops=(d.stops||[]).filter(s=>!removes.some(n=>(s.n||'').includes(n))).map(s=>updates[s.n]?{...s,...updates[s.n]}:s);
+  }
+  if(b.bk)day.bk=b.bk;
+  return day;
+}
+function timelineForDay(d,now=getNow()){
+  if(!d)return[];const base=(S.TL&&S.TL[d.id])||d.tl||d.steps||[],b=activeBranch(d,now);
+  if(!b)return base;
+  const limit=clockMin(b.keepThrough),prefix=base.filter(s=>clockMin(s.t)<=limit).map(s=>b.cutoffItem&&clockMin(s.t)===limit?b.cutoffItem:s);
+  if(b.cutoffItem&&!prefix.some(s=>s===b.cutoffItem))prefix.push(b.cutoffItem);
+  return prefix.concat(b.fallback||[]);
+}
+const bookingsForDay=(d,now=getNow())=>{const b=activeBranch(d,now);return b&&b.bk?b.bk:(d&&d.bk)||[];};
+const experienceForDay=(d,now=getNow())=>{const b=activeBranch(d,now);return b&&b.ex?b.ex:(d&&S.EX[d.id]);};
+function liveBooks(now=getNow()){
+  const b=activeBranch(dayById('d0716'),now),books=S.BOOK||[];
+  return b&&b.book?books.map(x=>/Aifur/.test(x.t)?{...x,...b.book}:x):books;
+}
 const tripIdx=(now=getNow())=>Math.floor((now-TRIP_START)/DAY_MS);
 const short=t=>{t=(''+(t||'')).replace(/\s+/g,' ').trim();return t.length>92?t.slice(0,90)+'…':t;};
 const bkMeta=s=>S.BK[s]||{ico:'•',t:'狀態未分類',c:'#9ca3af'};
@@ -62,19 +91,19 @@ function go(tab,arg){killDmap();document.querySelectorAll('.tab').forEach(b=>b.c
 /* ---------- 此刻 NOW ---------- */
 function renderNow(){
   const ni=nowInfo(), now=ni.date;
-  const D=S.DAYS, bk=D.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
+  const D=S.DAYS, bk=D.flatMap(d=>bookingsForDay(d,now).map(b=>({...b,date:d.date})));
   const paid=bk.filter(b=>b.s==='paid').length,pend=bk.filter(b=>b.s==='pend').length,todo=bk.filter(b=>b.s==='todo').length,hold=bk.filter(b=>b.s==='hold').length;
   const dayIdx=tripIdx(now);
   const daysUntil=Math.ceil((TRIP_START-now)/DAY_MS);
   const cd = daysUntil>0?`出發前 <b>${daysUntil}</b> 日`:(dayIdx>=0&&dayIdx<D.length?`旅程第 ${dayIdx+1} 日`:'旅程已完');
-  const today=(dayIdx>=0&&dayIdx<D.length)?D[dayIdx]:null,nx=today?D[dayIdx+1]:null;
+  const rawToday=(dayIdx>=0&&dayIdx<D.length)?D[dayIdx]:null,today=displayDay(rawToday,now),nx=rawToday?displayDay(D[dayIdx+1],now):null;
   const heroD=today||dayById('d0629');
   const dis=JSON.parse(localStorage.sw_dismiss||'{}');
-  const tEX=today?S.EX[today.id]:null;
+  const tEX=experienceForDay(rawToday,now);
   // 時間感「下一步」timeline(旅程進行中)
   const nowMin=now.getHours()*60+now.getMinutes();
   let stepsHtml='',assistHtml='';
-  const ssrc=today&&((S.TL&&S.TL[today.id])||today.tl||today.steps);
+  const ssrc=timelineForDay(rawToday,now);
   if(ssrc&&ssrc.length){
     const ss=ssrc; let cur=-1; ss.forEach((s,i)=>{if(clockMin(s.t)<=nowMin)cur=i;});
     const nextI=cur+1; const lbl=s=>s.title||s.a;
@@ -141,9 +170,14 @@ window.__notifyToday=async()=>{
   const perm=Notification.permission==='granted'?'granted':await Notification.requestPermission();
   if(perm!=='granted'){alert('通知未開到;你仍然可以用此刻頁面睇即時提示。');return;}
   notifyTimers.forEach(clearTimeout);notifyTimers=[];
-  const ss=((S.TL&&S.TL[today.id])||today.tl||today.steps||[]), nowMin=getNow().getHours()*60+getNow().getMinutes();
+  const ss=timelineForDay(today,now), nowMin=now.getHours()*60+now.getMinutes();
   const important=s=>s.k==='fixed'||s.warn||/晚餐|火車|巴士|飛|出發|check|獨木舟|kayak|買|取車|還車|登機|早餐/.test(stepLabel(s));
-  const upcoming=ss.filter(s=>clockMin(s.t)>nowMin&&important(s)).slice(0,6);
+  const unresolved=unresolvedBranch(today),cut=unresolved&&new Date(unresolved.cutoff),cutMin=cut&&!Number.isNaN(+cut)?cut.getHours()*60+cut.getMinutes():null;
+  let upcoming=ss.filter(s=>clockMin(s.t)>nowMin&&important(s));
+  if(unresolved&&cut&&now<cut){
+    upcoming=upcoming.filter(s=>clockMin(s.t)<=cutMin).map(s=>unresolved.cutoffItem&&clockMin(s.t)===cutMin?unresolved.cutoffItem:s);
+  }
+  upcoming=upcoming.slice(0,6);
   const show=(title,body,tag)=>{
     const opt={body,tag,renotify:false,icon:'icons/icon-192.png'};
     if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification(title,opt)).catch(()=>new Notification(title,opt));
@@ -160,7 +194,7 @@ function renderDays(){
   let legbtns=`<button class="legchip ${dayLeg==='all'?'on':''}" data-l="all">全部</button>`+
     S.LEGS.map(l=>`<button class="legchip ${dayLeg===l.key?'on':''}" data-l="${l.key}" style="${dayLeg===l.key?`background:${l.accent};border-color:${l.accent};color:#10141f`:`border-color:color-mix(in srgb,${l.accent} 55%,transparent);color:${l.accent}`}">${esc(l.name)}</button>`).join('');
   let cards='';
-  S.DAYS.filter(d=>dayLeg==='all'||legOf(d.id)===dayLeg).forEach(d=>{
+  S.DAYS.filter(d=>dayLeg==='all'||legOf(d.id)===dayLeg).forEach(raw=>{const d=displayDay(raw);
     const cs=chips(d).map(c=>`<span class="chip">${c}</span>`).join('');
     const sun=S.SUN[legOf(d.id)];
     cards+=`<button class="daycard" data-d="${d.id}" style="--dc:${d.color}">
@@ -225,12 +259,12 @@ function bindTl(scope){
   scope.querySelectorAll('.buyck').forEach(l=>{l.querySelector('input').onchange=e=>{if(e.target.checked)BUY[l.dataset.k]=1;else delete BUY[l.dataset.k];localStorage.sw_buy=JSON.stringify(BUY);l.classList.toggle('done',e.target.checked);};});
 }
 function renderDayDetail(id){
-  killDmap();const d=dayById(id);window.scrollTo(0,0);
-  const sun=S.SUN[legOf(id)];const ex=S.EX[id];const cap=S.HERO_CAP[id]||'';
+  killDmap();const raw=dayById(id),d=displayDay(raw);window.scrollTo(0,0);
+  const sun=S.SUN[legOf(id)];const ex=experienceForDay(raw);const cap=S.HERO_CAP[id]||'';
   const noSig=['d0630','d0701','d0702','d0703','d0704','d0705'].includes(id);
-  const bks=(d.bk||[]).map(b=>{const m=bkMeta(b.s);return`<span class="st ${bkClass(b.s)}">${m.ico} ${esc(b.t)}</span>`;}).join('');
+  const bks=bookingsForDay(raw).map(b=>{const m=bkMeta(b.s);return`<span class="st ${bkClass(b.s)}">${m.ico} ${esc(b.t)}</span>`;}).join('');
   const dir=dirURL(d.stops||[]);
-  const idx=S.DAYS.findIndex(x=>x.id===id),pv=S.DAYS[idx-1],nx2=S.DAYS[idx+1];
+  const idx=S.DAYS.findIndex(x=>x.id===id),pv=displayDay(S.DAYS[idx-1]),nx2=displayDay(S.DAYS[idx+1]);
   const navHtml=`<div class="daynav">${pv?`<button class="dnav" onclick="window.__day('${pv.id}')"><span>‹ 上一日</span><b>${pv.date} ${esc(pv.title)}</b></button>`:'<span></span>'}${nx2?`<button class="dnav nx" onclick="window.__day('${nx2.id}')"><span>下一日 ›</span><b>${nx2.date} ${esc(nx2.title)}</b></button>`:'<span></span>'}</div>`;
   const heroHtml=`<div class="dd-hero" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8)),url('${img(d)}')">
      <div class="dd-date">${d.date}（${d.dow}）</div><div class="dd-ttl">${esc(d.title)}</div><div class="dd-th">${esc(d.theme)}</div>
@@ -239,7 +273,7 @@ function renderDayDetail(id){
   const exHtml=ex?`<div class="exbox"><div class="exrow"><span class="exi">🎒</span><div><b>帶咩</b> ${telLink(esc(ex.carry))}</div></div><div class="exrow"><span class="exi">💡</span><div><b>小提示</b> ${telLink(esc(ex.tip))}</div></div><div class="exrow"><span class="exi">⏱</span><div><b>節奏</b> ${telLink(esc(ex.pace))}</div></div></div>`:'';
   const am=bkMeta(d.accom.status);
   const accomHtml=`<div class="block"><div class="bh">🛏 住邊 <span class="st ${bkClass(d.accom.status)}" style="margin-left:auto">${am.ico} ${am.t}</span></div><div style="font-size:13.5px">${esc(d.accom.name)}</div></div>`;
-  const dtl=(S.TL&&S.TL[id])||d.tl;
+  const dtl=timelineForDay(raw);
   if(dtl&&dtl.length){
     const tlHtml=`<div class="timeline">${dtl.map((it,ti)=>tlItem(d,it,ti)).join('')}</div>`;
     // 地圖由時間線啲有座標嘅 item 自動砌（同當日 timeline 一致）
@@ -312,8 +346,8 @@ const MAP_STYLE='https://tiles.openfreemap.org/styles/bright';
 function renderMap(){
   const noSigDays=['d0630','d0701','d0702','d0703','d0704','d0705'];
   // 📍 每日 Google Maps 路線（用嗰日 timeline 嘅座標砌）
-  const dayRoutes=S.DAYS.map(d=>{
-    const tl=(S.TL&&S.TL[d.id])||d.tl||[];
+  const dayRoutes=S.DAYS.map(raw=>{const d=displayDay(raw);
+    const tl=timelineForDay(raw);
     const stops=tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,o:i+1}));
     const dir=dirURL(stops);
     const act=dir?`<a class="rr-go" href="${dir}" target="_blank">🧭 開路線</a>`
@@ -344,7 +378,7 @@ async function drawDay(){
   if(!map||!map.isStyleLoaded()){map&&map.once('idle',drawDay);return;}
   clearMap();
   // 地圖 pin 由每日 timeline(TL) 座標砌 → 同行程永遠一致（唔再靠舊 DAYS.stops，避免對調後 pin 唔啱）
-  const tlStops=id=>{const tl=(S.TL&&S.TL[id])||((dayById(id)||{}).tl)||[];
+  const tlStops=id=>{const tl=timelineForDay(dayById(id));
     return tl.filter(it=>it.ll&&it.ll.length===2).map((it,i)=>({n:it.q||it.title,ll:it.ll,cat:it.loc||'',note:it.title||'',o:i+1}));};
   let stops=[];
   if(curDay){const d=dayById(curDay);stops=tlStops(curDay).map(s=>({...s,color:d.color}));}
@@ -388,7 +422,7 @@ const TODO_LIST=[
 
 /* ---------- 狀態 STATUS ---------- */
 function renderStatus(){
-  const bk=S.DAYS.flatMap(d=>(d.bk||[]).map(b=>({...b,date:d.date})));
+  const now=getNow(),bk=S.DAYS.flatMap(d=>bookingsForDay(d,now).map(b=>({...b,date:d.date})));
   const order=['hold','todo','pend','paid'],lbl={hold:'⛔ On-hold（等依賴）',todo:'🕒 仲要訂',pend:'⏳ 等緊確認',paid:'✅ 已訂/已付'};
   const cnt=s=>bk.filter(b=>b.s===s).length, tot=bk.length, paid=cnt('paid'), pct=Math.round(paid/tot*100);
   const segs=[['paid',cnt('paid')],['pend',cnt('pend')],['todo',cnt('todo')],['hold',cnt('hold')]];
@@ -403,8 +437,8 @@ function renderStatus(){
     <div class="bc-dl">⏰ ${telLink(esc(b.dl))}</div>
     <a class="bc-go" href="${b.where}" target="_blank">🔗 去 ${esc(b.wl)} 訂 ›</a>
   </div>`;
-  const undone=(S.BOOK||[]).filter(b=>b.s!=='paid');
-  const doneB=(S.BOOK||[]).filter(b=>b.s==='paid');
+  const books=liveBooks(now),undone=books.filter(b=>b.s!=='paid');
+  const doneB=books.filter(b=>b.s==='paid');
   const undoneHtml=undone.length?undone.map(bookCard).join(''):'<div class="card" style="color:var(--green)">🎉 BOOK 清單全部搞掂!</div>';
   const paidDetail=b=>/旅遊保險/.test(b.t)
     ? '⚠️ 保障好薄：Kungsleden 可能受 exclusion 2(d) 影響；7·11 水上活動要 Zurich 書面確認；取消/縮短、行李/失喼、租車自負額唔受保。'
@@ -450,4 +484,5 @@ function renderKit(){
 }
 
 go('now');
+setInterval(()=>{const tab=document.querySelector('.tab.is-active');if(tab&&tab.dataset.tab==='now'&&!nowInfo().mock)renderNow();},60000);
 })();

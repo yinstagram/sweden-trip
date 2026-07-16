@@ -7,7 +7,7 @@
 const TRIP = {
   "title": "Sweden 2026",
   "notesUrl": "",
-  "updated": "2026-07-16a"
+  "updated": "2026-07-16b"
 };
 
 const BK = { paid:{ico:'✅',t:'已付/已訂',c:'#4ade80'}, pend:{ico:'⏳',t:'暫定·等確認',c:'#e8a930'},
@@ -7750,4 +7750,111 @@ const TL = {
   ]
 };
 
-window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, LOST_BAGGAGE, CHECKLIST, HERO, HERO_CAP, SUN, WX, IMG_CREDITS, CHEAT, EX, HIKE_PLAN_B, PLANB, SAVED, BOOK, TL };
+// 即日 booking 未確認時嘅保守分支。公開 PWA 唔會讀 Gmail；到 cut-off
+// 仍未有人手更新為 confirmed，就按最後一封正式 email 保留有效訂位。
+const LIVE_BRANCHES = {
+  d0716: {
+    cutoff: "2026-07-16T15:30:00+02:00",
+    state: "unconfirmed",
+    checkedAt: "2026-07-16T14:15:00+02:00",
+    keepThrough: "15:30",
+    day: {
+      title: "Aifur 17:30（Nationalmuseum skip）",
+      theme: "Svensk Hemslöjd → Östermalm lunch → 17:30 Aifur；Nationalmuseum 今日 skip",
+      meals: {
+        d: "🍽 Aifur 17:30–19:30（最新正式 email 確認）"
+      },
+      notes: [
+        "截至 2026-07-16 14:15，未收到 Aifur 20:30 新確認；15:30 cut-off 後按仍有效的 17:30–19:30 正式訂位行。",
+        "Nationalmuseum 今日 skip，唔好再跟舊 16:35 路線；如 15:30 前新收到正式改期 email，則以該 email 為準。"
+      ]
+    },
+    removeStops: ["Nationalmuseum"],
+    stopUpdates: {
+      "Aifur": {
+        cat: "晚餐·已確認",
+        note: "Västerlånggatan 68 · 最新正式 email 仍確認 17:30–19:30；16:05 開始前往",
+        o: 5
+      }
+    },
+    cutoffItem: {
+      t: "15:30",
+      ico: "✅",
+      k: "task",
+      title: "20:30 未確認 → 17:30 fallback 生效",
+      loc: "按最後一封正式確認 email 行",
+      q: "Aifur Stockholm",
+      ll: [59.3235, 18.0668],
+      desc: "網站未記錄到 20:30 新正式確認，因此保留仍有效的 17:30–19:30 訂位。",
+      warn: "Nationalmuseum 今日 skip。16:05 開始去 Aifur；如你其後收到新正式改期 email，先以最新 email 為準。"
+    },
+    fallback: [
+      {
+        t: "16:05",
+        ico: "🚇",
+        k: "move",
+        title: "Östermalm → Aifur",
+        loc: "Östermalm → Västerlånggatan 68",
+        q: "Aifur Stockholm",
+        ll: [59.3235, 18.0668],
+        desc: "預留 35–45 分鐘搭車/步行同搵門口；唔好再行去 Nationalmuseum。",
+        warn: "最遲 16:15 要起行，目標 17:10 前到附近。"
+      },
+      {
+        t: "16:50",
+        ico: "🪑",
+        k: "flex",
+        title: "Aifur 附近休息 + 到場 buffer",
+        loc: "Västerlånggatan 68 附近",
+        q: "Aifur Stockholm",
+        ll: [59.3235, 18.0668],
+        desc: "飲水、去洗手間、開 Gmail 準備入座資料；唔再加新景點。"
+      },
+      {
+        t: "17:30",
+        ico: "🍽️",
+        k: "fixed",
+        title: "Aifur 維京晚餐（正式確認）",
+        loc: "Västerlånggatan 68, Gamla stan",
+        q: "Aifur Stockholm",
+        ll: [59.3235, 18.0668],
+        desc: "最新正式 email 確認 2026-07-16 17:30–19:30，2 位。私人訂位資料只喺 Gmail / Apple Note 睇。",
+        link: "https://aifur.se/",
+        linkLabel: "Aifur 官網",
+        bk: {
+          s: "paid",
+          t: "🍽 Aifur 17:30–19:30 已確認"
+        }
+      },
+      {
+        t: "19:45",
+        ico: "🚇",
+        k: "move",
+        title: "食完直接返 Helenelund",
+        loc: "Gamla stan → Helenelund",
+        q: "Helenelund station Stockholm",
+        ll: [59.4467, 17.9497],
+        desc: "按 SL 即時班次返屋企；有體力只喺餐廳附近短行，唔再硬塞夜景。"
+      }
+    ],
+    bk: [
+      {
+        s: "paid",
+        t: "🍽 Aifur 17:30–19:30（最新正式 email 確認）"
+      }
+    ],
+    book: {
+      t: "🍽 Aifur 維京餐（7/16·17:30 正式確認）",
+      s: "paid",
+      d: "7/16 17:30–19:30",
+      dl: "20:30 未有新正式確認；15:30 cut-off 後按仍有效的 17:30–19:30 訂位，Nationalmuseum 今日 skip。"
+    },
+    ex: {
+      carry: "水樽·環保袋·Aifur 入座資料（Gmail / Apple Note）",
+      tip: "15:30 後 Nationalmuseum 今日 skip；網站按 Aifur 17:30 正式訂位行。",
+      pace: "16:05 去 Aifur → 16:50 到附近 → 17:30–19:30 晚餐 → 直接返 Helenelund。"
+    }
+  }
+};
+
+window.SWEDEN = { TRIP, BK, LEGS, DAYS, TRANSPORT, EMERGENCY, EMERG_NOTE, LOST_BAGGAGE, CHECKLIST, HERO, HERO_CAP, SUN, WX, IMG_CREDITS, CHEAT, EX, HIKE_PLAN_B, PLANB, SAVED, BOOK, TL, LIVE_BRANCHES };
