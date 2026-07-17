@@ -7,7 +7,7 @@
 const TRIP = {
   "title": "Sweden 2026",
   "notesUrl": "",
-  "updated": "2026-07-17"
+  "updated": "2026-07-18"
 };
 
 const BK = { paid:{ico:'✅',t:'已付/已訂',c:'#4ade80'}, pend:{ico:'⏳',t:'暫定·等確認',c:'#e8a930'},
@@ -1701,49 +1701,57 @@ const DAYS = [
     "dow": "六",
     "leg": "sto",
     "color": "#a78bda",
-    "title": "寄存行李 + 最後採買 + 飛走",
-    "theme": "11:00 checkout → Central lockers → Hötorgshallen/Åhléns → 18:00 Arlanda Express → MU290 22:40",
+    "title": "平價寄存 + 最後食買 + 飛走",
+    "theme": "09:00 起身 → Bounce Centralstation → Kajsas/食品手信 → 20:00 ARN → MU290 22:40",
     "accom": {
       "name": "機上（7/19 19:05 到香港）",
       "status": "paid"
     },
     "meals": {
       "b": "Helenelund 慢早餐 + packing",
-      "l": "Hötorgshallen / Åhléns City 輕午餐",
-      "d": "Hermans 15:45 early dinner（optional primary）/ 機場 airside 輕食"
+      "l": "Kajsas Fisk @ Hötorgshallen（drop-in）",
+      "d": "Central 輕食 / ARN T5 airside"
     },
     "steps": [
       {
         "t": "09:00",
-        "a": "慢早餐 + packing + 退稅貨/收據/護照放 carry-on"
+        "a": "起身 → 慢早餐 + packing"
+      },
+      {
+        "t": "09:15",
+        "a": "睇清楚有冇正式 tax-free form；確認 Bounce 今日總價/位"
       },
       {
         "t": "11:00",
-        "a": "Airbnb checkout → 去 Stockholm C / Arlanda Express Lounge lockers"
+        "a": "Airbnb checkout → Stockholm C → Bounce 寄存"
       },
       {
         "t": "12:15",
-        "a": "Hötorgshallen + P&B Delikatesser 最後手信"
+        "a": "Kajsas Fisk 午餐 → Hötorgshallen 手信"
       },
       {
-        "t": "13:15",
-        "a": "Åhléns City / Gallerian / NK 緊湊採買"
+        "t": "14:00",
+        "a": "Åhléns + ICA：chia、瑞典蜜糖/jam/脆餅"
       },
       {
-        "t": "15:45",
-        "a": "Hermans early dinner optional primary（有力先去;16:50 前離開）"
+        "t": "15:15",
+        "a": "Lakritsroten → Vete-Katten fika optional"
       },
       {
-        "t": "17:30",
-        "a": "返 Central 攞行李"
-      },
-      {
-        "t": "18:00",
-        "a": "Arlanda Express 去 ARN T5（18 分鐘,班次約 12–15 分）"
+        "t": "17:15",
+        "a": "只限有 tax-free form：取喼 → 提早去 ARN 驗貨"
       },
       {
         "t": "18:35",
-        "a": "ARN T5 退稅/驗貨 → check-in → 安檢"
+        "a": "無 tax-free form：Bounce 取喼 → Stockholm C"
+      },
+      {
+        "t": "約 19:10",
+        "a": "搭下一班 Arlanda Express → 目標 20:00 到 T5"
+      },
+      {
+        "t": "20:00",
+        "a": "MU check-in / 寄喼 / 安檢 / 出境"
       },
       {
         "t": "22:40",
@@ -1752,14 +1760,24 @@ const DAYS = [
     ],
     "stops": [
       {
-        "n": "Stockholm Central / Arlanda Express Lounge lockers",
+        "n": "Bounce Luggage Storage - Centralstation",
         "ll": [
-          59.3303,
-          18.0581
+          59.3333817,
+          18.0602151
         ],
-        "cat": "寄存行李",
-        "note": "Vasaplan 1 · lockers 06:00–20:00;大喼按 size/小時計費",
+        "cat": "平價日費寄存·主方案",
+        "note": "Bryggargatan 6A · Central 行約6分鐘 · 每日09–23 · €5.95/件/日未連 checkout fee;先網上確認今日位+總價",
         "o": 1
+      },
+      {
+        "n": "Kajsas Fisk @ Hötorgshallen",
+        "ll": [
+          59.33428,
+          18.06254
+        ],
+        "cat": "Google Maps 食店·午餐",
+        "note": "Hötorgshallen 地庫 · drop-in · 週六最遲16:00 · 魚湯/瑞典魚菜",
+        "o": 2
       },
       {
         "n": "Hötorgshallen / P&B Delikatesser",
@@ -1768,28 +1786,50 @@ const DAYS = [
           18.06254
         ],
         "cat": "手信/食材",
-        "note": "Sergelgatan 29 · 週六 10–17;P&B 有朱古力、橄欖油、自家 jam、lakrits;蜜糖有貨先買",
-        "o": 2
-      },
-      {
-        "n": "Åhléns City Stockholm",
-        "ll": [
-          59.3314,
-          18.062
-        ],
-        "cat": "百貨手信",
-        "note": "Klarabergsgatan 50 · 週六 10–19;最後補貨/退稅收據整理",
+        "note": "週六10–17 · lunch 後順路睇 jam、朱古力、lakrits；產地標籤要逐件睇",
         "o": 3
       },
       {
-        "n": "Hermans",
+        "n": "ICA Nära Sergels Torg / Åhléns City",
         "ll": [
-          59.3173,
-          18.0847
+          59.33203,
+          18.06291
         ],
-        "cat": "early dinner optional",
-        "note": "Fjällgatan 23B · 每日 12–22,buffet 21:00 收;15:45–16:50 先去,唔好拖過 17:00",
+        "cat": "食品手信",
+        "note": "ICA 週六09–22 · 搜 chiafrön、100% svensk honung、hjortronsylt、lingonsylt、knäckebröd；店內庫存為準",
         "o": 4,
+        "opt": false
+      },
+      {
+        "n": "Lakritsroten Drottninggatan",
+        "ll": [
+          59.33374,
+          18.06134
+        ],
+        "cat": "瑞典甘草糖",
+        "note": "Drottninggatan 31 · 週六10–18 · 想試先買細包，salt lakrits 味道好兩極",
+        "o": 5
+      },
+      {
+        "n": "Vete-Katten Kungsgatan",
+        "ll": [
+          59.33577,
+          18.05655
+        ],
+        "cat": "未見完成紀錄·fika optional",
+        "note": "Kungsgatan 55 · 週六09–19 · 採買後有力先去，唔影響機場分支",
+        "o": 6,
+        "opt": true
+      },
+      {
+        "n": "Stockholm Central 官方 lockers",
+        "ll": [
+          59.3304441,
+          18.0588221
+        ],
+        "cat": "免預約後備",
+        "note": "small 49 SEK/開始小時·24h上限299；large 79/h·上限399。Bounce full/總價不合理先用",
+        "o": 7,
         "opt": true
       },
       {
@@ -1798,26 +1838,27 @@ const DAYS = [
           59.6519,
           17.9282
         ],
-        "cat": "機場",
-        "note": "China Eastern MU290 22:40;退稅/驗貨要喺 check-in 前處理可托運貨品",
-        "o": 5
+        "cat": "機場·目標20:00抵達",
+        "note": "MU290 22:40 · 20:00到有2h40；寄喼時確認行李牌 HKG，再過安檢/出境",
+        "o": 8
       }
     ],
     "notes": [
-      "🧳 11:00 checkout 後直接用 Stockholm C / Arlanda Express Lounge lockers;官方寫 lockers 06:00–20:00,small/medium/large 按小時計費。中國東方航空唔屬於 Arlanda Express 行李直掛服務名單,所以只用 lockers,唔好用 luggage express。",
-      "🎁 Hötorgshallen 週六 10–17;P&B Delikatesser 官方列朱古力、橄欖油、自家 jam、lakrits。蜜糖當場見到先買,唔保證 stock。",
-      "🍽 Hermans 每日 12–22,buffet 收早一小時;15:45 early dinner 係 optional primary,16:50 一定離開。唔夠時間就留市中心食/機場食。",
-      "🧾 退稅:Global Blue 要 tax-free form+receipt+passport+ticket+goods;Planet/WHSmith T5 before security 多數 07–18,Forex airside 有較長時間。托運貨品要先驗貨/蓋章再 check-in。",
-      "✈️ 18:00 上 Arlanda Express → 約 18:18 到 T5;比 22:40 起飛有充足退稅/check-in/安檢 buffer。"
+      "🧳 主方案係 Bounce Bryggargatan 6A（日費;Central 行約6分鐘），唔再用 Arlanda Express Lounge 小時計 locker。要先撳入 booking 睇今日 availability 同 checkout 最終價，未付款唔當留咗位。",
+      "🔐 Stockholm C 站內確有官方 lockers：small 36×44×60cm = 49 SEK/開始小時、24h上限299；large 46×60×85cm = 79/h、上限399。兩個大喼最多798 SEK，所以只作 Bounce full/總價唔合理時免預約後備。人工寄存09:00–18:30，但官網冇公開價。",
+      "🧾 09:15 分流：普通收據唔等於 tax-free form。真係有 Global Blue/Planet form + 要驗貨，就17:15取喼、約17:45搭 AEX，趕 Global Blue T5 before-security 19:00 收；無 form 就照18:35取喼、約19:10搭車，20:00到 T5。",
+      "🍲 已匯入 Google Maps/舊清單但未見完成紀錄嘅食店，今日只揀最順路 Kajsas Fisk；Hermans 已排過7/15，今日刪除。Vete-Katten只係有時間先 fika；Pelikan/Stora Bageriet唔為打卡硬塞。Kam Ling 已買茶手信，今日不再排茶店。",
+      "🎁 優先買：hjortronsylt（雲莓果醬）、lingonsylt、100% svensk honung、knäckebröd、lakrits。Chiafrön 可買密封包，但多數唔係瑞典產（ICA 300g款標示 Paraguay），當實用食品而唔係名產。",
+      "🇭🇰 按香港 AFCD/Customs 公開規則，密封食用種子及合理自用食品一般可帶；蜜糖/果醬超過100ml放托運、雙層袋包好。唔好買冷藏肉、魚、芝士/奶類長途帶返去。"
     ],
     "bk": [
       {
         "s": "todo",
-        "t": "🧳 Arlanda Express Lounge lockers（現場租;20:00 前取）"
+        "t": "🧳 Bounce Centralstation（先睇今日位+checkout總價再訂）"
       },
       {
         "s": "todo",
-        "t": "🧾 Global Blue / Planet 退稅（按收據 operator 處理）"
+        "t": "🧾 09:15 確認有冇正式 tax-free form；有先走17:15早機場分支"
       },
       {
         "s": "paid",
@@ -2072,7 +2113,7 @@ const HERO_CAP = {
   "d0706": "（圖：Lule 河 @ Harads — Arctic Bath 就浮喺呢條河上;撳 📍Arctic Bath 睇酒店實景）",
   "d0707": "（圖：Lule 河 @ Harads;撳 📍Arctic Bath 睇酒店實景）",
   "d0716": "（圖：Nationalmuseum·週四 17:00–20:00 免費晚間）",
-  "d0718": "（圖：Stockholm 收尾·寄存行李再去機場）"
+  "d0718": "（圖：Stockholm 收尾·平價寄存、最後食買再去機場）"
 };
 
 const SUN = {
@@ -2245,9 +2286,9 @@ const EX = {
     "pace": "8:30 late start → 分開上午 → 14:15 會合 → 14:30 walk-in → 15:30 taxi → 16:00 報到 → 16:30 kayak → 21:30 Sturehof。"
   },
   "d0718": {
-    "carry": "退稅貨+receipt 隨身·護照·MU290/MU505 screenshot·行李牌確認 HKG·外套(機艙冷氣)",
-    "tip": "11:00 checkout 後用 Arlanda Express Lounge lockers;18:00 搭 Arlanda Express 去 T5。退稅貨未驗前不要托運。",
-    "pace": "Central lockers → Hötorgshallen/P&B → Åhléns/NK → Hermans optional → 17:30取喼 → 18:00機場。"
+    "carry": "護照·MU290/MU505 screenshot·行李牌確認 HKG·退稅 form/貨（如有）·外套(機艙冷氣)",
+    "tip": "09:15 先分清正式 tax-free form 定普通收據。Bounce 要網上確認今日位+最終價；full 就用 Stockholm C 官方 lockers。",
+    "pace": "09:00起身 → 11:45 Bounce → Kajsas/手信 → 有退稅17:15走；無退稅18:35取喼 → 20:00 T5。"
   }
 };
 
@@ -2491,13 +2532,22 @@ const SAVED = [
     "why": "d0717 Kam Ling solo 11:30–12:25·豆+器材+accessories+merch"
   },
   {
+    "n": "Kajsas Fisk",
+    "ll": [
+      59.33428,
+      18.06254
+    ],
+    "rec": "in",
+    "why": "d0718 12:15 lunch·Google Maps/舊清單有存但未見完成紀錄·drop-in"
+  },
+  {
     "n": "Hötorgshallen / P&B Delikatesser",
     "ll": [
       59.33428,
       18.06254
     ],
     "rec": "in",
-    "why": "d0718 週六10–17·朱古力/橄欖油/jam/lakrits;蜜糖有貨先買"
+    "why": "d0718 13:05·週六10–17·逐件睇產地;蜜糖/jam以店內貨為準"
   },
   {
     "n": "Åhléns City Stockholm",
@@ -2506,7 +2556,16 @@ const SAVED = [
       18.062
     ],
     "rec": "in",
-    "why": "d0718 最後手信·週六10–19"
+    "why": "d0718 14:00 配合ICA最後食品手信·週六10–19"
+  },
+  {
+    "n": "Vete-Katten Kungsgatan",
+    "ll": [
+      59.33577,
+      18.05655
+    ],
+    "rec": "opt",
+    "why": "d0718 15:50有力先fika·未見完成紀錄·唔影響機場分支"
   }
 ];
 
@@ -7711,167 +7770,252 @@ const TL = {
       "t": "09:00",
       "ico": "🍳",
       "k": "task",
-      "title": "慢早餐 + packing",
+      "title": "起身・慢早餐・packing",
       "loc": "Helenelund Airbnb",
       "q": "Helenelund station Stockholm",
       "ll": [
         59.4467,
         17.9497
       ],
-      "desc": "退房日。退稅貨、收據、護照、boarding pass、行李牌要分開放好。",
+      "desc": "09:00 起身合理。食早餐、執房、叉電；10:35 做最後巡房，11:00 準時 checkout。",
       "buy": [
-        "退稅貨品 + receipt 放 carry-on",
-        "護照 + flight screenshots",
+        "護照 + MU290/MU505 screenshots",
+        "正式 tax-free form + 貨品（如有）",
         "尿袋/耳機叉滿",
-        "液體/剪刀等不要放手提"
+        "液體/剪刀放托運"
+      ]
+    },
+    {
+      "t": "09:15",
+      "ico": "🔎",
+      "k": "task",
+      "title": "先決定 locker + tax-free 分支",
+      "loc": "Helenelund Airbnb",
+      "q": "Bounce Luggage Storage Central Station Stockholm",
+      "ll": [
+        59.3333817,
+        18.0602151
       ],
-      "warn": "退稅貨可能要驗貨;未驗前唔好入托運喼。"
+      "desc": "先開 Bounce 睇今日 availability 同 checkout 最終價；再睇收據有冇 Global Blue/Planet 正式 form。普通 receipt 唔等於 tax-free form。",
+      "warn": "有正式 form + 要驗貨：17:15 走早分支。無 form：18:35 先取喼，目標20:00到T5。",
+      "link": "https://bounce.com/stores/stockholm/iWTD3g",
+      "linkLabel": "Bounce Centralstation"
     },
     {
       "t": "11:00",
       "ico": "🧳",
       "k": "fixed",
-      "title": "Airbnb checkout → Stockholm C",
-      "loc": "Helenelund → Stockholm Central",
-      "q": "Stockholm Central Station",
+      "title": "Checkout → Stockholm C → Bounce",
+      "loc": "Helenelund → Stockholm C → Bryggargatan 6A",
+      "q": "Bryggargatan 6A Stockholm",
       "ll": [
-        59.3303,
-        18.0581
+        59.3333817,
+        18.0602151
       ],
-      "desc": "退房後直去 Central 寄存,唔返轉頭。"
+      "desc": "搭 commuter train 入 Central，再行約6分鐘去 Bounce；預留月台、升降機同拉喼時間。"
     },
     {
       "t": "11:45",
       "ico": "🔐",
       "k": "task",
-      "title": "寄存行李 — Arlanda Express Lounge lockers",
-      "loc": "Vasaplan 1 / Stockholm C",
-      "q": "Arlanda Express Lounge Vasaplan 1 Stockholm",
+      "title": "Bounce 日費寄存（主方案）",
+      "loc": "Bryggargatan 6A",
+      "q": "Bryggargatan 6A Stockholm",
       "ll": [
-        59.3303,
-        18.0581
+        59.3333817,
+        18.0602151
       ],
-      "desc": "官方 lockers 06:00–20:00;small 60 SEK/h、medium 80 SEK/h、large 120 SEK/h,按 size/時間付款。",
-      "warn": "20:00 前一定要取返。中國東方航空不適用 Arlanda Express luggage express,只用 locker。",
-      "link": "https://www.arlandaexpress.com/our-service/luggage-storage",
-      "linkLabel": "Luggage storage 官網"
+      "desc": "頁面顯示€5.95/件/日（未連 checkout fee），每日09:00–23:00，regular bag 不限 size；出示 booking confirmation 交收。",
+      "warn": "價錢/位以落單頁當刻為準。未付款未留位；影低店面同取件確認。",
+      "link": "https://bounce.com/stores/stockholm/iWTD3g",
+      "linkLabel": "查今日位 / booking",
+      "bk": {
+        "s": "todo",
+        "t": "🧳 Bounce 今日位+總價待確認"
+      }
+    },
+    {
+      "t": "11:50",
+      "ico": "🅱️",
+      "k": "flex",
+      "title": "Bounce full 先用：Stockholm C lockers",
+      "loc": "Stockholms Centralstation",
+      "q": "Stockholm Central Station luggage lockers",
+      "ll": [
+        59.3304441,
+        18.0588221
+      ],
+      "desc": "站內 small 49 SEK/開始小時、24h上限299；large 79/h、上限399。免預約，但兩個大喼可達798 SEK。",
+      "warn": "正常情況 skip 呢張卡。人工寄存09:00–18:30，官網冇公開價。",
+      "link": "https://www.jernhusen.se/hitta-din-station/stockholms-centralstation/forvaringsboxar/",
+      "linkLabel": "Stockholm C 官方寄存"
     },
     {
       "t": "12:15",
-      "ico": "🎁",
+      "ico": "🍲",
       "k": "flex",
-      "title": "Hötorgshallen + P&B Delikatesser",
-      "loc": "Sergelgatan 29",
-      "q": "Hötorgshallen P&B Delikatesser Stockholm",
+      "title": "Kajsas Fisk 午餐",
+      "loc": "Hötorgshallen 地庫",
+      "q": "Kajsas Fisk Stockholm",
       "ll": [
         59.33428,
         18.06254
       ],
-      "desc": "週六 10–17。P&B 官方列朱古力、橄欖油、自家 jam、lakrits;蜜糖/其他食材見到先買。",
-      "link": "https://hotorgshallen.se/handlare/pb-delikatesser/",
-      "linkLabel": "P&B Delikatesser 官網"
+      "desc": "舊 Google Maps/清單有存、網站未見完成紀錄；今日最順路。Drop-in，食魚湯或瑞典魚菜；週六以16:00關門作安全 cutoff。",
+      "link": "https://kajsasfisk.se/meny/",
+      "linkLabel": "Kajsas Fisk menu"
     },
     {
-      "t": "13:15",
-      "ico": "🛍️",
+      "t": "13:05",
+      "ico": "🎁",
       "k": "flex",
-      "title": "Åhléns City / Gallerian / NK 緊湊採買",
-      "loc": "Klarabergsgatan / Hamngatan 一帶",
-      "q": "Åhléns City Stockholm",
+      "title": "Hötorgshallen / P&B 食材手信",
+      "loc": "Sergelgatan 29",
+      "q": "Hötorgshallen Stockholm",
       "ll": [
-        59.3314,
-        18.062
+        59.33428,
+        18.06254
       ],
-      "desc": "Åhléns City 週六 10–19;最後補手信/日用品。控制體積,留退稅收據。",
-      "link": "https://www.ahlens.se/varuhus/stockholm-city",
-      "linkLabel": "Åhléns City 官網"
+      "desc": "週六10:00–17:00。睇雲莓/lingonberry jam、瑞典蜜糖、朱古力；逐件睇產地，唔好見 deli 就當瑞典名產。",
+      "link": "https://hotorgshallen.se/",
+      "linkLabel": "Hötorgshallen"
     },
     {
-      "t": "15:45",
-      "ico": "🍽️",
+      "t": "14:00",
+      "ico": "🛒",
       "k": "flex",
-      "title": "Hermans early dinner（optional primary）",
-      "loc": "Fjällgatan 23B",
-      "q": "Hermans Stockholm",
+      "title": "ICA + Åhléns：chia / 瑞典食品",
+      "loc": "T-Centralen / Klarabergsgatan",
+      "q": "ICA Nära Sergels Torg",
       "ll": [
-        59.3173,
-        18.0847
+        59.33203,
+        18.06291
       ],
-      "desc": "官方每日 12–22,buffet 21:00 收。15:45–16:50 做最後一餐;時間/體力唔夠就留市中心/機場食。",
-      "warn": "16:50 前一定離開,否則壓縮取行李+機場 buffer。",
-      "link": "https://hermans.se/",
-      "linkLabel": "Hermans 官網"
+      "desc": "ICA 週六09:00–22:00。Chia 搜「chiafrön」；再揀100% svensk honung、hjortronsylt、lingonsylt、knäckebröd。",
+      "buy": [
+        "Chiafrön 密封包（實用食品，唔當瑞典名產）",
+        "100% svensk honung",
+        "Hjortronsylt / lingonsylt",
+        "Knäckebröd / 瑞典朱古力"
+      ],
+      "warn": "蜜糖/果醬超過100ml放托運，雙層袋包好；店內庫存為準。",
+      "link": "https://www.ica.se/butiker/nara/stockholm/ica-nara-sergels-torg-1004329/",
+      "linkLabel": "ICA Nära Sergels Torg"
     },
     {
-      "t": "17:30",
+      "t": "15:15",
+      "ico": "🍬",
+      "k": "flex",
+      "title": "Lakritsroten 買瑞典甘草糖",
+      "loc": "Drottninggatan 31",
+      "q": "Lakritsroten Drottninggatan Stockholm",
+      "ll": [
+        59.33374,
+        18.06134
+      ],
+      "desc": "週六10:00–18:00。Salt lakrits 味道好兩極，先試/買細包；送人唔好一次買太多。",
+      "link": "https://lakritsroten.se/butiker/drottninggatan-stockholm/",
+      "linkLabel": "Lakritsroten"
+    },
+    {
+      "t": "15:50",
+      "ico": "☕",
+      "k": "flex",
+      "title": "Vete-Katten fika（optional）",
+      "loc": "Kungsgatan 55",
+      "q": "Vete-Katten Kungsgatan Stockholm",
+      "ll": [
+        59.33577,
+        18.05655
+      ],
+      "desc": "週六09:00–19:00。未見完成紀錄、有力先坐低食最後 fika；買夠嘢/攰就直接 skip。",
+      "link": "https://vetekatten.se/en/butiker-konditorier/kungsgatan-55/",
+      "linkLabel": "Vete-Katten Kungsgatan"
+    },
+    {
+      "t": "16:40",
+      "ico": "🪑",
+      "k": "flex",
+      "title": "Central 附近休息 + 輕食",
+      "loc": "Stockholm C / Norrmalm",
+      "q": "Stockholm Central Station",
+      "ll": [
+        59.3304441,
+        18.0588221
+      ],
+      "desc": "唔再塞新景點。食少少、整理手信同決定最後分支；有 tax-free form 17:15 即走，無就可休息到18:25。"
+    },
+    {
+      "t": "17:15",
+      "ico": "🧾",
+      "k": "fixed",
+      "title": "只限有 tax-free form：提早去 ARN",
+      "loc": "Bounce → Stockholm C → ARN T5",
+      "q": "Stockholm Arlanda Airport Terminal 5",
+      "ll": [
+        59.6519,
+        17.9282
+      ],
+      "desc": "取喼後搭約17:45下一班 AEX，目標18:15前到T5；Global Blue before-security 每日19:00收。",
+      "warn": "無正式 Global Blue/Planet form 就 skip 呢張卡。要驗嘅貨未完成前唔好托運。",
+      "link": "https://www.swedavia.com/arlanda/service/global-blue-vat-refund2/",
+      "linkLabel": "Swedavia Global Blue"
+    },
+    {
+      "t": "18:35",
       "ico": "🧳",
-      "k": "task",
-      "title": "返 Stockholm C 取行李",
-      "loc": "Vasaplan 1 / Stockholm C",
-      "q": "Arlanda Express Lounge Vasaplan 1 Stockholm",
+      "k": "fixed",
+      "title": "無 tax-free form：Bounce 取行李",
+      "loc": "Bryggargatan 6A → Stockholm C",
+      "q": "Bryggargatan 6A Stockholm",
       "ll": [
-        59.3303,
-        18.0581
+        59.3333817,
+        18.0602151
       ],
-      "desc": "取喼、重整退稅貨和機場文件。",
-      "warn": "lockers 20:00 關,但唔好拖到夜晚。"
+      "desc": "出示 confirmation 取兩件行李，行約6分鐘返 Central；即場核對件數同外觀。",
+      "warn": "18:35 係20:00到機場分支；有 tax-free form 應已按17:15分支離開。"
     },
     {
-      "t": "18:00",
+      "t": "約 19:10",
       "ico": "🚄",
       "k": "move",
-      "title": "Arlanda Express → ARN T5",
+      "title": "下一班 Arlanda Express → T5",
       "loc": "Stockholm C → Arlanda North / T5",
       "q": "Arlanda Express Stockholm Central",
       "ll": [
-        59.3303,
-        18.0581
+        59.3304441,
+        18.0588221
       ],
-      "desc": "官方:Stockholm C 到 Arlanda 18 分鐘,班次約每 12–15 分鐘。買即場/online 票,任何班次可用。",
+      "desc": "車程18分鐘，實際班次以即時 timetable 為準；預留買票、月台同由 Arlanda North 行入 T5 時間。",
+      "warn": "唔好死等19:10；到站就搭最早可上嘅班次。",
       "link": "https://www.arlandaexpress.com/",
-      "linkLabel": "Arlanda Express 官網",
+      "linkLabel": "Arlanda Express",
       "bk": {
         "s": "todo",
         "t": "🚄 Arlanda Express ticket"
       }
     },
     {
-      "t": "18:35",
-      "ico": "🧾",
-      "k": "task",
-      "title": "ARN T5 退稅 / 驗貨 / check-in",
-      "loc": "Arlanda Terminal 5 departures",
-      "q": "Stockholm Arlanda Airport Terminal 5",
-      "ll": [
-        59.6519,
-        17.9282
-      ],
-      "desc": "先處理退稅/驗貨,尤其打算托運嘅貨。Global Blue 要 form+receipt+passport+ticket+goods;Planet T5 before security WHSmith 07–18,Forex airside 開得較夜。",
-      "warn": "如果 18:00 後才到,Planet before-security 可能已關;照收據 operator 指示去 Forex/Global Blue/post box,必要時轉 card refund。",
-      "link": "https://www.swedavia.com/arlanda/service/global-blue-vat-refund2/",
-      "linkLabel": "Swedavia Global Blue"
-    },
-    {
       "t": "20:00",
       "ico": "🛂",
       "k": "task",
-      "title": "check-in / 寄喼 / 安檢",
+      "title": "T5 check-in・寄喼・安檢・出境",
       "loc": "ARN T5 China Eastern counter",
       "q": "Stockholm Arlanda Airport Terminal 5",
       "ll": [
         59.6519,
         17.9282
       ],
-      "desc": "寄喼時確認行李牌印 HKG。過安檢後再處理 airside 退稅/食嘢。",
+      "desc": "距22:40起飛有2小時40分，正常情況可行。先去MU counter寄喼，確認行李牌直掛HKG，再安檢/出境。",
       "buy": [
         "確認行李牌印 HKG",
         "boarding pass 截圖",
         "護照收好"
       ],
-      "warn": "不要把未驗退稅貨提前托運。"
+      "warn": "時間係夠但唔係任拖：見長龍就停止購物/食飯，直接完成 counter、security、passport control。"
     },
     {
-      "t": "21:00",
+      "t": "21:10",
       "ico": "🍜",
       "k": "flex",
       "title": "airside 晚餐/補水",
@@ -7881,7 +8025,7 @@ const TL = {
         59.6519,
         17.9282
       ],
-      "desc": "機上有餐,機場只需補水/輕食。"
+      "desc": "完成出境先食。機上有餐，機場只需補水/輕食；21:45 開始望 gate。"
     },
     {
       "t": "22:10",
