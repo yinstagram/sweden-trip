@@ -1702,7 +1702,7 @@ const DAYS = [
     "leg": "sto",
     "color": "#a78bda",
     "title": "平價寄存 + 最後食買 + 飛走",
-    "theme": "09:00 起身 → Bounce Centralstation → Kajsas/食品手信 → 20:00 ARN → MU290 22:40",
+    "theme": "09:00 起身 → 12:00 Radical Storage → Kajsas/食品手信 → 18:00 前取喼 → MU290 22:40",
     "accom": {
       "name": "機上（7/19 19:05 到香港）",
       "status": "paid"
@@ -1719,14 +1719,18 @@ const DAYS = [
       },
       {
         "t": "09:15",
-        "a": "睇清楚有冇正式 tax-free form；確認 Bounce 今日總價/位"
+        "a": "Radical QR 離線 screenshot + 睇清楚有冇正式 tax-free form"
       },
       {
         "t": "11:00",
-        "a": "Airbnb checkout → Stockholm C → Bounce 寄存"
+        "a": "Airbnb checkout → Stockholm C → Radical Storage"
       },
       {
-        "t": "12:15",
+        "t": "12:00",
+        "a": "寄存 2 件行李：QR + 影低行李"
+      },
+      {
+        "t": "12:25",
         "a": "Kajsas Fisk 午餐 → Hötorgshallen 手信"
       },
       {
@@ -1742,12 +1746,12 @@ const DAYS = [
         "a": "只限有 tax-free form：取喼 → 提早去 ARN 驗貨"
       },
       {
-        "t": "18:35",
-        "a": "無 tax-free form：Bounce 取喼 → Stockholm C"
+        "t": "17:40",
+        "a": "無 tax-free form：取喼（booking 18:00 checkout）"
       },
       {
-        "t": "約 19:10",
-        "a": "搭下一班 Arlanda Express → 目標 20:00 到 T5"
+        "t": "約 18:10",
+        "a": "搭下一班 Arlanda Express → 約 18:40 到 T5"
       },
       {
         "t": "20:00",
@@ -1760,13 +1764,13 @@ const DAYS = [
     ],
     "stops": [
       {
-        "n": "Bounce Luggage Storage - Centralstation",
+        "n": "Radical Storage - EBONY AFRO KOSMETIKA",
         "ll": [
           59.3333817,
           18.0602151
         ],
-        "cat": "平價日費寄存·主方案",
-        "note": "Bryggargatan 6A · Central 行約6分鐘 · 每日09–23 · €5.95/件/日未連 checkout fee;先網上確認今日位+總價",
+        "cat": "已訂已付·2件·12:00–18:00",
+        "note": "Bryggargatan 6 · Central 行約6分鐘 · 總額€15.78 · QR喺確認email/app，網站不公開",
         "o": 1
       },
       {
@@ -1828,7 +1832,7 @@ const DAYS = [
           18.0588221
         ],
         "cat": "免預約後備",
-        "note": "small 49 SEK/開始小時·24h上限299；large 79/h·上限399。Bounce full/總價不合理先用",
+        "note": "small 49 SEK/開始小時·24h上限299；large 79/h·上限399。Radical venue 拒收/臨時關門先用",
         "o": 7,
         "opt": true
       },
@@ -1838,23 +1842,24 @@ const DAYS = [
           59.6519,
           17.9282
         ],
-        "cat": "機場·目標20:00抵達",
-        "note": "MU290 22:40 · 20:00到有2h40；寄喼時確認行李牌 HKG，再過安檢/出境",
+        "cat": "機場·約18:40抵達",
+        "note": "MU290 22:40 · 先處理tax-free（如有）/等check-in；寄喼時確認行李牌 HKG",
         "o": 8
       }
     ],
     "notes": [
-      "🧳 主方案係 Bounce Bryggargatan 6A（日費;Central 行約6分鐘），唔再用 Arlanda Express Lounge 小時計 locker。要先撳入 booking 睇今日 availability 同 checkout 最終價，未付款唔當留咗位。",
-      "🔐 Stockholm C 站內確有官方 lockers：small 36×44×60cm = 49 SEK/開始小時、24h上限299；large 46×60×85cm = 79/h、上限399。兩個大喼最多798 SEK，所以只作 Bounce full/總價唔合理時免預約後備。人工寄存09:00–18:30，但官網冇公開價。",
-      "🧾 09:15 分流：普通收據唔等於 tax-free form。真係有 Global Blue/Planet form + 要驗貨，就17:15取喼、約17:45搭 AEX，趕 Global Blue T5 before-security 19:00 收；無 form 就照18:35取喼、約19:10搭車，20:00到 T5。",
+      "🧳 最新正式 email 已確認 Radical Storage：EBONY AFRO KOSMETIKA，Bryggargatan 6，7/18 12:00–18:00，2 件，已付€15.78。Central 行約6分鐘。",
+      "📱 到場如要求要出示 email/app 入面 QR；check-in 要影低兩件行李。QR、booking code、recovery code 全部只留私人 email/app，公開網站唔顯示。",
+      "🔐 Stockholm C 站內官方 lockers 只作真正出事後備：small 49 SEK/開始小時、24h上限299；large 79/h、上限399。Radical venue 拒收/臨時關門先用。",
+      "🧾 普通收據唔等於 tax-free form。有 Global Blue/Planet 正式 form + 要驗貨就17:15取喼；無 form 都要17:40取喼，因 Radical booking 18:00 checkout。約18:10搭AEX、18:40到T5。",
       "🍲 已匯入 Google Maps/舊清單但未見完成紀錄嘅食店，今日只揀最順路 Kajsas Fisk；Hermans 已排過7/15，今日刪除。Vete-Katten只係有時間先 fika；Pelikan/Stora Bageriet唔為打卡硬塞。Kam Ling 已買茶手信，今日不再排茶店。",
       "🎁 優先買：hjortronsylt（雲莓果醬）、lingonsylt、100% svensk honung、knäckebröd、lakrits。Chiafrön 可買密封包，但多數唔係瑞典產（ICA 300g款標示 Paraguay），當實用食品而唔係名產。",
       "🇭🇰 按香港 AFCD/Customs 公開規則，密封食用種子及合理自用食品一般可帶；蜜糖/果醬超過100ml放托運、雙層袋包好。唔好買冷藏肉、魚、芝士/奶類長途帶返去。"
     ],
     "bk": [
       {
-        "s": "todo",
-        "t": "🧳 Bounce Centralstation（先睇今日位+checkout總價再訂）"
+        "s": "paid",
+        "t": "🧳 Radical Storage（7/18 12:00–18:00·2件·€15.78已付）"
       },
       {
         "s": "todo",
@@ -2286,9 +2291,9 @@ const EX = {
     "pace": "8:30 late start → 分開上午 → 14:15 會合 → 14:30 walk-in → 15:30 taxi → 16:00 報到 → 16:30 kayak → 21:30 Sturehof。"
   },
   "d0718": {
-    "carry": "護照·MU290/MU505 screenshot·行李牌確認 HKG·退稅 form/貨（如有）·外套(機艙冷氣)",
-    "tip": "09:15 先分清正式 tax-free form 定普通收據。Bounce 要網上確認今日位+最終價；full 就用 Stockholm C 官方 lockers。",
-    "pace": "09:00起身 → 11:45 Bounce → Kajsas/手信 → 有退稅17:15走；無退稅18:35取喼 → 20:00 T5。"
+    "carry": "Radical QR screenshot·護照·MU290/MU505 screenshot·行李牌確認 HKG·退稅 form/貨（如有）·外套",
+    "tip": "Radical 已訂已付：Bryggargatan 6，2件，12:00–18:00。到場如要求出示私人QR，check-in影低兩件行李。",
+    "pace": "09:00起身 → 12:00 Radical check-in → Kajsas/手信 → 17:40前取喼 → 約18:10 AEX → 18:40 T5。"
   }
 };
 
@@ -2538,7 +2543,7 @@ const SAVED = [
       18.06254
     ],
     "rec": "in",
-    "why": "d0718 12:15 lunch·Google Maps/舊清單有存但未見完成紀錄·drop-in"
+    "why": "d0718 12:25 lunch·Google Maps/舊清單有存但未見完成紀錄·drop-in"
   },
   {
     "n": "Hötorgshallen / P&B Delikatesser",
@@ -7789,56 +7794,58 @@ const TL = {
       "t": "09:15",
       "ico": "🔎",
       "k": "task",
-      "title": "先決定 locker + tax-free 分支",
+      "title": "儲存 Radical QR + 查 tax-free form",
       "loc": "Helenelund Airbnb",
-      "q": "Bounce Luggage Storage Central Station Stockholm",
+      "q": "EBONY AFRO KOSMETIKA Stockholm",
       "ll": [
         59.3333817,
         18.0602151
       ],
-      "desc": "先開 Bounce 睇今日 availability 同 checkout 最終價；再睇收據有冇 Global Blue/Planet 正式 form。普通 receipt 唔等於 tax-free form。",
-      "warn": "有正式 form + 要驗貨：17:15 走早分支。無 form：18:35 先取喼，目標20:00到T5。",
-      "link": "https://bounce.com/stores/stockholm/iWTD3g",
-      "linkLabel": "Bounce Centralstation"
+      "desc": "將確認email/app入面QR截圖離線；再睇收據有冇 Global Blue/Planet 正式 form。普通 receipt 唔等於 tax-free form。",
+      "warn": "QR、booking code、recovery code 只留私人手機/email，唔好再公開貼圖。"
     },
     {
       "t": "11:00",
       "ico": "🧳",
       "k": "fixed",
-      "title": "Checkout → Stockholm C → Bounce",
-      "loc": "Helenelund → Stockholm C → Bryggargatan 6A",
-      "q": "Bryggargatan 6A Stockholm",
+      "title": "Checkout → Stockholm C → Radical",
+      "loc": "Helenelund → Stockholm C → Bryggargatan 6",
+      "q": "EBONY AFRO KOSMETIKA Stockholm",
       "ll": [
         59.3333817,
         18.0602151
       ],
-      "desc": "搭 commuter train 入 Central，再行約6分鐘去 Bounce；預留月台、升降機同拉喼時間。"
+      "desc": "搭 commuter train 入 Central，再行約6分鐘去寄存店；booking 12:00先開始，預留月台、升降機同拉喼時間。"
     },
     {
-      "t": "11:45",
+      "t": "12:00",
       "ico": "🔐",
-      "k": "task",
-      "title": "Bounce 日費寄存（主方案）",
-      "loc": "Bryggargatan 6A",
-      "q": "Bryggargatan 6A Stockholm",
+      "k": "fixed",
+      "title": "Radical Storage check-in（已訂）",
+      "loc": "EBONY AFRO KOSMETIKA · Bryggargatan 6",
+      "q": "EBONY AFRO KOSMETIKA Stockholm",
       "ll": [
         59.3333817,
         18.0602151
       ],
-      "desc": "頁面顯示€5.95/件/日（未連 checkout fee），每日09:00–23:00，regular bag 不限 size；出示 booking confirmation 交收。",
-      "warn": "價錢/位以落單頁當刻為準。未付款未留位；影低店面同取件確認。",
-      "link": "https://bounce.com/stores/stockholm/iWTD3g",
-      "linkLabel": "查今日位 / booking",
+      "desc": "最新正式email：7/18 12:00 check-in、18:00 checkout、2件、已付€15.78。到場如要求出示QR。",
+      "buy": [
+        "出示私人QR（如要求）",
+        "check-in影低兩件行李",
+        "確認店員收齊2件",
+        "手機設17:30取喼提醒"
+      ],
+      "warn": "18:00係booking checkout，唔可以再按舊行程18:35先返。",
       "bk": {
-        "s": "todo",
-        "t": "🧳 Bounce 今日位+總價待確認"
+        "s": "paid",
+        "t": "🧳 Radical 2件·12:00–18:00·€15.78已付"
       }
     },
     {
-      "t": "11:50",
+      "t": "12:05",
       "ico": "🅱️",
       "k": "flex",
-      "title": "Bounce full 先用：Stockholm C lockers",
+      "title": "寄存店出事先用：Stockholm C lockers",
       "loc": "Stockholms Centralstation",
       "q": "Stockholm Central Station luggage lockers",
       "ll": [
@@ -7846,12 +7853,12 @@ const TL = {
         18.0588221
       ],
       "desc": "站內 small 49 SEK/開始小時、24h上限299；large 79/h、上限399。免預約，但兩個大喼可達798 SEK。",
-      "warn": "正常情況 skip 呢張卡。人工寄存09:00–18:30，官網冇公開價。",
+      "warn": "正常情況 skip。只限店舖拒收/臨時關門，先聯絡Radical support，再轉站內locker。",
       "link": "https://www.jernhusen.se/hitta-din-station/stockholms-centralstation/forvaringsboxar/",
       "linkLabel": "Stockholm C 官方寄存"
     },
     {
-      "t": "12:15",
+      "t": "12:25",
       "ico": "🍲",
       "k": "flex",
       "title": "Kajsas Fisk 午餐",
@@ -7943,14 +7950,14 @@ const TL = {
         59.3304441,
         18.0588221
       ],
-      "desc": "唔再塞新景點。食少少、整理手信同決定最後分支；有 tax-free form 17:15 即走，無就可休息到18:25。"
+      "desc": "唔再塞新景點。食少少、整理手信；有 tax-free form 17:15取喼，無form都要17:40前返到店。"
     },
     {
       "t": "17:15",
       "ico": "🧾",
       "k": "fixed",
       "title": "只限有 tax-free form：提早去 ARN",
-      "loc": "Bounce → Stockholm C → ARN T5",
+      "loc": "Radical Storage → Stockholm C → ARN T5",
       "q": "Stockholm Arlanda Airport Terminal 5",
       "ll": [
         59.6519,
@@ -7962,21 +7969,21 @@ const TL = {
       "linkLabel": "Swedavia Global Blue"
     },
     {
-      "t": "18:35",
+      "t": "17:40",
       "ico": "🧳",
       "k": "fixed",
-      "title": "無 tax-free form：Bounce 取行李",
-      "loc": "Bryggargatan 6A → Stockholm C",
-      "q": "Bryggargatan 6A Stockholm",
+      "title": "Radical Storage 取行李（最遲18:00）",
+      "loc": "Bryggargatan 6 → Stockholm C",
+      "q": "EBONY AFRO KOSMETIKA Stockholm",
       "ll": [
         59.3333817,
         18.0602151
       ],
-      "desc": "出示 confirmation 取兩件行李，行約6分鐘返 Central；即場核對件數同外觀。",
-      "warn": "18:35 係20:00到機場分支；有 tax-free form 應已按17:15分支離開。"
+      "desc": "出示confirmation/QR取兩件行李，即場核對件數同外觀；行約6分鐘返Central。",
+      "warn": "booking 18:00 checkout。17:40係無tax-free form分支；有form應已按17:15離開。"
     },
     {
-      "t": "約 19:10",
+      "t": "約 18:10",
       "ico": "🚄",
       "k": "move",
       "title": "下一班 Arlanda Express → T5",
@@ -7986,14 +7993,30 @@ const TL = {
         59.3304441,
         18.0588221
       ],
-      "desc": "車程18分鐘，實際班次以即時 timetable 為準；預留買票、月台同由 Arlanda North 行入 T5 時間。",
-      "warn": "唔好死等19:10；到站就搭最早可上嘅班次。",
+      "desc": "車程18分鐘，實際班次以即時timetable為準；連月台/步行，目標約18:40到T5。",
+      "warn": "唔好死等18:10；取完喼到站就搭最早可上嘅班次。",
       "link": "https://www.arlandaexpress.com/",
       "linkLabel": "Arlanda Express",
       "bk": {
         "s": "todo",
         "t": "🚄 Arlanda Express ticket"
       }
+    },
+    {
+      "t": "約 18:40",
+      "ico": "🏢",
+      "k": "task",
+      "title": "抵達 T5・退稅 / 等 check-in",
+      "loc": "Arlanda Terminal 5 departures",
+      "q": "Stockholm Arlanda Airport Terminal 5",
+      "ll": [
+        59.6519,
+        17.9282
+      ],
+      "desc": "有正式tax-free form就即去Global Blue before-security；無form就搵MU counter位置、整理護照同食少少。",
+      "warn": "Global Blue before-security 19:00收；有form唔好先去食嘢。",
+      "link": "https://www.swedavia.com/arlanda/service/global-blue-vat-refund2/",
+      "linkLabel": "Swedavia Global Blue"
     },
     {
       "t": "20:00",
